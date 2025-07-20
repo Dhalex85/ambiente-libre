@@ -387,7 +387,7 @@
 
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
         }
 
@@ -479,6 +479,17 @@
         .footer-section ul {
             list-style: none;
             text-align: left;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 1rem;
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
 
         /* WhatsApp Float Button */
@@ -610,6 +621,7 @@
             }
             
             .contact-grid {
+                grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
             
@@ -851,23 +863,23 @@
                     <div class="project-image">🏭</div>
                     <div class="project-content">
                         <h3>Fábrica Textil Zacualtipán</h3>
-                        <p><strong>Capacidad:</strong> 120 kWp</p>
+                        <p><strong>Capacidad:</strong> 119.52 kWp</p>
                         <p>Sistema industrial de gran escala que genera importantes ahorros en costos operativos para esta empresa textil en Hidalgo.</p>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-image">🚜</div>
+                    <div class="project-image">🔧</div>
                     <div class="project-content">
-                        <h3>Rancho Fábrica CD Sahagún</h3>
-                        <p><strong>Capacidad:</strong> 50 kWp</p>
-                        <p>Instalación en sector agropecuario que demuestra la versatilidad de nuestras soluciones solares.</p>
+                        <h3>Fábrica de Herrajes Tepeapulco</h3>
+                        <p><strong>Capacidad:</strong> 47.6 kWp</p>
+                        <p>Instalación especializada en sector manufacturero que optimiza el consumo energético industrial.</p>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image">🏗️</div>
                     <div class="project-content">
                         <h3>Concretera Mixquiahuala</h3>
-                        <p><strong>Capacidad:</strong> 31 kWp</p>
+                        <p><strong>Capacidad:</strong> 30.94 kWp</p>
                         <p>Proyecto industrial que optimiza el consumo energético de procesos de manufactura pesada.</p>
                     </div>
                 </div>
@@ -876,7 +888,7 @@
                     <div class="project-content">
                         <h3>Zona Metropolitana Pachuca</h3>
                         <p><strong>Proyectos:</strong> 30+ sistemas</p>
-                        <p>Múltiples instalaciones residenciales que han transformado la forma de consumir energía en hogares hidalguenses.</p>
+                        <p>Múltiples instalaciones residenciales que han transformado la forma de consumir energía en hogares.</p>
                     </div>
                 </div>
             </div>
@@ -886,4 +898,327 @@
     <!-- Calculator Section -->
     <section id="calculadora" class="section calculator">
         <div class="container">
-            <h2 class="section-title">
+            <h2 class="section-title" style="color: white;">Calculadora de Ahorro Solar</h2>
+            <p style="color: white; opacity: 0.9; text-align: center; margin-bottom: 2rem;">
+                Descubre cuánto puedes ahorrar con energía solar
+            </p>
+            
+            <div class="calculator-form">
+                <div class="input-group">
+                    <label for="consumo">Consumo mensual promedio (kWh)</label>
+                    <input type="number" id="consumo" placeholder="Ej: 350" min="1">
+                </div>
+                <div class="input-group">
+                    <label for="tarifa">Tarifa CFE promedio ($/kWh)</label>
+                    <input type="number" id="tarifa" placeholder="Ej: 3.50" step="0.01" min="0.01">
+                </div>
+                <div class="input-group">
+                    <label for="ubicacion">Ubicación</label>
+                    <select id="ubicacion">
+                        <option value="hidalgo">Hidalgo</option>
+                        <option value="cdmx">Ciudad de México</option>
+                        <option value="edomex">Estado de México</option>
+                        <option value="queretaro">Querétaro</option>
+                        <option value="otro">Otro estado</option>
+                    </select>
+                </div>
+                <button class="calculate-btn" onclick="calcularAhorro()">Calcular Ahorro</button>
+                
+                <div id="resultado" class="result">
+                    <h3>Tu Ahorro Estimado:</h3>
+                    <div id="resultadoDetalle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="section contact">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 style="color: #1a365d; margin-bottom: 1.2rem;">Información de Contacto</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <strong>Teléfono</strong><br>
+                            <a href="tel:7712149628" style="color: #2c5282; text-decoration: none;">771 214 9628</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <strong>Email</strong><br>
+                            <a href="mailto:ambientelibre.cotiza@outlook.com" style="color: #2c5282; text-decoration: none;">ambientelibre.cotiza@outlook.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Área de Servicio</strong><br>
+                            Hidalgo, CDMX, Estado de México y Querétaro
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <div>
+                            <strong>Horarios de Atención</strong><br>
+                            Lunes a Viernes: 9:00 AM - 6:00 PM<br>
+                            Sábados: 9:00 AM - 2:00 PM
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <h3>Solicita tu Cotización Gratuita</h3>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <input type="text" name="nombre" placeholder="Nombre completo *" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="email" name="email" placeholder="Correo electrónico *" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="tel" name="telefono" placeholder="Teléfono *" required>
+                        </div>
+                        <div class="form-row">
+                            <select name="tipo_proyecto" required>
+                                <option value="">Tipo de proyecto *</option>
+                                <option value="residencial">Sistema Residencial</option>
+                                <option value="comercial">Sistema Comercial</option>
+                                <option value="industrial">Sistema Industrial</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <input type="number" name="consumo_kwh" placeholder="Consumo mensual promedio (kWh)">
+                        </div>
+                        <div class="form-row">
+                            <textarea name="mensaje" placeholder="Mensaje adicional (opcional)"></textarea>
+                        </div>
+                        <button type="submit" class="cta-button" style="width: 100%;">Enviar Solicitud</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ambiente Libre</h3>
+                    <p>Soluciones fotovoltaicas profesionales para un futuro sostenible. Más de 4 años de experiencia en energía solar en México.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li>• Sistemas Residenciales</li>
+                        <li>• Sistemas Comerciales</li>
+                        <li>• Sistemas Industriales</li>
+                        <li>• Trámites CFE</li>
+                        <li>• Mantenimiento</li>
+                        <li>• Monitoreo Remoto</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li>📱 771 214 9628</li>
+                        <li>✉️ ambientelibre.cotiza@outlook.com</li>
+                        <li>📍 Servicio en Hidalgo, CDMX, EdoMex y Querétaro</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Ambiente Libre. Todos los derechos reservados. | Energía Solar México</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/527712149628?text=Hola, me interesa conocer más sobre los sistemas de energía solar" 
+       class="whatsapp-float" target="_blank" title="Contactar por WhatsApp">
+        💬
+    </a>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.remove('active');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Calculator functionality
+        function calcularAhorro() {
+            const consumo = parseFloat(document.getElementById('consumo').value);
+            const tarifa = parseFloat(document.getElementById('tarifa').value);
+            const ubicacion = document.getElementById('ubicacion').value;
+
+            if (!consumo || !tarifa) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+
+            // Factores de irradiación solar por ubicación (aproximado)
+            const factoresIrradiacion = {
+                'hidalgo': 5.2,
+                'cdmx': 5.0,
+                'edomex': 5.1,
+                'queretaro': 5.4,
+                'otro': 5.0
+            };
+
+            const irradiacion = factoresIrradiacion[ubicacion] || 5.0;
+            
+            // Cálculos
+            const gastoMensual = consumo * tarifa;
+            const gastoAnual = gastoMensual * 12;
+            const ahorroPorcentaje = 85; // Ahorro estimado del 85%
+            const ahorroMensual = gastoMensual * (ahorroPorcentaje / 100);
+            const ahorroAnual = ahorroMensual * 12;
+            
+            // Estimación de capacidad del sistema necesario
+            const capacidadKW = (consumo * 12) / (irradiacion * 365 * 0.8); // Factor de eficiencia 0.8
+            const costoEstimado = capacidadKW * 25000; // Costo aproximado por kW instalado
+
+            // Tiempo de retorno de inversión
+            const tiempoRetorno = costoEstimado / ahorroAnual;
+
+            // Mostrar resultados
+            document.getElementById('resultado').style.display = 'block';
+            document.getElementById('resultadoDetalle').innerHTML = `
+                <div style="display: grid; gap: 1rem; text-align: left;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                        <strong>💰 Ahorro Mensual Estimado:</strong><br>
+                        $${ahorroMensual.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                        <strong>📅 Ahorro Anual Estimado:</strong><br>
+                        $${ahorroAnual.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                        <strong>⚡ Sistema Recomendado:</strong><br>
+                        ${capacidadKW.toFixed(2)} kW (${Math.ceil(capacidadKW * 2.5)} paneles aprox.)
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                        <strong>💵 Inversión Estimada:</strong><br>
+                        $${costoEstimado.toLocaleString('es-MX', {minimumFractionDigits: 0})} MXN
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                        <strong>⏱️ Retorno de Inversión:</strong><br>
+                        ${tiempoRetorno.toFixed(1)} años aproximadamente
+                    </div>
+                    <div style="background: rgba(247, 147, 30, 0.2); padding: 1rem; border-radius: 8px; border: 1px solid #f7931e;">
+                        <small><strong>Nota:</strong> Estos son cálculos estimativos. Para una cotización precisa y personalizada, contáctanos para una evaluación técnica gratuita.</small>
+                    </div>
+                </div>
+            `;
+
+            // Scroll to results
+            document.getElementById('resultado').scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Create WhatsApp message
+            let mensaje = `*Nueva Solicitud de Cotización - Ambiente Libre*\n\n`;
+            mensaje += `*Nombre:* ${data.nombre}\n`;
+            mensaje += `*Email:* ${data.email}\n`;
+            mensaje += `*Teléfono:* ${data.telefono}\n`;
+            mensaje += `*Tipo de Proyecto:* ${data.tipo_proyecto}\n`;
+            
+            if (data.consumo_kwh) {
+                mensaje += `*Consumo Mensual:* ${data.consumo_kwh} kWh\n`;
+            }
+            
+            if (data.mensaje) {
+                mensaje += `*Mensaje:* ${data.mensaje}\n`;
+            }
+            
+            mensaje += `\n¡Gracias por contactarnos!`;
+            
+            // Encode message for WhatsApp
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            const whatsappUrl = `https://wa.me/527712149628?text=${mensajeCodificado}`;
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Reset form
+            this.reset();
+            
+            // Show confirmation
+            alert('¡Gracias por tu solicitud! Te redirigimos a WhatsApp para completar el contacto.');
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(44, 82, 130, 0.95))';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #1a365d, #2c5282)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.service-card, .project-card, .value-item');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
