@@ -403,6 +403,14 @@
             .contact-grid {
                 grid-template-columns: 1fr;
             }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
         }
 
         /* WhatsApp Float Button */
@@ -463,7 +471,7 @@
                 <li><a href="#calculadora">Calculadora</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
-            <a href="#contacto" class="cta-button">Cotiza Gratis</a>
+
         </nav>
     </header>
 
@@ -772,3 +780,235 @@
 
     <!-- WhatsApp Float Button -->
     <a href="https://wa.me/527712149628" class="whatsapp-float" target="_blank" title="Chatea con nosotros en WhatsApp">
+        💬
+    </a>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Calculator functionality
+        function calculateSavings() {
+            const bill = parseFloat(document.getElementById('bill').value);
+            const location = document.getElementById('location').value;
+            
+            if (!bill || bill <= 0) {
+                alert('Por favor ingresa un monto válido para tu recibo');
+                return;
+            }
+
+            // Calculations based on average solar performance in Mexico
+            const annualBill = bill * 6; // 6 bimesters per year
+            const solarSavingsPercent = 0.85; // 85% average savings
+            const annualSavings = annualBill * solarSavingsPercent;
+            const monthlySavings = annualSavings / 12;
+            
+            // Estimate system size (rough calculation)
+            const kwhPerBimester = bill * 0.8; // Rough conversion from pesos to kWh
+            const dailyKwh = (kwhPerBimester * 6) / 365;
+            const systemSize = dailyKwh / 5.5; // 5.5 peak sun hours average in central Mexico
+            
+            // Estimate investment (average cost per kWp in Mexico)
+            const pricePerKwp = 25000; // MXN per kWp installed
+            const totalInvestment = systemSize * pricePerKwp;
+            const paybackPeriod = totalInvestment / annualSavings;
+
+            // Display results
+            document.getElementById('savings-text').innerHTML = 
+                `💰 Podrías ahorrar <strong>${monthlySavings.toLocaleString('es-MX')} MXN mensuales</strong><br>
+                 📊 Ahorro anual: <strong>${annualSavings.toLocaleString('es-MX')} MXN</strong>`;
+                 
+            document.getElementById('system-size').innerHTML = 
+                `⚡ Sistema recomendado: <strong>${systemSize.toFixed(1)} kWp</strong>`;
+                
+            document.getElementById('investment').innerHTML = 
+                `🏠 Inversión estimada: <strong>${totalInvestment.toLocaleString('es-MX')} MXN</strong><br>
+                 ⏱️ Recuperación de inversión: <strong>${paybackPeriod.toFixed(1)} años</strong>`;
+
+            document.getElementById('result').style.display = 'block';
+            
+            // Add some animation
+            document.getElementById('result').style.animation = 'fadeInUp 0.5s ease-out';
+        }
+
+        // Contact form functionality
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = this.querySelector('input[type="text"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const phone = this.querySelector('input[type="tel"]').value;
+            const projectType = this.querySelector('select').value;
+            const message = this.querySelector('textarea').value;
+            
+            // Basic validation
+            if (!name || !email || !phone) {
+                alert('Por favor completa todos los campos obligatorios');
+                return;
+            }
+            
+            // Create WhatsApp message
+            const whatsappMessage = encodeURIComponent(
+                `¡Hola! Me interesa una cotización de energia solar.\n\n` +
+                `Nombre: ${name}\n` +
+                `Email: ${email}\n` +
+                `Teléfono: ${phone}\n` +
+                `Tipo de proyecto: ${projectType}\n` +
+                `Mensaje: ${message}\n\n` +
+                `Por favor contactenme para más información.`
+            );
+            
+            // Open WhatsApp
+            window.open(`https://wa.me/527712149628?text=${whatsappMessage}`, '_blank');
+            
+            // Show success message
+            alert('¡Gracias! Te contactaremos pronto. También puedes escribirnos directamente por WhatsApp.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'linear-gradient(135deg, rgba(44, 85, 48, 0.95), rgba(74, 124, 89, 0.95))';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #2c5530, #4a7c59)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all service cards and project cards
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.service-card, .project-card, .value-item').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                observer.observe(card);
+            });
+        });
+
+        // Mobile menu toggle (basic implementation)
+        function createMobileMenu() {
+            const nav = document.querySelector('.nav-container');
+            const menu = document.querySelector('.nav-menu');
+            
+            // Create hamburger button
+            const hamburger = document.createElement('button');
+            hamburger.innerHTML = '☰';
+            hamburger.style.cssText = `
+                display: none;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                @media (max-width: 768px) {
+                    display: block;
+                }
+            `;
+            
+            // Insert hamburger before menu
+            nav.insertBefore(hamburger, nav.lastElementChild);
+            
+            // Toggle menu on mobile
+            hamburger.addEventListener('click', () => {
+                menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+                menu.style.flexDirection = 'column';
+                menu.style.position = 'absolute';
+                menu.style.top = '100%';
+                menu.style.left = '0';
+                menu.style.right = '0';
+                menu.style.background = 'linear-gradient(135deg, #2c5530, #4a7c59)';
+                menu.style.padding = '1rem';
+                menu.style.borderRadius = '0 0 10px 10px';
+            });
+        }
+
+        // Initialize mobile menu
+        createMobileMenu();
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+        });
+
+        // Initialize smooth animations on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate hero elements with delay
+            const heroElements = document.querySelectorAll('.hero h1, .hero-subtitle, .hero-stats, .cta-button');
+            heroElements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.3}s`;
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            hero.style.transform = `translateY(${rate}px)`;
+        });
+
+        // Add counter animation for stats
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const finalValue = target.textContent.replace('+', '');
+                        let currentValue = 0;
+                        const increment = finalValue / 50; // 50 steps
+                        
+                        const updateCounter = () => {
+                            if (currentValue < finalValue) {
+                                currentValue += increment;
+                                target.textContent = Math.ceil(currentValue) + (finalValue !== '95' ? '+' : '%');
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                target.textContent = finalValue + (finalValue !== '95' ? '+' : '%');
+                            }
+                        };
+                        updateCounter();
+                        observer.unobserve(target);
+                    }
+                });
+            });
+            
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        // Initialize counter animation
+        document.addEventListener('DOMContentLoaded', animateCounters);
+    </script>
+</body>
+</html>
