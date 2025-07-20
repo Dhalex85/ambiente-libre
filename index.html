@@ -20,8 +20,8 @@
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, #2c5530, #4a7c59);
-            padding: 1rem 0;
+            background: linear-gradient(135deg, #1a365d, #2c5282);
+            padding: 0.8rem 0;
             position: fixed;
             width: 100%;
             top: 0;
@@ -35,13 +35,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding: 0 1rem;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: white;
+            color: #87ceeb;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo .sun-icon {
+            background: linear-gradient(45deg, #f7931e, #ff6b35);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            font-size: 1.3rem;
         }
 
         .nav-menu {
@@ -55,66 +68,65 @@
             text-decoration: none;
             transition: color 0.3s;
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .nav-menu a:hover {
             color: #87ceeb;
         }
 
-        .cta-button {
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            color: white;
-            padding: 0.8rem 1.5rem;
+        .hamburger {
+            display: none;
+            background: none;
             border: none;
-            border-radius: 25px;
+            color: white;
+            font-size: 1.5rem;
             cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.3s;
-            text-decoration: none;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 0.5rem;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, rgba(44, 85, 48, 0.8), rgba(74, 124, 89, 0.8)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="solar" patternUnits="userSpaceOnUse" width="100" height="100"><rect width="100" height="100" fill="%234a7c59"/><rect x="10" y="10" width="80" height="80" fill="%2387ceeb" opacity="0.1"/><rect x="20" y="20" width="60" height="60" fill="%23f7931e" opacity="0.2"/></pattern></defs><rect width="1200" height="600" fill="url(%23solar)"/></svg>');
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.8), rgba(44, 82, 130, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="solar" patternUnits="userSpaceOnUse" width="100" height="100"><rect width="100" height="100" fill="%232c5282"/><rect x="10" y="10" width="80" height="80" fill="%2387ceeb" opacity="0.1"/><rect x="20" y="20" width="60" height="60" fill="%23f7931e" opacity="0.2"/></pattern></defs><rect width="1200" height="600" fill="url(%23solar)"/></svg>');
             min-height: 100vh;
             display: flex;
             align-items: center;
             text-align: center;
             color: white;
             position: relative;
+            padding: 0 1rem;
         }
 
         .hero-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            width: 100%;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             margin-bottom: 1rem;
             animation: fadeInUp 1s ease-out;
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 3vw, 1.3rem);
             margin-bottom: 2rem;
             opacity: 0.9;
             animation: fadeInUp 1s ease-out 0.3s both;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin: 3rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem auto;
             animation: fadeInUp 1s ease-out 0.6s both;
+            max-width: 600px;
         }
 
         .stat-item {
@@ -122,46 +134,65 @@
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: bold;
             color: #87ceeb;
             display: block;
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
             opacity: 0.8;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         /* Sections */
         .section {
-            padding: 5rem 0;
+            padding: 4rem 0;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2c5530;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            color: #1a365d;
         }
 
         /* Services Grid */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .service-card {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -176,7 +207,7 @@
         .service-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(45deg, #4a7c59, #87ceeb);
+            background: linear-gradient(45deg, #2c5282, #87ceeb);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -186,6 +217,17 @@
             font-size: 1.5rem;
         }
 
+        .service-card h3 {
+            margin-bottom: 0.8rem;
+            color: #1a365d;
+            font-size: 1.2rem;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
         /* About Section */
         .about-section {
             background: linear-gradient(45deg, #f8f9fa, #e9ecef);
@@ -193,41 +235,50 @@
 
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
         }
 
         .about-text {
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
         }
 
         .values-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
         .value-item {
             background: white;
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
 
         .value-item h4 {
-            color: #2c5530;
+            color: #1a365d;
             margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .value-item p {
+            font-size: 0.9rem;
         }
 
         /* Projects Section */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .project-card {
@@ -239,33 +290,44 @@
         }
 
         .project-card:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .project-image {
-            height: 200px;
-            background: linear-gradient(45deg, #4a7c59, #87ceeb);
+            height: 150px;
+            background: linear-gradient(45deg, #2c5282, #87ceeb);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 3rem;
+            font-size: 2.5rem;
         }
 
         .project-content {
-            padding: 1.5rem;
+            padding: 1.2rem;
+        }
+
+        .project-content h3 {
+            margin-bottom: 0.8rem;
+            color: #1a365d;
+            font-size: 1.1rem;
+        }
+
+        .project-content p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
         }
 
         /* Calculator Section */
         .calculator {
-            background: linear-gradient(135deg, #2c5530, #4a7c59);
+            background: linear-gradient(135deg, #1a365d, #2c5282);
             color: white;
             text-align: center;
         }
 
         .calculator-form {
             background: rgba(255,255,255,0.1);
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 15px;
             max-width: 500px;
             margin: 2rem auto 0;
@@ -280,6 +342,7 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
+            font-size: 0.95rem;
         }
 
         .input-group input {
@@ -298,21 +361,22 @@
             border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-top: 1rem;
             transition: transform 0.3s;
+            width: 100%;
         }
 
         .calculate-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .result {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             padding: 1rem;
             background: rgba(255,255,255,0.2);
             border-radius: 10px;
-            font-size: 1.2rem;
+            font-size: 1rem;
             display: none;
         }
 
@@ -323,101 +387,105 @@
 
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
         }
 
         .contact-info {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         .contact-item {
             display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
+            align-items: flex-start;
+            margin-bottom: 1.2rem;
         }
 
         .contact-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(45deg, #4a7c59, #87ceeb);
+            background: linear-gradient(45deg, #2c5282, #87ceeb);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-form-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .contact-form-container h3 {
+            color: #1a365d;
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+        }
+
+        .form-row {
+            margin-bottom: 1rem;
+        }
+
+        .form-row input,
+        .form-row select,
+        .form-row textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-row textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
         /* Footer */
         .footer {
-            background: #2c5530;
+            background: #1a365d;
             color: white;
             text-align: center;
-            padding: 3rem 0 1rem;
+            padding: 2rem 0 1rem;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-section h3 {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             color: #87ceeb;
+            font-size: 1.1rem;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .footer-section p,
+        .footer-section ul {
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-stats {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .about-content,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-container {
-                padding: 0 1rem;
-            }
-            
-            .logo {
-                font-size: 1.5rem;
-            }
+        .footer-section ul {
+            list-style: none;
+            text-align: left;
         }
 
         /* WhatsApp Float Button */
         .whatsapp-float {
             position: fixed;
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             bottom: 20px;
             right: 20px;
             background-color: #25d366;
@@ -425,9 +493,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             z-index: 1000;
             transition: transform 0.3s;
             text-decoration: none;
@@ -443,6 +511,19 @@
             left: 50%;
             transform: translateX(-50%);
             animation: bounce 2s infinite;
+            font-size: 1.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes bounce {
@@ -456,22 +537,185 @@
                 transform: translateX(-50%) translateY(-5px);
             }
         }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.6rem 0;
+            }
+            
+            .nav-container {
+                padding: 0 0.8rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #1a365d, #2c5282);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                gap: 1rem;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-menu a {
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                transition: background-color 0.3s;
+            }
+            
+            .nav-menu a:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+            
+            .hero {
+                padding: 0 0.8rem;
+                min-height: 90vh;
+            }
+            
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                margin: 2rem auto;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .container {
+                padding: 0 0.8rem;
+            }
+            
+            .services-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .contact-grid {
+                gap: 1.5rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                text-align: left;
+            }
+            
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
+                font-size: 1.2rem;
+            }
+            
+            .calculator-form {
+                margin: 1.5rem auto 0;
+                padding: 1.2rem;
+            }
+            
+            .about-content {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .service-card,
+            .project-card {
+                margin: 0 0.2rem;
+            }
+            
+            .contact-item {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            
+            .contact-icon {
+                margin-right: 0.8rem;
+            }
+        }
+
+        /* Landscape orientation fix for mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                min-height: 100vh;
+                padding: 2rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .hero-stats {
+                margin: 1.5rem auto;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <nav class="nav-container">
-            <div class="logo">🌞 Ambiente Libre</div>
-            <ul class="nav-menu">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#calculadora">Calculadora</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+            <div class="logo">
+                <span class="sun-icon">🌞</span>
+                <span>Ambiente Libre</span>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#inicio" onclick="closeMenu()">Inicio</a></li>
+                <li><a href="#servicios" onclick="closeMenu()">Servicios</a></li>
+                <li><a href="#nosotros" onclick="closeMenu()">Nosotros</a></li>
+                <li><a href="#proyectos" onclick="closeMenu()">Proyectos</a></li>
+                <li><a href="#calculadora" onclick="closeMenu()">Calculadora</a></li>
+                <li><a href="#contacto" onclick="closeMenu()">Contacto</a></li>
             </ul>
-
         </nav>
     </header>
 
@@ -506,7 +750,7 @@
             <a href="#calculadora" class="cta-button">Calcula tu Ahorro</a>
         </div>
         <div class="scroll-indicator">
-            <div style="color: white; font-size: 2rem;">⬇</div>
+            <div style="color: white;">⬇</div>
         </div>
     </section>
 
@@ -566,7 +810,7 @@
                     </div>
                 </div>
                 <div>
-                    <h3 style="color: #2c5530; margin-bottom: 1rem;">Nuestros Valores</h3>
+                    <h3 style="color: #1a365d; margin-bottom: 1rem;">Nuestros Valores</h3>
                     <div class="values-grid">
                         <div class="value-item">
                             <h4>🌱 Sustentabilidad</h4>
@@ -642,373 +886,4 @@
     <!-- Calculator Section -->
     <section id="calculadora" class="section calculator">
         <div class="container">
-            <h2 class="section-title">Calculadora de Ahorro Solar</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Descubre cuánto puedes ahorrar con energía solar</p>
-            
-            <div class="calculator-form">
-                <div class="input-group">
-                    <label for="bill">Tu recibo bimensual promedio (MXN)</label>
-                    <input type="number" id="bill" placeholder="Ej: 2500">
-                </div>
-                <div class="input-group">
-                    <label for="location">Ubicación</label>
-                    <input type="text" id="location" placeholder="Ciudad, Estado" value="Pachuca, Hidalgo">
-                </div>
-                <button class="calculate-btn" onclick="calculateSavings()">Calcular Ahorro</button>
-                
-                <div id="result" class="result">
-                    <h3>🎉 Resultados de tu Ahorro</h3>
-                    <p id="savings-text"></p>
-                    <p id="system-size"></p>
-                    <p id="investment"></p>
-                    <p style="margin-top: 1rem; font-weight: bold;">¡Contáctanos para una cotización personalizada!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contacto" class="section contact">
-        <div class="container">
-            <h2 class="section-title">Contacto</h2>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3 style="color: #2c5530; margin-bottom: 2rem;">¿Listo para el cambio?</h3>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">📞</div>
-                        <div>
-                            <strong>Teléfono</strong><br>
-                            771 214 9628
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
-                            <strong>Email</strong><br>
-                            ambientelibre.cotiza@outlook.com
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">🌐</div>
-                        <div>
-                            <strong>Sitio Web</strong><br>
-                            www.ambientelibresolar.com.mx
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <strong>Dirección</strong><br>
-                            Reyna de los piadosos 1227<br>
-                            Fracc Paseo de las Reinas V<br>
-                            Mineral de la Reforma, Hgo. CP 42184
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">🏆</div>
-                        <div>
-                            <strong>Certificaciones</strong><br>
-                            CONOCER (EC586.1) - Energía Solar Fotovoltaica
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-                    <h3 style="color: #2c5530; margin-bottom: 1.5rem;">Solicita tu cotización gratuita</h3>
-                    <form id="contact-form">
-                        <div style="margin-bottom: 1rem;">
-                            <input type="text" placeholder="Tu nombre completo" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-                        </div>
-                        <div style="margin-bottom: 1rem;">
-                            <input type="email" placeholder="Tu email" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-                        </div>
-                        <div style="margin-bottom: 1rem;">
-                            <input type="tel" placeholder="Tu teléfono" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-                        </div>
-                        <div style="margin-bottom: 1rem;">
-                            <select style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-                                <option>Tipo de proyecto</option>
-                                <option>Residencial</option>
-                                <option>Comercial</option>
-                                <option>Industrial</option>
-                            </select>
-                        </div>
-                        <div style="margin-bottom: 1rem;">
-                            <textarea placeholder="Cuéntanos sobre tu proyecto..." style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; min-height: 100px; resize: vertical;"></textarea>
-                        </div>
-                        <button type="submit" class="cta-button" style="width: 100%; margin: 0;">Enviar Solicitud</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>🌞 Ambiente Libre</h3>
-                    <p>Energía solar para un futuro sostenible. Especialistas en sistemas fotovoltaicos desde 2020.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Servicios</h3>
-                    <ul style="list-style: none;">
-                        <li>• Sistemas Residenciales</li>
-                        <li>• Sistemas Comerciales</li>
-                        <li>• Sistemas Industriales</li>
-                        <li>• Mantenimiento</li>
-                        <li>• Trámites CFE</li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Cobertura</h3>
-                    <p>Servicio a nivel nacional con sede en Pachuca, Hidalgo. Especialistas en la región centro de México.</p>
-                    <p style="margin-top: 1rem;"><strong>RFC:</strong> FOFE830330CN1</p>
-                </div>
-            </div>
-            <div style="border-top: 1px solid #4a7c59; padding-top: 2rem;">
-                <p>&copy; 2025 Ambiente Libre. Todos los derechos reservados. Edwin Flores Franco.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/527712149628" class="whatsapp-float" target="_blank" title="Chatea con nosotros en WhatsApp">
-        💬
-    </a>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Calculator functionality
-        function calculateSavings() {
-            const bill = parseFloat(document.getElementById('bill').value);
-            const location = document.getElementById('location').value;
-            
-            if (!bill || bill <= 0) {
-                alert('Por favor ingresa un monto válido para tu recibo');
-                return;
-            }
-
-            // Calculations based on average solar performance in Mexico
-            const annualBill = bill * 6; // 6 bimesters per year
-            const solarSavingsPercent = 0.85; // 85% average savings
-            const annualSavings = annualBill * solarSavingsPercent;
-            const monthlySavings = annualSavings / 12;
-            
-            // Estimate system size (rough calculation)
-            const kwhPerBimester = bill * 0.8; // Rough conversion from pesos to kWh
-            const dailyKwh = (kwhPerBimester * 6) / 365;
-            const systemSize = dailyKwh / 5.5; // 5.5 peak sun hours average in central Mexico
-            
-            // Estimate investment (average cost per kWp in Mexico)
-            const pricePerKwp = 25000; // MXN per kWp installed
-            const totalInvestment = systemSize * pricePerKwp;
-            const paybackPeriod = totalInvestment / annualSavings;
-
-            // Display results
-            document.getElementById('savings-text').innerHTML = 
-                `💰 Podrías ahorrar <strong>${monthlySavings.toLocaleString('es-MX')} MXN mensuales</strong><br>
-                 📊 Ahorro anual: <strong>${annualSavings.toLocaleString('es-MX')} MXN</strong>`;
-                 
-            document.getElementById('system-size').innerHTML = 
-                `⚡ Sistema recomendado: <strong>${systemSize.toFixed(1)} kWp</strong>`;
-                
-            document.getElementById('investment').innerHTML = 
-                `🏠 Inversión estimada: <strong>${totalInvestment.toLocaleString('es-MX')} MXN</strong><br>
-                 ⏱️ Recuperación de inversión: <strong>${paybackPeriod.toFixed(1)} años</strong>`;
-
-            document.getElementById('result').style.display = 'block';
-            
-            // Add some animation
-            document.getElementById('result').style.animation = 'fadeInUp 0.5s ease-out';
-        }
-
-        // Contact form functionality
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const phone = this.querySelector('input[type="tel"]').value;
-            const projectType = this.querySelector('select').value;
-            const message = this.querySelector('textarea').value;
-            
-            // Basic validation
-            if (!name || !email || !phone) {
-                alert('Por favor completa todos los campos obligatorios');
-                return;
-            }
-            
-            // Create WhatsApp message
-            const whatsappMessage = encodeURIComponent(
-                `¡Hola! Me interesa una cotización de energia solar.\n\n` +
-                `Nombre: ${name}\n` +
-                `Email: ${email}\n` +
-                `Teléfono: ${phone}\n` +
-                `Tipo de proyecto: ${projectType}\n` +
-                `Mensaje: ${message}\n\n` +
-                `Por favor contactenme para más información.`
-            );
-            
-            // Open WhatsApp
-            window.open(`https://wa.me/527712149628?text=${whatsappMessage}`, '_blank');
-            
-            // Show success message
-            alert('¡Gracias! Te contactaremos pronto. También puedes escribirnos directamente por WhatsApp.');
-            
-            // Reset form
-            this.reset();
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'linear-gradient(135deg, rgba(44, 85, 48, 0.95), rgba(74, 124, 89, 0.95))';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #2c5530, #4a7c59)';
-                header.style.backdropFilter = 'none';
-            }
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all service cards and project cards
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.service-card, .project-card, .value-item').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                observer.observe(card);
-            });
-        });
-
-        // Mobile menu toggle (basic implementation)
-        function createMobileMenu() {
-            const nav = document.querySelector('.nav-container');
-            const menu = document.querySelector('.nav-menu');
-            
-            // Create hamburger button
-            const hamburger = document.createElement('button');
-            hamburger.innerHTML = '☰';
-            hamburger.style.cssText = `
-                display: none;
-                background: none;
-                border: none;
-                color: white;
-                font-size: 1.5rem;
-                cursor: pointer;
-                @media (max-width: 768px) {
-                    display: block;
-                }
-            `;
-            
-            // Insert hamburger before menu
-            nav.insertBefore(hamburger, nav.lastElementChild);
-            
-            // Toggle menu on mobile
-            hamburger.addEventListener('click', () => {
-                menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-                menu.style.flexDirection = 'column';
-                menu.style.position = 'absolute';
-                menu.style.top = '100%';
-                menu.style.left = '0';
-                menu.style.right = '0';
-                menu.style.background = 'linear-gradient(135deg, #2c5530, #4a7c59)';
-                menu.style.padding = '1rem';
-                menu.style.borderRadius = '0 0 10px 10px';
-            });
-        }
-
-        // Initialize mobile menu
-        createMobileMenu();
-
-        // Add loading animation
-        window.addEventListener('load', function() {
-            document.body.style.opacity = '1';
-        });
-
-        // Initialize smooth animations on load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animate hero elements with delay
-            const heroElements = document.querySelectorAll('.hero h1, .hero-subtitle, .hero-stats, .cta-button');
-            heroElements.forEach((element, index) => {
-                element.style.animationDelay = `${index * 0.3}s`;
-            });
-        });
-
-        // Add parallax effect to hero section
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            const rate = scrolled * -0.5;
-            hero.style.transform = `translateY(${rate}px)`;
-        });
-
-        // Add counter animation for stats
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const target = entry.target;
-                        const finalValue = target.textContent.replace('+', '');
-                        let currentValue = 0;
-                        const increment = finalValue / 50; // 50 steps
-                        
-                        const updateCounter = () => {
-                            if (currentValue < finalValue) {
-                                currentValue += increment;
-                                target.textContent = Math.ceil(currentValue) + (finalValue !== '95' ? '+' : '%');
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                target.textContent = finalValue + (finalValue !== '95' ? '+' : '%');
-                            }
-                        };
-                        updateCounter();
-                        observer.unobserve(target);
-                    }
-                });
-            });
-            
-            counters.forEach(counter => observer.observe(counter));
-        }
-
-        // Initialize counter animation
-        document.addEventListener('DOMContentLoaded', animateCounters);
-    </script>
-</body>
-</html>
+            <h2 class="section-title">
