@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambiente Libre - Energía Solar para un Futuro Sostenible</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #2c5530, #4a7c59);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            color: #87ceeb;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(44, 85, 48, 0.8), rgba(74, 124, 89, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="solar" patternUnits="userSpaceOnUse" width="100" height="100"><rect width="100" height="100" fill="%234a7c59"/><rect x="10" y="10" width="80" height="80" fill="%2387ceeb" opacity="0.1"/><rect x="20" y="20" width="60" height="60" fill="%23f7931e" opacity="0.2"/></pattern></defs><rect width="1200" height="600" fill="url(%23solar)"/></svg>');
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #87ceeb;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c5530;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #4a7c59, #87ceeb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .value-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .value-item h4 {
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(45deg, #4a7c59, #87ceeb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        /* Calculator Section */
+        .calculator {
+            background: linear-gradient(135deg, #2c5530, #4a7c59);
+            color: white;
+            text-align: center;
+        }
+
+        .calculator-form {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 2rem auto 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .calculate-btn {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .calculate-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #f8f9fa;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #4a7c59, #87ceeb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c5530;
+            color: white;
+            text-align: center;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #87ceeb;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .about-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">🌞 Ambiente Libre</div>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#calculadora">Calculadora</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <a href="#contacto" class="cta-button">Cotiza Gratis</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Energía Solar para un Futuro Sostenible</h1>
+            <p class="hero-subtitle">
+                Soluciones fotovoltaicas personalizadas para hogares, comercios e industrias. 
+                Ahorra hasta 95% en tu recibo de luz con tecnología de vanguardia.
+            </p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">4+</span>
+                    <span class="stat-label">Años de experiencia</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">Sistemas residenciales</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">200+</span>
+                    <span class="stat-label">kWp instalados</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Ahorro máximo</span>
+                </div>
+            </div>
+
+            <a href="#calculadora" class="cta-button">Calcula tu Ahorro</a>
+        </div>
+        <div class="scroll-indicator">
+            <div style="color: white; font-size: 2rem;">⬇</div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="section">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3>Sistemas Residenciales</h3>
+                    <p>Instalación de paneles solares para hogares con tecnología de última generación y garantía extendida.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3>Sistemas Comerciales</h3>
+                    <p>Soluciones energéticas para empresas y comercios que buscan reducir costos operativos significativamente.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏭</div>
+                    <h3>Sistemas Industriales</h3>
+                    <p>Proyectos de gran escala para industrias con diseños personalizados y máxima eficiencia energética.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Trámite CFE</h3>
+                    <p>Gestionamos toda la documentación y trámites de interconexión con CFE sin costo adicional.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Mantenimiento</h3>
+                    <p>Servicio preventivo y correctivo para garantizar el óptimo funcionamiento de tu sistema solar.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Monitoreo Remoto</h3>
+                    <p>Seguimiento en tiempo real de la producción energética y alertas automáticas de mantenimiento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="section about-section">
+        <div class="container">
+            <h2 class="section-title">Sobre Ambiente Libre</h2>
+            <div class="about-content">
+                <div>
+                    <div class="about-text">
+                        <p>Somos una empresa mexicana especializada en diseño e instalación de sistemas fotovoltaicos. Desde 2020, hemos estado comprometidos con ofrecer soluciones energéticas limpias, seguras y rentables.</p>
+                        
+                        <p>Nuestro equipo de ingenieros certificados y técnicos especializados trabaja bajo los más altos estándares de calidad, garantizando proyectos personalizados que aseguran ahorro económico e independencia energética.</p>
+                        
+                        <p><strong>Misión:</strong> Proporcionar soluciones tecnológicas solares eficientes que impulsen la transición energética en México.</p>
+                        
+                        <p><strong>Visión:</strong> Ser líder en energía solar, reconocidos por nuestras soluciones tecnológicas y excelencia en servicio.</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="color: #2c5530; margin-bottom: 1rem;">Nuestros Valores</h3>
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <h4>🌱 Sustentabilidad</h4>
+                            <p>Comprometidos con el cuidado del medio ambiente</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>🎯 Responsabilidad</h4>
+                            <p>Cumplimos lo que prometemos con profesionalismo</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>⭐ Calidad</h4>
+                            <p>Materiales certificados y altos estándares técnicos</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>🤝 Servicio</h4>
+                            <p>Te acompañamos en cada etapa del proceso</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>💡 Innovación</h4>
+                            <p>Soluciones tecnológicas de vanguardia</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>❤️ Empatía</h4>
+                            <p>Comprendemos las necesidades de cada cliente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="proyectos" class="section">
+        <div class="container">
+            <h2 class="section-title">Proyectos Destacados</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">🏭</div>
+                    <div class="project-content">
+                        <h3>Fábrica Textil Zacualtipán</h3>
+                        <p><strong>Capacidad:</strong> 120 kWp</p>
+                        <p>Sistema industrial de gran escala que genera importantes ahorros en costos operativos para esta empresa textil en Hidalgo.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">🚜</div>
+                    <div class="project-content">
+                        <h3>Rancho Fábrica CD Sahagún</h3>
+                        <p><strong>Capacidad:</strong> 50 kWp</p>
+                        <p>Instalación en sector agropecuario que demuestra la versatilidad de nuestras soluciones solares.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">🏗️</div>
+                    <div class="project-content">
+                        <h3>Concretera Mixquiahuala</h3>
+                        <p><strong>Capacidad:</strong> 31 kWp</p>
+                        <p>Proyecto industrial que optimiza el consumo energético de procesos de manufactura pesada.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">🏘️</div>
+                    <div class="project-content">
+                        <h3>Zona Metropolitana Pachuca</h3>
+                        <p><strong>Proyectos:</strong> 30+ sistemas</p>
+                        <p>Múltiples instalaciones residenciales que han transformado la forma de consumir energía en hogares hidalguenses.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculadora" class="section calculator">
+        <div class="container">
+            <h2 class="section-title">Calculadora de Ahorro Solar</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Descubre cuánto puedes ahorrar con energía solar</p>
+            
+            <div class="calculator-form">
+                <div class="input-group">
+                    <label for="bill">Tu recibo bimensual promedio (MXN)</label>
+                    <input type="number" id="bill" placeholder="Ej: 2500">
+                </div>
+                <div class="input-group">
+                    <label for="location">Ubicación</label>
+                    <input type="text" id="location" placeholder="Ciudad, Estado" value="Pachuca, Hidalgo">
+                </div>
+                <button class="calculate-btn" onclick="calculateSavings()">Calcular Ahorro</button>
+                
+                <div id="result" class="result">
+                    <h3>🎉 Resultados de tu Ahorro</h3>
+                    <p id="savings-text"></p>
+                    <p id="system-size"></p>
+                    <p id="investment"></p>
+                    <p style="margin-top: 1rem; font-weight: bold;">¡Contáctanos para una cotización personalizada!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="section contact">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 style="color: #2c5530; margin-bottom: 2rem;">¿Listo para el cambio?</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <strong>Teléfono</strong><br>
+                            771 214 9628
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <strong>Email</strong><br>
+                            ambientelibre.cotiza@outlook.com
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🌐</div>
+                        <div>
+                            <strong>Sitio Web</strong><br>
+                            www.ambientelibresolar.com.mx
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Dirección</strong><br>
+                            Reyna de los piadosos 1227<br>
+                            Fracc Paseo de las Reinas V<br>
+                            Mineral de la Reforma, Hgo. CP 42184
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🏆</div>
+                        <div>
+                            <strong>Certificaciones</strong><br>
+                            CONOCER (EC586.1) - Energía Solar Fotovoltaica
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                    <h3 style="color: #2c5530; margin-bottom: 1.5rem;">Solicita tu cotización gratuita</h3>
+                    <form id="contact-form">
+                        <div style="margin-bottom: 1rem;">
+                            <input type="text" placeholder="Tu nombre completo" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <input type="email" placeholder="Tu email" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <input type="tel" placeholder="Tu teléfono" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <select style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                                <option>Tipo de proyecto</option>
+                                <option>Residencial</option>
+                                <option>Comercial</option>
+                                <option>Industrial</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <textarea placeholder="Cuéntanos sobre tu proyecto..." style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; min-height: 100px; resize: vertical;"></textarea>
+                        </div>
+                        <button type="submit" class="cta-button" style="width: 100%; margin: 0;">Enviar Solicitud</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🌞 Ambiente Libre</h3>
+                    <p>Energía solar para un futuro sostenible. Especialistas en sistemas fotovoltaicos desde 2020.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <ul style="list-style: none;">
+                        <li>• Sistemas Residenciales</li>
+                        <li>• Sistemas Comerciales</li>
+                        <li>• Sistemas Industriales</li>
+                        <li>• Mantenimiento</li>
+                        <li>• Trámites CFE</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Cobertura</h3>
+                    <p>Servicio a nivel nacional con sede en Pachuca, Hidalgo. Especialistas en la región centro de México.</p>
+                    <p style="margin-top: 1rem;"><strong>RFC:</strong> FOFE830330CN1</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #4a7c59; padding-top: 2rem;">
+                <p>&copy; 2025 Ambiente Libre. Todos los derechos reservados. Edwin Flores Franco.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/527712149628" class="whatsapp-float" target="_blank" title="Chatea con nosotros en WhatsApp">
