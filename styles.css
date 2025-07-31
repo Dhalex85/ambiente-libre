@@ -1,5 +1,5 @@
 /* ================================================
-   AMBIENTE LIBRE - ESTILOS CSS CORREGIDOS
+    AMBIENTE LIBRE - ESTILOS CSS CORREGIDOS
    ================================================ */
 
 /* Reset y configuración base */
@@ -17,7 +17,7 @@ body {
 }
 
 /* ================================================
-   HEADER Y NAVEGACIÓN
+    HEADER Y NAVEGACIÓN
    ================================================ */
 
 .header {
@@ -98,12 +98,11 @@ body {
 }
 
 /* ================================================
-   SECCIÓN HERO - CORREGIDA
+    SECCIÓN HERO - CORREGIDA
    ================================================ */
 
 .hero {
-    background: linear-gradient(135deg, rgba(26, 54, 93, 0.8), rgba(44, 82, 130, 0.8)), 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="solar" patternUnits="userSpaceOnUse" width="100" height="100"><rect width="100" height="100" fill="%232c5282"/><rect x="10" y="10" width="80" height="80" fill="%2387ceeb" opacity="0.1"/><rect x="20" y="20" width="60" height="60" fill="%23f7931e" opacity="0.2"/></pattern></defs><rect width="1200" height="600" fill="url(%23solar)"/></svg>');
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.6), rgba(44, 82, 130, 0.6));
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -111,6 +110,27 @@ body {
     color: white;
     position: relative;
     padding: 80px 1rem 0; /* Agregado padding-top para compensar header fijo */
+    overflow: hidden; /* Para contener el video */
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.7), rgba(44, 82, 130, 0.7));
+    z-index: -1;
 }
 
 .hero-content {
@@ -118,6 +138,8 @@ body {
     margin: 0 auto;
     width: 100%;
     padding: 0 1rem; /* Agregado padding lateral */
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
@@ -343,6 +365,34 @@ body {
     justify-content: center;
     color: white;
     font-size: 2.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.1), rgba(44, 82, 130, 0.1));
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.05);
+}
+
+.project-card:hover .project-image::after {
+    opacity: 0.3;
 }
 
 .project-content {
@@ -365,7 +415,9 @@ body {
    ================================================ */
 
 .calculator {
-    background: linear-gradient(135deg, #1a365d, #2c5282);
+    /* background: linear-gradient(135deg, #1a365d, #2c5282); */
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.8), rgba(44, 82, 130, 0.8)), 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="solar" patternUnits="userSpaceOnUse" width="100" height="100"><rect width="100" height="100" fill="%232c5282"/><rect x="10" y="10" width="80" height="80" fill="%2387ceeb" opacity="0.1"/><rect x="20" y="20" width="60" height="60" fill="%23f7931e" opacity="0.2"/></pattern></defs><rect width="1200" height="600" fill="url(%23solar)"/></svg>');
     color: white;
     text-align: center;
 }
@@ -543,25 +595,74 @@ body {
 /* WhatsApp Float Button */
 .whatsapp-float {
     position: fixed;
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     bottom: 20px;
     right: 20px;
-    background-color: #25d366;
+    background: linear-gradient(135deg, #25d366, #128c7e);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
     color: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
     z-index: 1000;
-    transition: transform 0.3s;
+    transition: all 0.3s ease;
     text-decoration: none;
+    animation: whatsappPulse 2s infinite;
+}
+
+.whatsapp-float::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    border-radius: 50%;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
 }
 
 .whatsapp-float:hover {
     transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-float:hover::before {
+    opacity: 0.3;
+    animation: ripple 0.6s linear;
+}
+
+.whatsapp-icon {
+    width: 32px;
+    height: 32px;
+    fill: white;
+}
+
+@keyframes whatsappPulse {
+    0% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.6), 0 0 0 10px rgba(37, 211, 102, 0.1);
+    }
+    100% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
 }
 
 /* Animations */
@@ -631,11 +732,16 @@ body {
     .nav-menu a:hover {
         background-color: rgba(255,255,255,0.1);
     }
-    
-    /* HERO MÓVIL CORREGIDO */
+      /* HERO MÓVIL CORREGIDO */
     .hero {
         padding: 100px 1rem 0; /* Aumentado padding-top para móvil */
         min-height: 100vh;
+    }
+    
+    .hero-video {
+        /* En móvil, asegurar que el video cubra toda la pantalla */
+        min-width: 100%;
+        min-height: 100%;
     }
     
     .hero-content {
@@ -701,11 +807,15 @@ body {
     }
     
     .whatsapp-float {
-        width: 50px;
-        height: 50px;
+        width: 55px;
+        height: 55px;
         bottom: 15px;
         right: 15px;
-        font-size: 1.2rem;
+    }
+    
+    .whatsapp-icon {
+        width: 28px;
+        height: 28px;
     }
     
     .calculator-form {
@@ -725,6 +835,11 @@ body {
     
     .hero {
         padding: 90px 0.8rem 0; /* Ajustado para pantallas muy pequeñas */
+    }
+    
+    .hero-video {
+        /* Optimizar video para pantallas muy pequeñas */
+        object-position: center center;
     }
     
     .container {
@@ -780,6 +895,12 @@ body {
     .hero {
         min-height: 100vh;
         padding: 80px 1rem 2rem; /* Ajustado padding */
+    }
+    
+    .hero-video {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
     }
     
     .hero h1 {
