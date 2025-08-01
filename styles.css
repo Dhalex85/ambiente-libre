@@ -42,11 +42,16 @@ body {
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #87ceeb;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    color: #ffd700; /* Fallback color mejorado para navegadores sin soporte */
+    background: linear-gradient(45deg, #ffd700, #d4af37, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    filter: drop-shadow(0 1px 2px rgba(212, 175, 55, 0.3));
+    transition: all 0.3s ease;
 }
 
 .logo-link {
@@ -59,7 +64,8 @@ body {
 }
 
 .logo-link:hover {
-    opacity: 0.8;
+    transform: scale(1.05);
+    filter: brightness(1.2) drop-shadow(0 2px 8px rgba(255, 215, 0, 0.6));
 }
 
 .logo-image {
