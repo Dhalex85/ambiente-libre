@@ -42,15 +42,19 @@ body {
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #ffd700; /* Fallback color mejorado para navegadores sin soporte */
-    background: linear-gradient(45deg, #ffd700, #d4af37, #ffed4e);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    filter: drop-shadow(0 1px 2px rgba(212, 175, 55, 0.3));
+    transition: all 0.3s ease;
+}
+
+.logo-text {
+    color: #ff6b35; /* Fallback color naranja */
+    background: linear-gradient(45deg, #ff6b35, #f7931e, #ff8c42);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 1px 2px rgba(255, 107, 53, 0.3));
     transition: all 0.3s ease;
 }
 
@@ -65,7 +69,13 @@ body {
 
 .logo-link:hover {
     transform: scale(1.05);
-    filter: brightness(1.2) drop-shadow(0 2px 8px rgba(255, 215, 0, 0.6));
+    filter: brightness(1.2) drop-shadow(0 2px 8px rgba(255, 107, 53, 0.6));
+}
+
+.logo-link:hover .logo-text {
+    color: #ff8c42; /* Color sólido naranja brillante para hover */
+    filter: drop-shadow(0 0 8px rgba(255, 140, 66, 0.8)) brightness(1.3);
+    text-shadow: 0 0 12px rgba(247, 147, 30, 0.6);
 }
 
 .logo-image {
