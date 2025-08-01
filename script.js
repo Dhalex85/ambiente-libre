@@ -24,15 +24,33 @@
         });
 
         // Calculator functionality
+        function actualizarEtiquetaConsumo() {
+            const periodo = document.getElementById('periodo').value;
+            const etiqueta = document.getElementById('etiqueta-consumo');
+            const input = document.getElementById('consumo');
+            
+            if (periodo === 'bimestral') {
+                etiqueta.textContent = 'Consumo bimestral promedio (kWh)';
+                input.placeholder = 'Ej: 700';
+            } else {
+                etiqueta.textContent = 'Consumo mensual promedio (kWh)';
+                input.placeholder = 'Ej: 350';
+            }
+        }
+
         function calcularAhorro() {
-            const consumo = parseFloat(document.getElementById('consumo').value);
+            const consumoInput = parseFloat(document.getElementById('consumo').value);
             const tarifa = parseFloat(document.getElementById('tarifa').value);
             const ubicacion = document.getElementById('ubicacion').value;
+            const periodo = document.getElementById('periodo').value;
 
-            if (!consumo || !tarifa) {
+            if (!consumoInput || !tarifa) {
                 alert('Por favor completa todos los campos');
                 return;
             }
+
+            // Convertir consumo a mensual si es bimestral
+            const consumoMensual = periodo === 'bimestral' ? consumoInput / 2 : consumoInput;
 
             // Factores de irradiación solar por ubicación (aproximado)
             const factoresIrradiacion = {
@@ -45,19 +63,18 @@
 
             const irradiacion = factoresIrradiacion[ubicacion] || 5.0;
             
-            // Cálculos
-            const gastoMensual = consumo * tarifa;
+            // Cálculos basados en consumo mensual
+            const gastoMensual = consumoMensual * tarifa;
             const gastoAnual = gastoMensual * 12;
             const ahorroPorcentaje = 85; // Ahorro estimado del 85%
             const ahorroMensual = gastoMensual * (ahorroPorcentaje / 100);
             const ahorroAnual = ahorroMensual * 12;
             
             // Estimación de capacidad del sistema necesario
-            const capacidadKW = (consumo * 12) / (irradiacion * 365 * 0.8); // Factor de eficiencia 0.8
-            const costoEstimado = capacidadKW * 25000; // Costo aproximado por kW instalado
+            const capacidadKW = (consumoMensual * 12) / (irradiacion * 365 * 0.8); // Factor de eficiencia 0.8
 
-            // Tiempo de retorno de inversión
-            const tiempoRetorno = costoEstimado / ahorroAnual;
+            // Tiempo de retorno de inversión (sin mostrar la inversión)
+            const tiempoRetorno = 7.5; // Promedio general de 7.5 años
 
             // Mostrar resultados
             document.getElementById('resultado').style.display = 'block';
@@ -76,14 +93,10 @@
                         ${capacidadKW.toFixed(2)} kW (${Math.ceil(capacidadKW * 2.5)} paneles aprox.)
                     </div>
                     <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
-                        <strong>💵 Inversión Estimada:</strong><br>
-                        $${costoEstimado.toLocaleString('es-MX', {minimumFractionDigits: 0})} MXN
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
                         <strong>⏱️ Retorno de Inversión:</strong><br>
-                        ${tiempoRetorno.toFixed(1)} años aproximadamente
+                        ${tiempoRetorno} años aproximadamente
                     </div>
-                    <div style="background: rgba(247, 147, 30, 0.2); padding: 1rem; border-radius: 8px; border: 1px solid #f7931e;">
+                    <div style="background: rgba(76, 175, 80, 0.2); padding: 1rem; border-radius: 8px; border: 1px solid #4caf50;">
                         <small><strong>Nota:</strong> Estos son cálculos estimativos. Para una cotización precisa y personalizada, contáctanos para una evaluación técnica gratuita.</small>
                     </div>
                 </div>
