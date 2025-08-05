@@ -175,7 +175,7 @@
 
         // Observe elements for animation
         document.addEventListener('DOMContentLoaded', function() {
-            const animatedElements = document.querySelectorAll('.service-card, .project-card, .value-item');
+            const animatedElements = document.querySelectorAll('.service-card, .project-card, .value-item, .main-service, .secondary-service');
             animatedElements.forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(30px)';

@@ -276,9 +276,236 @@ body {
 }
 
 /* ================================================
-   SERVICIOS
+   SERVICIOS - DISEÑO JERÁRQUICO
    ================================================ */
 
+/* Servicios Principales */
+.main-services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.main-service {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    border: 2px solid transparent;
+    overflow: hidden;
+    position: relative;
+}
+
+.main-service:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    border-color: rgba(26, 54, 93, 0.1);
+}
+
+.service-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.service-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.main-service:hover .service-img {
+    transform: scale(1.05);
+}
+
+.service-content {
+    position: relative;
+    z-index: 2;
+}
+
+.main-service h3 {
+    margin-bottom: 1rem;
+    color: #1a365d;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.main-service p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* ================================================
+   BENEFICIOS SECTION
+   ================================================ */
+
+.benefits-section {
+    margin: 4rem 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+.benefits-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    gap: 0;
+}
+
+.benefit-item {
+    flex: 1;
+    background: transparent;
+    padding: 3rem 1.5rem;
+    border-radius: 0;
+    text-align: center;
+    box-shadow: none;
+    border: none;
+    position: relative;
+    overflow: visible;
+    transition: all 0.3s ease;
+}
+
+.benefit-item::before {
+    display: none;
+}
+
+.benefit-item:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 167, 38, 0.05);
+}
+
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #ffa726, #ff8c42);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    color: white;
+    box-shadow: 0 10px 30px rgba(255, 167, 38, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.benefit-item:hover .benefit-icon {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(255, 167, 38, 0.4);
+    background: linear-gradient(45deg, #ff8c42, #ff6b35);
+}
+
+.benefit-svg {
+    width: 40px;
+    height: 40px;
+    fill: currentColor;
+}
+
+.benefit-item h4 {
+    color: #1a365d;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.benefit-item:hover h4 {
+    color: #ff6b35;
+}
+
+.benefit-item p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    max-width: 220px;
+    margin: 0 auto;
+}
+
+/* Título de servicios secundarios */
+.secondary-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #1a365d;
+    margin: 3rem 0 1.5rem;
+    opacity: 0.8;
+    font-weight: 600;
+}
+
+/* Servicios Secundarios */
+.secondary-services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.secondary-service {
+    background: white;
+    padding: 1.2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    border: 1px solid rgba(26, 54, 93, 0.05);
+    width: 220px;
+    flex: 0 0 220px;
+}
+
+.secondary-service:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+    border-color: rgba(26, 54, 93, 0.1);
+}
+
+.secondary-service .service-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, #87ceeb, #a3d5ff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+    font-size: 1.2rem;
+    box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
+}
+
+.secondary-service h4 {
+    margin-bottom: 0.8rem;
+    color: #1a365d;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.secondary-service p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #666;
+}
+
+/* Mantener compatibilidad con el grid original para mobile */
 .services-grid {
     display: flex;
     flex-wrap: wrap;
@@ -406,6 +633,37 @@ body {
     max-width: 450px;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mission-vision-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.2);
+}
+
+.mission-vision-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    border-radius: 15px;
+}
+
+.mission-vision-card:hover .mission-vision-img {
+    transform: scale(1.05);
+}
+
+.mission-vision-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .mission-vision-card::before {
@@ -430,26 +688,6 @@ body {
 
 .mission-vision-card:hover::before {
     opacity: 0.05;
-}
-
-.mission-vision-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(45deg, #4caf50, #66bb6a);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    color: white;
-    font-size: 2rem;
-    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
-    transition: all 0.4s ease;
-}
-
-.mission-vision-card:hover .mission-vision-icon {
-    transform: scale(1.1);
-    box-shadow: 0 15px 35px rgba(76, 175, 80, 0.4);
 }
 
 .mission-vision-title {
@@ -759,6 +997,78 @@ body {
     opacity: 0.8;
 }
 
+/* Redes Sociales en Footer */
+.social-links {
+    margin-top: 1.5rem;
+}
+
+.social-links h4 {
+    color: #87ceeb;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.social-icon.facebook {
+    background: linear-gradient(135deg, #4267B2, #365899);
+    color: white;
+}
+
+.social-icon.facebook:hover {
+    background: linear-gradient(135deg, #365899, #2d4373);
+    box-shadow: 0 8px 20px rgba(66, 103, 178, 0.4);
+}
+
+.social-icon.instagram {
+    background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+    color: white;
+}
+
+.social-icon.instagram:hover {
+    background: linear-gradient(135deg, #6a2c93, #e1306c, #f77737);
+    box-shadow: 0 8px 20px rgba(131, 58, 180, 0.4);
+}
+
+.social-icon.linkedin {
+    background: linear-gradient(135deg, #0077b5, #005885);
+    color: white;
+}
+
+.social-icon.linkedin:hover {
+    background: linear-gradient(135deg, #005885, #004466);
+    box-shadow: 0 8px 20px rgba(0, 119, 181, 0.4);
+}
+
+.social-svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
 /* WhatsApp Float Button */
 .whatsapp-float {
     position: fixed;
@@ -957,6 +1267,65 @@ body {
         gap: 1.2rem;
     }
     
+    .main-services {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .secondary-services {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .secondary-service {
+        width: 100%;
+        max-width: 300px;
+        flex: none;
+    }
+    
+    .secondary-title {
+        font-size: 1.3rem;
+        margin: 2rem 0 1rem;
+    }
+    
+    .benefits-section {
+        margin: 2rem 0;
+        padding: 0;
+    }
+    
+    .benefits-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .benefit-item {
+        padding: 2rem 1rem;
+        background: rgba(255, 167, 38, 0.02);
+        border-radius: 15px;
+    }
+    
+    .benefit-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+    }
+    
+    .benefit-svg {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .benefit-item h4 {
+        font-size: 1.1rem;
+    }
+    
+    .benefit-item p {
+        font-size: 0.9rem;
+        max-width: none;
+    }
+    
     .values-grid {
         grid-template-columns: 1fr;
         gap: 0.8rem;
@@ -971,6 +1340,20 @@ body {
         grid-template-columns: 1fr;
         gap: 1.2rem;
         text-align: left;
+    }
+    
+    .social-icons {
+        justify-content: flex-start;
+    }
+    
+    .social-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .social-svg {
+        width: 18px;
+        height: 18px;
     }
     
     .whatsapp-float {
@@ -1074,6 +1457,23 @@ body {
     .cta-button {
         max-width: 250px; /* Reducido para pantallas muy pequeñas */
         padding: 0.9rem 1.5rem;
+    }
+    
+    .benefits-section {
+        margin: 1.5rem 0;
+        padding: 0;
+    }
+    
+    .benefit-item {
+        padding: 1.5rem 0.8rem;
+    }
+    
+    .benefit-item h4 {
+        font-size: 1rem;
+    }
+    
+    .benefit-item p {
+        font-size: 0.85rem;
     }
     
     .calculator-video {
