@@ -266,7 +266,7 @@
         <div class="container">
             <h2 class="section-title">Proyectos Destacados</h2>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card" onclick="openGallery('textil')" style="cursor: pointer;">
                     <div class="project-image">
                         <img src="img/zacualtipan.jpg" alt="Fábrica Textil Zacualtipán" class="project-img">
                     </div>
@@ -276,7 +276,7 @@
                         <p>Sistema industrial de gran escala que genera importantes ahorros en costos operativos para esta empresa textil en Hidalgo.</p>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" onclick="openGallery('herrajes')" style="cursor: pointer;">
                     <div class="project-image">
                         <img src="img/tepeapulco.jpg" alt="Fábrica de Herrajes Tepeapulco" class="project-img">
                     </div>
@@ -286,7 +286,7 @@
                         <p>Instalación especializada en sector manufacturero que optimiza el consumo energético industrial.</p>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" onclick="openGallery('concretera')" style="cursor: pointer;">
                     <div class="project-image">
                         <img src="img/mixquiahuala.jpg" alt="Concretera Mixquiahuala" class="project-img">
                     </div>
@@ -296,7 +296,7 @@
                         <p>Proyecto industrial que optimiza el consumo energético de procesos de manufactura pesada.</p>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" onclick="openGallery('pachuca')" style="cursor: pointer;">
                     <div class="project-image">
                         <img src="img/pachuca.jpg" alt="Zona Metropolitana Pachuca" class="project-img">
                     </div>
@@ -306,7 +306,7 @@
                         <p>Múltiples instalaciones residenciales que han transformado la forma de consumir energía en hogares.</p>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" onclick="openGallery('residenciales')" style="cursor: pointer;">
                     <div class="project-image">
                         <div style="background: linear-gradient(45deg, #ff6b35, #f7931e); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem;">🏠</div>
                     </div>
@@ -316,7 +316,7 @@
                         <p>Sistemas fotovoltaicos personalizados para viviendas familiares con tecnología de vanguardia y máximo ahorro energético.</p>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" onclick="openGallery('comerciales')" style="cursor: pointer;">
                     <div class="project-image">
                         <div style="background: linear-gradient(45deg, #2c5282, #87ceeb); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem;">🏢</div>
                     </div>
@@ -508,6 +508,32 @@
         </svg>
     </a>
 
+    <!-- Gallery Modal -->
+    <div id="gallery-modal" class="gallery-modal">
+        <div class="gallery-modal-content">
+            <div class="gallery-header">
+                <h3 id="gallery-title">Galería del Proyecto</h3>
+                <button class="gallery-close" onclick="closeGallery()">&times;</button>
+            </div>
+            <div id="gallery-app">
+                <ul class="gallery">
+                    <li
+                        v-for="item in items"
+                        :key="item.id"
+                        :data-pos="item.pos"
+                        :style="{
+                            translate: `calc(var(--gallery-width) * 0.2 * ${item.pos})`,
+                            scale: item.scale,
+                            backgroundImage: `url(${item.url})`
+                        }"
+                        @click="shuffle(item)"
+                    ></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

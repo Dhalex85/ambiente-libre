@@ -182,3 +182,137 @@
                 observer.observe(el);
             });
         });
+
+        // Gallery functionality
+        let galleryApp = null;
+
+        // Project gallery data
+        const projectGalleries = {
+            textil: {
+                title: 'Fábrica Textil',
+                images: [
+                    'img/zacualtipan.jpg',
+                    'img/zacualtipan.jpg', // Repetimos las imágenes existentes para demo
+                    'img/zacualtipan.jpg', // En producción, tendrías más fotos del proyecto
+                    'img/zacualtipan.jpg',
+                    'img/zacualtipan.jpg'
+                ]
+            },
+            herrajes: {
+                title: 'Fábrica de Herrajes',
+                images: [
+                    'img/tepeapulco.jpg',
+                    'img/tepeapulco.jpg',
+                    'img/tepeapulco.jpg',
+                    'img/tepeapulco.jpg',
+                    'img/tepeapulco.jpg'
+                ]
+            },
+            concretera: {
+                title: 'Concretera',
+                images: [
+                    'img/mixquiahuala.jpg',
+                    'img/mixquiahuala.jpg',
+                    'img/mixquiahuala.jpg',
+                    'img/mixquiahuala.jpg',
+                    'img/mixquiahuala.jpg'
+                ]
+            },
+            pachuca: {
+                title: 'Zona Metropolitana Pachuca',
+                images: [
+                    'img/pachuca.jpg',
+                    'img/pachuca.jpg',
+                    'img/pachuca.jpg',
+                    'img/pachuca.jpg',
+                    'img/pachuca.jpg'
+                ]
+            },
+            residenciales: {
+                title: 'Proyectos Residenciales',
+                images: [
+                    'img/domestico.webp',
+                    'img/domestico.webp',
+                    'img/domestico.webp',
+                    'img/domestico.webp',
+                    'img/domestico.webp'
+                ]
+            },
+            comerciales: {
+                title: 'Proyectos Comerciales',
+                images: [
+                    'img/comercial.webp',
+                    'img/comercial.webp',
+                    'img/comercial.webp',
+                    'img/comercial.webp',
+                    'img/comercial.webp'
+                ]
+            }
+        };
+
+        function openGallery(projectType) {
+            const gallery = projectGalleries[projectType];
+            if (!gallery) return;
+
+            // Set gallery title
+            document.getElementById('gallery-title').textContent = gallery.title;
+
+            // Show modal
+            document.getElementById('gallery-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            // Initialize Vue app for gallery
+            const { createApp, reactive } = Vue;
+            
+            if (galleryApp) {
+                galleryApp.unmount();
+            }
+
+            galleryApp = createApp({
+                setup() {
+                    const items = reactive(
+                        gallery.images.map((url, index) => ({
+                            id: index,
+                            pos: index,
+                            url: url
+                        }))
+                    );
+
+                    function shuffle(item) {
+                        const heroPos = Math.floor(items.length / 2);
+                        const hero = items.findIndex(({ pos }) => pos === heroPos);
+                        const target = items.findIndex(({ id }) => id === item.id);
+                        [items[target].pos, items[hero].pos] = [items[hero].pos, items[target].pos];
+                    }
+
+                    return {
+                        items,
+                        shuffle,
+                    }
+                },
+            }).mount('#gallery-app');
+        }
+
+        function closeGallery() {
+            document.getElementById('gallery-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            if (galleryApp) {
+                galleryApp.unmount();
+                galleryApp = null;
+            }
+        }
+
+        // Close gallery when clicking outside
+        document.getElementById('gallery-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeGallery();
+            }
+        });
+
+        // Close gallery with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeGallery();
+            }
+        });
