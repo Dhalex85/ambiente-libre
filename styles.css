@@ -1,5 +1,5 @@
 /* ================================================
-    AMBIENTE LIBRE - ESTILOS CSS CORREGIDOS
+    AMBIENTE LIBRE - ESTILOS CSS COMPLETOS CORREGIDOS
    ================================================ */
 
 /* Reset y configuración base */
@@ -40,7 +40,7 @@ body {
 }
 
 .logo {
-    font-size: 1.8rem; /* Aumentado de 1.5rem */
+    font-size: 1.8rem;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -49,7 +49,7 @@ body {
 }
 
 .logo-text {
-    color: #ffa726; /* Fallback color naranja muy claro */
+    color: #ffa726;
     background: linear-gradient(45deg, #ffa726, #ff8c42, #ff6b35);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -91,7 +91,7 @@ body {
 }
 
 .logo-link:hover .logo-text {
-    color: #ffb74d; /* Color sólido naranja súper brillante para hover */
+    color: #ffb74d;
     filter: drop-shadow(0 0 8px rgba(255, 183, 77, 1.0)) brightness(1.5);
     text-shadow: 0 0 12px rgba(255, 167, 38, 0.9);
 }
@@ -103,6 +103,7 @@ body {
     object-fit: contain;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -132,7 +133,7 @@ body {
 }
 
 /* ================================================
-    SECCIÓN HERO - CORREGIDA
+    SECCIÓN HERO
    ================================================ */
 
 .hero {
@@ -143,8 +144,8 @@ body {
     text-align: center;
     color: white;
     position: relative;
-    padding: 80px 1rem 0; /* Agregado padding-top para compensar header fijo */
-    overflow: hidden; /* Para contener el video */
+    padding: 80px 1rem 0;
+    overflow: hidden;
 }
 
 .hero-video {
@@ -171,7 +172,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    padding: 0 1rem; /* Agregado padding lateral */
+    padding: 0 1rem;
     position: relative;
     z-index: 1;
 }
@@ -179,8 +180,9 @@ body {
 .hero h1 {
     font-size: clamp(2rem, 5vw, 3.5rem);
     margin-bottom: 1rem;
+    margin-top: 2rem; /* ← Esta línea baja el título */
     animation: fadeInUp 1s ease-out;
-    padding: 0 0.5rem; /* Padding adicional para móvil */
+    padding: 0 0.5rem;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
@@ -192,8 +194,9 @@ body {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 0.5rem; /* Padding adicional para móvil */
+    padding: 0 0.5rem;
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+    line-height: 1.5;
 }
 
 .hero-stats {
@@ -203,7 +206,7 @@ body {
     margin: 3rem auto;
     animation: fadeInUp 1s ease-out 0.6s both;
     max-width: 600px;
-    padding: 0 0.5rem; /* Padding adicional para móvil */
+    padding: 0 0.5rem;
 }
 
 .stat-item {
@@ -236,7 +239,7 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 1rem;
-    margin: 0 0.5rem; /* Margen lateral */
+    margin: 0 0.5rem;
 }
 
 .cta-button:hover {
@@ -268,15 +271,18 @@ body {
 }
 
 .section-title {
-    text-align: center;
+    text-align: center !important;
     font-size: clamp(2rem, 4vw, 2.5rem);
     margin-bottom: 2rem;
     color: #1a365d;
-    padding: 0 0.5rem; /* Padding adicional para móvil */
+    padding: 0 0.5rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ================================================
-   SERVICIOS - DISEÑO JERÁRQUICO
+   SERVICIOS - DISEÑO JERÁRQUICO CORREGIDO
    ================================================ */
 
 /* Servicios Principales */
@@ -344,7 +350,7 @@ body {
 }
 
 /* ================================================
-   BENEFICIOS SECTION
+   BENEFICIOS SECTION - CORREGIDO
    ================================================ */
 
 .benefits-section {
@@ -362,6 +368,7 @@ body {
     max-width: none;
     margin: 0;
     gap: 0;
+    text-align: center;
 }
 
 .benefit-item {
@@ -369,7 +376,7 @@ body {
     background: transparent;
     padding: 3rem 1.5rem;
     border-radius: 0;
-    text-align: center;
+    text-align: center !important;
     box-shadow: none;
     border: none;
     position: relative;
@@ -422,6 +429,7 @@ body {
     position: relative;
     z-index: 1;
     transition: color 0.3s ease;
+    text-align: center;
 }
 
 .benefit-item:hover h4 {
@@ -436,16 +444,20 @@ body {
     z-index: 1;
     max-width: 220px;
     margin: 0 auto;
+    text-align: center;
 }
 
-/* Título de servicios secundarios */
+/* Título de servicios secundarios - CORREGIDO */
 .secondary-title {
-    text-align: center;
+    text-align: center !important;
     font-size: 1.5rem;
     color: #1a365d;
     margin: 3rem 0 1.5rem;
     opacity: 0.8;
     font-weight: 600;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Servicios Secundarios */
@@ -505,7 +517,7 @@ body {
     color: #666;
 }
 
-/* Mantener compatibilidad con el grid original para mobile */
+/* Mantener compatibilidad con el grid original */
 .services-grid {
     display: flex;
     flex-wrap: wrap;
@@ -558,7 +570,7 @@ body {
 }
 
 /* ================================================
-   SECCIÓN SOBRE NOSOTROS
+   SECCIÓN SOBRE NOSOTROS - CORREGIDA
    ================================================ */
 
 .about-section {
@@ -575,10 +587,24 @@ body {
 .about-text {
     font-size: 1rem;
     line-height: 1.8;
+    text-align: justify;
 }
 
 .about-text p {
     margin-bottom: 1rem;
+    text-align: justify;
+}
+
+/* Título "Nuestros Valores" - CORREGIDO */
+.about-content h3 {
+    color: #1a365d !important;
+    margin-bottom: 1rem !important;
+    text-align: center !important;
+    width: 100% !important;
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 .values-grid {
@@ -587,6 +613,7 @@ body {
     justify-content: center;
     gap: 1rem;
     margin-top: 1.5rem;
+    text-align: center;
 }
 
 .value-item {
@@ -596,6 +623,7 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     width: 250px;
     flex: 0 0 250px;
+    text-align: center;
 }
 
 .value-item h4 {
@@ -788,11 +816,10 @@ body {
 }
 
 /* ================================================
-   CALCULADORA
+   CALCULADORA - CORREGIDA
    ================================================ */
 
 .calculator {
-    /* background: linear-gradient(135deg, #1a365d, #2c5282); */
     background: linear-gradient(135deg, rgba(26, 54, 93, 0.8), rgba(44, 82, 130, 0.8));
     color: white;
     text-align: center;
@@ -847,12 +874,14 @@ body {
     font-size: 0.95rem;
 }
 
-.input-group input {
+.input-group input,
+.input-group select {
     width: 100%;
     padding: 0.8rem;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
 .calculate-btn {
@@ -883,7 +912,7 @@ body {
 }
 
 /* ================================================
-   CONTACTO
+   CONTACTO - CORREGIDO
    ================================================ */
 
 .contact {
@@ -894,13 +923,24 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
+    align-items: start;
 }
 
-.contact-info {
+.contact-info,
+.contact-form-container {
     background: white;
     padding: 1.5rem;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contact-info h3,
+.contact-form-container h3 {
+    color: #1a365d;
+    margin-bottom: 1.2rem;
+    font-size: 1.3rem;
 }
 
 .contact-item {
@@ -922,19 +962,6 @@ body {
     flex-shrink: 0;
 }
 
-.contact-form-container {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.contact-form-container h3 {
-    color: #1a365d;
-    margin-bottom: 1.2rem;
-    font-size: 1.3rem;
-}
-
 .form-row {
     margin-bottom: 1rem;
 }
@@ -947,6 +974,8 @@ body {
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 0.95rem;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .form-row textarea {
@@ -954,7 +983,10 @@ body {
     resize: vertical;
 }
 
-/* Footer */
+/* ================================================
+   FOOTER - MEJORADO
+   ================================================ */
+
 .footer {
     background: #1a365d;
     color: white;
@@ -1013,6 +1045,7 @@ body {
     display: flex;
     gap: 1rem;
     align-items: center;
+    justify-content: center;
 }
 
 .social-icon {
@@ -1167,16 +1200,20 @@ body {
 }
 
 /* ================================================
-   MOBILE OPTIMIZATIONS - CORREGIDAS
+   MOBILE OPTIMIZATIONS - CORREGIDAS Y MEJORADAS
    ================================================ */
 
 @media (max-width: 768px) {
+    .hero h1 {
+        margin-top: 1.5rem; /* Menos espacio en tablets */
+    }
+    
     .header {
         padding: 0.6rem 0;
     }
     
     .nav-container {
-        padding: 0 1rem; /* Aumentado de 0.8rem */
+        padding: 0 1rem;
     }
     
     .hamburger {
@@ -1194,6 +1231,7 @@ body {
         padding: 1rem;
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         gap: 1rem;
+        border-radius: 0 0 15px 15px;
     }
     
     .nav-menu.active {
@@ -1204,106 +1242,109 @@ body {
         padding: 0.5rem 1rem;
         border-radius: 8px;
         transition: background-color 0.3s;
+        text-align: center;
+        font-size: 1rem;
     }
     
     .nav-menu a:hover {
         background-color: rgba(255,255,255,0.1);
     }
-      /* HERO MÓVIL CORREGIDO */
+    
+    /* HERO MÓVIL CORREGIDO */
     .hero {
-        padding: 100px 1rem 0; /* Aumentado padding-top para móvil */
+        padding: 100px 1rem 0;
         min-height: 100vh;
     }
     
     .hero-video {
-        /* En móvil, asegurar que el video cubra toda la pantalla */
         min-width: 100%;
         min-height: 100%;
+        object-position: center center;
     }
     
     .hero-content {
-        padding: 0; /* Removido padding extra que causaba problemas */
+        padding: 0;
     }
     
     .hero h1 {
-        padding: 0; /* Removido padding extra */
+        padding: 0;
         margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        line-height: 1.2;
     }
     
     .hero-subtitle {
-        padding: 0; /* Removido padding extra */
+        padding: 0;
         margin-bottom: 2rem;
+        font-size: 1rem;
+        line-height: 1.4;
+        max-width: 90%;
     }
     
     .hero-stats {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        gap: 1.5rem;
         margin: 2rem auto;
-        padding: 0; /* Removido padding extra */
-        max-width: 100%; /* Usar todo el ancho disponible */
+        padding: 0;
+        max-width: 300px;
+    }
+    
+    .stat-item {
+        padding: 0.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
     }
     
     .cta-button {
-        margin: 0; /* Removido margen lateral que causaba problemas */
+        margin: 0;
         width: auto;
-        max-width: 280px; /* Ancho máximo para evitar que sea muy ancho */
+        max-width: 280px;
+        padding: 0.9rem 1.5rem;
     }
     
+    /* SECCIONES GENERALES MÓVIL */
     .section {
         padding: 3rem 0;
     }
     
     .container {
-        padding: 0 1rem; /* Aumentado de 0.8rem */
+        padding: 0 1rem;
     }
     
     .section-title {
-        padding: 0; /* Removido padding extra */
+        padding: 0 1rem;
+        font-size: 1.8rem;
     }
     
-    .services-grid,
-    .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-    }
-    
+    /* SERVICIOS MÓVIL - CENTRADO PERFECTO */
     .main-services {
         grid-template-columns: 1fr;
         gap: 1.5rem;
         margin-bottom: 2rem;
     }
     
-    .secondary-services {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-    
-    .secondary-service {
-        width: 100%;
-        max-width: 300px;
-        flex: none;
-    }
-    
-    .secondary-title {
-        font-size: 1.3rem;
-        margin: 2rem 0 1rem;
-    }
-    
-    .benefits-section {
-        margin: 2rem 0;
-        padding: 0;
-    }
-    
     .benefits-container {
-        flex-direction: column;
-        gap: 1.5rem;
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+        text-align: center !important;
+        align-items: center !important;
     }
     
     .benefit-item {
-        padding: 2rem 1rem;
-        background: rgba(255, 167, 38, 0.02);
-        border-radius: 15px;
+        padding: 2rem 1rem !important;
+        background: rgba(255, 167, 38, 0.02) !important;
+        border-radius: 15px !important;
+        width: 100% !important;
+        max-width: 400px !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+    }
+    
+    .benefit-item h4,
+    .benefit-item p {
+        text-align: center !important;
     }
     
     .benefit-icon {
@@ -1326,61 +1367,55 @@ body {
         max-width: none;
     }
     
-    .values-grid {
-        grid-template-columns: 1fr;
-        gap: 0.8rem;
+    .secondary-title {
+        font-size: 1.3rem !important;
+        margin: 2rem 0 1rem !important;
+        text-align: center !important;
+        padding: 0 1rem !important;
     }
     
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+    .secondary-services {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
     
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
+    .secondary-service {
+        width: 100%;
+        max-width: 300px;
+        flex: none;
+    }
+    
+    /* SOBRE NOSOTROS MÓVIL - TEXTO CORREGIDO */
+    .about-text {
         text-align: left;
+        line-height: 1.6;
     }
     
-    .social-icons {
-        justify-content: flex-start;
+    .about-text p {
+        text-align: left;
+        margin-bottom: 1.2rem;
     }
     
-    .social-icon {
-        width: 35px;
-        height: 35px;
+    .about-content h3 {
+        text-align: center !important;
+        font-size: 1.3rem !important;
+        padding: 0 1rem !important;
     }
     
-    .social-svg {
-        width: 18px;
-        height: 18px;
+    .values-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        margin-top: 1.5rem !important;
+        text-align: center !important;
     }
     
-    .whatsapp-float {
-        width: 55px;
-        height: 55px;
-        bottom: 15px;
-        right: 15px;
-    }
-    
-    .whatsapp-icon {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .calculator-form {
-        margin: 1.5rem auto 0;
-        padding: 1.2rem;
-    }
-    
-    .calculator-video {
-        /* En móvil, asegurar que el video cubra toda la pantalla */
-        min-width: 100%;
-        min-height: 100%;
-    }
-    
-    .about-content {
-        gap: 1.5rem;
+    .value-item {
+        width: 100% !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+        flex: none !important;
     }
     
     .mission-vision-grid {
@@ -1396,6 +1431,98 @@ body {
     .mission-vision-title {
         font-size: 1.5rem;
     }
+    
+    /* PROYECTOS MÓVIL */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+    
+    /* CALCULADORA MÓVIL */
+    .calculator-form {
+        margin: 1.5rem auto 0;
+        padding: 1.5rem;
+        max-width: 100%;
+    }
+    
+    .calculator-video {
+        min-width: 100%;
+        min-height: 100%;
+        object-position: center center;
+    }
+    
+    .input-group input,
+    .input-group select {
+        font-size: 16px; /* Evitar zoom en iOS */
+    }
+    
+    /* CONTACTO MÓVIL - TARJETAS AJUSTADAS */
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    .contact-info,
+    .contact-form-container {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 1.2rem !important;
+        box-sizing: border-box !important;
+    }
+    
+    .contact-icon {
+        width: 35px;
+        height: 35px;
+        margin-right: 0.8rem;
+        flex-shrink: 0;
+    }
+    
+    .contact-item {
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
+    
+    /* FOOTER MÓVIL */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        text-align: center;
+    }
+    
+    .footer-section {
+        text-align: center;
+    }
+    
+    .footer-section ul {
+        text-align: center;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+    
+    .social-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .social-svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* WHATSAPP MÓVIL */
+    .whatsapp-float {
+        width: 55px;
+        height: 55px;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .whatsapp-icon {
+        width: 28px;
+        height: 28px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1404,11 +1531,10 @@ body {
     }
     
     .hero {
-        padding: 90px 0.8rem 0; /* Ajustado para pantallas muy pequeñas */
+        padding: 90px 0.8rem 0;
     }
     
     .hero-video {
-        /* Optimizar video para pantallas muy pequeñas */
         object-position: center center;
     }
     
@@ -1428,12 +1554,18 @@ body {
     
     .section-title {
         font-size: 1.8rem;
+        padding: 0 0.5rem;
+    }
+    
+    .about-content h3 {
+        font-size: 1.3rem !important;
+        padding: 0 0.5rem !important;
     }
     
     .hero-stats {
         grid-template-columns: 1fr;
         gap: 0.8rem;
-        margin: 1.5rem auto; /* Reducido margen */
+        margin: 1.5rem auto;
     }
     
     .stat-number {
@@ -1455,7 +1587,7 @@ body {
     }
     
     .cta-button {
-        max-width: 250px; /* Reducido para pantallas muy pequeñas */
+        max-width: 250px;
         padding: 0.9rem 1.5rem;
     }
     
@@ -1465,7 +1597,7 @@ body {
     }
     
     .benefit-item {
-        padding: 1.5rem 0.8rem;
+        padding: 1.5rem 0.8rem !important;
     }
     
     .benefit-item h4 {
@@ -1477,8 +1609,13 @@ body {
     }
     
     .calculator-video {
-        /* Optimizar video para pantallas muy pequeñas */
         object-position: center center;
+    }
+    
+    .contact-info,
+    .contact-form-container {
+        padding: 1rem !important;
+        border-radius: 12px;
     }
 }
 
@@ -1486,7 +1623,7 @@ body {
 @media (max-height: 500px) and (orientation: landscape) {
     .hero {
         min-height: 100vh;
-        padding: 80px 1rem 2rem; /* Ajustado padding */
+        padding: 80px 1rem 2rem;
     }
     
     .hero-video {
@@ -1513,5 +1650,271 @@ body {
     
     .cta-button {
         margin-top: 1rem;
+    }
+}
+
+/* ================================================
+   CORRECCIONES ESPECÍFICAS Y PRECISAS PARA MÓVIL
+   ================================================ */
+
+/* CENTRADO SOLO DONDE ES NECESARIO */
+@media (max-width: 768px) {
+    
+    /* SERVICIOS PRINCIPALES - Solo el contenedor grid */
+    .main-services {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 1.5rem !important;
+        margin: 2rem auto !important;
+        width: 100% !important;
+    }
+    
+    .main-service {
+        width: 100% !important;
+        max-width: 350px !important;
+        margin: 0 auto !important;
+        text-align: center !important; /* Solo para las tarjetas de servicio */
+    }
+
+    /* SERVICIOS SECUNDARIOS - Solo el contenedor */
+    .secondary-services {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 1rem !important;
+        margin: 1.5rem auto !important;
+        width: 100% !important;
+    }
+    
+    .secondary-service {
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
+        text-align: center !important; /* Solo para las tarjetas de servicio */
+    }
+
+    /* PROJECTS GRID */
+    .projects-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1.2rem !important;
+        margin-top: 2rem !important;
+    }
+    
+    .project-card {
+        width: 100% !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+    }
+
+    /* BOTÓN CTA - Centrado específico */
+    .cta-button {
+        display: block !important;
+        margin: 1.5rem auto !important;
+        width: fit-content !important;
+        text-align: center !important;
+    }
+
+    /* TÍTULOS - Solo centrar títulos principales */
+    .section-title,
+    .secondary-title {
+        text-align: center !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    /* EXCLUIR CONTENIDO QUE NO DEBE CENTRARSE */
+    .contact-info,
+    .contact-form-container,
+    .about-text,
+    .form-row,
+    .contact-item {
+        text-align: left !important; /* Mantener alineación natural */
+    }
+    
+    .contact-info h3,
+    .contact-form-container h3 {
+        text-align: left !important; /* Títulos de contacto a la izquierda */
+    }
+    
+    .about-text p {
+        text-align: left !important; /* Párrafos justificados */
+    }
+    
+    .form-row label {
+        text-align: left !important; /* Labels de formulario */
+    }
+    
+    .footer-section {
+        text-align: center !important; /* Footer sí debe estar centrado */
+    }
+
+    /* CONTAINER GENERAL - Sin centrado automático */
+    .container {
+        padding: 0 1rem !important;
+        /* NO aplicar flex ni centrado aquí */
+    }
+}
+
+/* SERVICIOS PRINCIPALES - CENTRADO PERFECTO */
+@media (max-width: 768px) {
+    .main-services {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1.5rem !important;
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+        width: 100% !important;
+    }
+    
+    .main-service {
+        width: 100% !important;
+        max-width: 350px !important;
+        margin: 0 auto !important;
+        flex: none !important;
+    }
+
+    /* SERVICIOS SECUNDARIOS - CENTRADO PERFECTO */
+    .secondary-services {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1rem !important;
+        margin-top: 1.5rem !important;
+        width: 100% !important;
+    }
+    
+    .secondary-service {
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
+        flex: none !important;
+    }
+
+    /* GRID DE SERVICIOS GENÉRICO - CENTRADO */
+    .services-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1.5rem !important;
+        margin-top: 2rem !important;
+        width: 100% !important;
+    }
+    
+    .service-card {
+        width: 100% !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+        flex: none !important;
+    }
+
+    /* BOTÓN CTA - CENTRADO PERFECTO */
+    .cta-button {
+        display: block !important;
+        margin: 1.5rem auto !important;
+        width: fit-content !important;
+        max-width: 280px !important;
+        padding: 1rem 2rem !important;
+        text-align: center !important;
+    }
+
+    /* CONTENEDOR HERO - CENTRADO DE BOTÓN */
+    .hero-content {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    /* PROYECTOS - CENTRADO */
+    .projects-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1.2rem !important;
+        margin-top: 2rem !important;
+    }
+    
+    .project-card {
+        width: 100% !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* SERVICIOS EN PANTALLAS MUY PEQUEÑAS */
+    .main-service {
+        max-width: 300px !important;
+        padding: 1.5rem !important;
+    }
+    
+    .secondary-service {
+        max-width: 280px !important;
+        padding: 1rem !important;
+    }
+    
+    .service-card {
+        max-width: 280px !important;
+        padding: 1.2rem !important;
+    }
+    
+    .project-card {
+        max-width: 280px !important;
+    }
+
+    /* BOTÓN CTA MUY PEQUEÑO */
+    .cta-button {
+        max-width: 250px !important;
+        padding: 0.9rem 1.5rem !important;
+        font-size: 0.95rem !important;
+    }
+}
+
+/* ================================================
+   SOLUCIÓN ADICIONAL PARA CUALQUIER CONTENEDOR
+   ================================================ */
+
+/* Asegurar que todos los contenedores estén centrados */
+@media (max-width: 768px) {
+    .container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        padding: 0 1rem !important;
+    }
+    
+    /* Elementos que deben mantener su ancho completo */
+    .hero-content,
+    .about-text,
+    .calculator-form,
+    .contact-grid,
+    .contact-info,
+    .contact-form-container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Texto justificado solo donde es necesario */
+    .about-text p {
+        text-align: left !important;
+    }
+    
+    /* Formularios mantienen alineación natural */
+    .form-row {
+        text-align: left !important;
+    }
+    
+    .form-row label {
+        text-align: left !important;
     }
 }
