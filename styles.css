@@ -906,7 +906,11 @@ body {
     }
     
     :root {
-        --gallery-width: min(350px, 85vw);
+        --gallery-width: min(600px, 95vw);
+    }
+    
+    .gallery li {
+        width: calc(var(--gallery-width) / 3.5);
     }
 }
 
@@ -916,7 +920,11 @@ body {
     }
     
     :root {
-        --gallery-width: min(280px, 80vw);
+        --gallery-width: min(500px, 95vw);
+    }
+    
+    .gallery li {
+        width: calc(var(--gallery-width) / 3);
     }
 }
 
