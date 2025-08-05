@@ -515,7 +515,8 @@
                 <h3 id="gallery-title">Galería del Proyecto</h3>
                 <button class="gallery-close" onclick="closeGallery()">&times;</button>
             </div>
-            <div id="gallery-app">
+            <!-- Desktop Gallery -->
+            <div id="gallery-app" class="desktop-gallery">
                 <ul class="gallery">
                     <li
                         v-for="item in items"
@@ -529,6 +530,26 @@
                         @click="shuffle(item)"
                     ></li>
                 </ul>
+            </div>
+            <!-- Mobile Gallery -->
+            <div id="mobile-gallery" class="mobile-gallery">
+                <div class="mobile-gallery-container">
+                    <div 
+                        v-for="(item, index) in items" 
+                        :key="index" 
+                        class="mobile-gallery-slide"
+                        :style="{ backgroundImage: `url(${item})` }"
+                    ></div>
+                </div>
+                <div class="mobile-gallery-indicators">
+                    <span 
+                        v-for="(item, index) in items" 
+                        :key="index" 
+                        class="indicator"
+                        :class="{ active: index === currentSlide.value }"
+                        @click="goToSlide(index)"
+                    ></span>
+                </div>
             </div>
         </div>
     </div>

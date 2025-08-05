@@ -185,6 +185,7 @@
 
         // Gallery functionality
         let galleryApp = null;
+        let mobileGalleryApp = null;
 
         // Project gallery data
         const projectGalleries = {
@@ -261,13 +262,18 @@
             document.getElementById('gallery-modal').style.display = 'block';
             document.body.style.overflow = 'hidden';
 
-            // Initialize Vue app for gallery
+            // Initialize Vue apps for both desktop and mobile galleries
             const { createApp, reactive } = Vue;
             
+            // Clean up existing apps
             if (galleryApp) {
                 galleryApp.unmount();
             }
+            if (mobileGalleryApp) {
+                mobileGalleryApp.unmount();
+            }
 
+            // Desktop Gallery App
             galleryApp = createApp({
                 setup() {
                     const items = reactive(
@@ -291,6 +297,46 @@
                     }
                 },
             }).mount('#gallery-app');
+
+            // Mobile Gallery App
+            mobileGalleryApp = createApp({
+                setup() {
+                    const items = gallery.images; // Array de URLs directamente
+                    console.log('Mobile gallery images:', items); // Debug
+                    const currentSlide = reactive({ value: 0 });
+
+                    function goToSlide(index) {
+                        currentSlide.value = index;
+                        const container = document.querySelector('.mobile-gallery-container');
+                        if (container) {
+                            const slideWidth = container.clientWidth;
+                            container.scrollTo({
+                                left: slideWidth * index,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+
+                    // Handle scroll events to update indicators
+                    setTimeout(() => {
+                        const container = document.querySelector('.mobile-gallery-container');
+                        if (container) {
+                            container.addEventListener('scroll', () => {
+                                const slideWidth = container.clientWidth;
+                                const scrollLeft = container.scrollLeft;
+                                const newSlide = Math.round(scrollLeft / slideWidth);
+                                currentSlide.value = newSlide;
+                            });
+                        }
+                    }, 200);
+
+                    return {
+                        items,
+                        currentSlide,
+                        goToSlide,
+                    }
+                },
+            }).mount('#mobile-gallery');
         }
 
         function closeGallery() {
@@ -300,6 +346,11 @@
             if (galleryApp) {
                 galleryApp.unmount();
                 galleryApp = null;
+            }
+            
+            if (mobileGalleryApp) {
+                mobileGalleryApp.unmount();
+                mobileGalleryApp = null;
             }
         }
 
