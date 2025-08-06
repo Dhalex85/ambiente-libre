@@ -242,41 +242,41 @@
             textil: {
                 title: 'Fábrica Textil',
                 images: [
-                    'img/zacualtipan.jpg',
-                    'img/zacualtipan.jpg', // Repetimos las imágenes existentes para demo
-                    'img/zacualtipan.jpg', // En producción, tendrías más fotos del proyecto
-                    'img/zacualtipan.jpg',
-                    'img/zacualtipan.jpg'
+                    'img/textil/textil2.jpg',
+                    'img/textil/textil3.jpg',
+                    'img/textil/textil1.jpg',
+                    'img/textil/textil4.jpg',
+                    'img/textil/textil5.jpg'
                 ]
             },
             herrajes: {
                 title: 'Fábrica de Herrajes',
                 images: [
-                    'img/tepeapulco.jpg',
-                    'img/tepeapulco.jpg',
-                    'img/tepeapulco.jpg',
-                    'img/tepeapulco.jpg',
-                    'img/tepeapulco.jpg'
+                    'img/herrajes/herrajes4.jpg',
+                    'img/herrajes/herrajes3.jpg',
+                    'img/herrajes/herrajes1.jpg',
+                    'img/herrajes/herrajes2.jpg',
+                    'img/herrajes/herrajes5.jpg'
                 ]
             },
             concretera: {
                 title: 'Concretera',
                 images: [
-                    'img/mixquiahuala.jpg',
-                    'img/mixquiahuala.jpg',
-                    'img/mixquiahuala.jpg',
-                    'img/mixquiahuala.jpg',
-                    'img/mixquiahuala.jpg'
+                    'img/concretera/concretera4.jpg',
+                    'img/concretera/concretera3.jpg',
+                    'img/concretera/concretera1.jpg',
+                    'img/concretera/concretera2.jpg',
+                    'img/concretera/concretera5.jpg'
                 ]
             },
             pachuca: {
                 title: 'Zona Metropolitana Pachuca',
                 images: [
-                    'img/pachuca.jpg',
-                    'img/pachuca.jpg',
-                    'img/pachuca.jpg',
-                    'img/pachuca.jpg',
-                    'img/pachuca.jpg'
+                    'img/pachuca/pachuca3.jpg',
+                    'img/pachuca/pachuca4.jpg',
+                    'img/pachuca/pachuca1.jpg',
+                    'img/pachuca/pachuca2.jpg',
+                    'img/pachuca/pachuca5.jpg'
                 ]
             },
             residenciales: {
@@ -492,4 +492,207 @@
                     if (pageContent) pageContent.scrollLeft = 0;
                 }
             });
+        });
+
+        // ================================================
+        // MEJORAS PARA INTERACTIVIDAD TÁCTIL EN MÓVILES
+        // ================================================
+        
+        // Función para detectar dispositivos táctiles
+        function isTouchDevice() {
+            return (('ontouchstart' in window) ||
+                    (navigator.maxTouchPoints > 0) ||
+                    (navigator.msMaxTouchPoints > 0));
+        }
+
+        // Mejorar experiencia táctil en tarjetas de servicios principales
+        function enhanceTouchExperience() {
+            if (!isTouchDevice()) return;
+
+            // Tarjetas de servicios principales
+            const mainServiceCards = document.querySelectorAll('.main-service');
+            mainServiceCards.forEach(card => {
+                card.addEventListener('touchstart', function(e) {
+                    this.classList.add('touch-active');
+                });
+                
+                card.addEventListener('touchend', function(e) {
+                    setTimeout(() => {
+                        this.classList.remove('touch-active');
+                    }, 150);
+                });
+            });
+
+            // Tarjetas de beneficios
+            const benefitItems = document.querySelectorAll('.benefit-item');
+            benefitItems.forEach(item => {
+                item.addEventListener('touchstart', function(e) {
+                    this.classList.add('touch-active');
+                });
+                
+                item.addEventListener('touchend', function(e) {
+                    setTimeout(() => {
+                        this.classList.remove('touch-active');
+                    }, 150);
+                });
+            });
+
+            // Tarjetas de servicios secundarios
+            const secondaryServices = document.querySelectorAll('.secondary-service');
+            secondaryServices.forEach(service => {
+                service.addEventListener('touchstart', function(e) {
+                    this.classList.add('touch-active');
+                });
+                
+                service.addEventListener('touchend', function(e) {
+                    setTimeout(() => {
+                        this.classList.remove('touch-active');
+                    }, 150);
+                });
+            });
+
+            // Tarjetas de valores
+            const valueItems = document.querySelectorAll('.value-item');
+            valueItems.forEach(item => {
+                item.addEventListener('touchstart', function(e) {
+                    this.classList.add('touch-active');
+                });
+                
+                item.addEventListener('touchend', function(e) {
+                    setTimeout(() => {
+                        this.classList.remove('touch-active');
+                    }, 150);
+                });
+            });
+
+            // Tarjetas de misión y visión con toggle
+            const missionVisionCards = document.querySelectorAll('.mission-vision-card');
+            missionVisionCards.forEach(card => {
+                let isExpanded = false;
+                
+                card.addEventListener('touchstart', function(e) {
+                    this.classList.add('touch-active');
+                });
+                
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Toggle estado expandido
+                    isExpanded = !isExpanded;
+                    
+                    if (isExpanded) {
+                        this.classList.add('expanded');
+                        this.style.zIndex = '1000';
+                        
+                        // Mostrar contenido con animación
+                        const content = this.querySelector('.mission-vision-content p');
+                        const title = this.querySelector('.mission-vision-title');
+                        
+                        if (content) {
+                            content.style.opacity = '1';
+                            content.style.transform = 'translateY(0)';
+                        }
+                        
+                        if (title) {
+                            title.style.transform = 'scale(1.05)';
+                            title.style.textShadow = '0 0 15px rgba(255, 255, 255, 0.8)';
+                        }
+                        
+                    } else {
+                        this.classList.remove('expanded');
+                        this.style.zIndex = '';
+                        
+                        // Ocultar contenido
+                        const content = this.querySelector('.mission-vision-content p');
+                        const title = this.querySelector('.mission-vision-title');
+                        
+                        if (content) {
+                            content.style.opacity = '0';
+                            content.style.transform = 'translateY(2rem)';
+                        }
+                        
+                        if (title) {
+                            title.style.transform = 'scale(1)';
+                            title.style.textShadow = '3px 3px 6px rgba(0, 0, 0, 0.9)';
+                        }
+                    }
+                });
+                
+                card.addEventListener('touchend', function(e) {
+                    setTimeout(() => {
+                        this.classList.remove('touch-active');
+                    }, 150);
+                });
+            });
+        }
+
+        // Agregar estilos CSS para los estados táctiles
+        function addTouchStyles() {
+            const style = document.createElement('style');
+            style.textContent = `
+                .touch-active {
+                    transform: scale(0.98) !important;
+                    transition: transform 0.1s ease !important;
+                }
+                
+                .main-service.touch-active {
+                    transform: translateY(-5px) scale(0.98) !important;
+                }
+                
+                .value-item.touch-active {
+                    transform: translateY(-3px) scale(0.98) !important;
+                }
+                
+                .mission-vision-card.expanded .mission-vision-content {
+                    justify-content: flex-end !important;
+                    padding-bottom: 4rem !important;
+                }
+                
+                .mission-vision-card.expanded .mission-vision-title {
+                    top: 25% !important;
+                    margin-bottom: 1.5rem !important;
+                }
+                
+                .mission-vision-card.expanded::after {
+                    transform: translateY(-50%) !important;
+                    background-image: linear-gradient(
+                        to bottom,
+                        hsla(220, 55%, 20%, 0.3) 0%,
+                        hsla(220, 55%, 18%, 0.35) 11.7%,
+                        hsla(220, 55%, 16%, 0.4) 22.1%,
+                        hsla(220, 55%, 14%, 0.45) 31.2%,
+                        hsla(220, 55%, 12%, 0.5) 39.4%,
+                        hsla(220, 55%, 10%, 0.55) 46.6%,
+                        hsla(220, 55%, 8%, 0.6) 53.1%,
+                        hsla(220, 55%, 6%, 0.65) 58.9%,
+                        hsla(220, 55%, 4%, 0.7) 64.3%,
+                        hsla(200, 45%, 15%, 0.75) 69.3%,
+                        hsla(200, 45%, 12%, 0.8) 74.1%,
+                        hsla(200, 45%, 10%, 0.85) 78.8%,
+                        hsla(200, 45%, 8%, 0.9) 83.6%,
+                        hsla(200, 45%, 6%, 0.92) 88.7%,
+                        hsla(200, 45%, 4%, 0.95) 94.1%,
+                        hsla(200, 45%, 2%, 0.98) 100%
+                    ) !important;
+                }
+                
+                @media (max-width: 768px) {
+                    .mission-vision-card {
+                        cursor: pointer;
+                        -webkit-tap-highlight-color: transparent;
+                    }
+                    
+                    .value-item {
+                        cursor: pointer;
+                        -webkit-tap-highlight-color: transparent;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Inicializar mejoras táctiles cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            enhanceTouchExperience();
+            addTouchStyles();
         });

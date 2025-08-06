@@ -338,20 +338,7 @@ body {
     height: 100%;
 }
 
-/* Media queries para servicios principales responsivos */
-@media (max-width: 1200px) {
-    .main-services {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 2rem;
-    }
-}
 
-@media (max-width: 768px) {
-    .main-services {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-}
 
 .main-service {
     background: white;
@@ -390,6 +377,16 @@ body {
 }
 
 .main-service:hover::before {
+    background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+}
+
+/* Efectos para dispositivos táctiles */
+.main-service:active {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+.main-service:active::before {
     background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
 }
 
@@ -464,6 +461,13 @@ body {
     border-color: rgba(255, 167, 38, 0.2);
 }
 
+/* Efectos para dispositivos táctiles */
+.benefit-item:active {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    border-color: rgba(255, 167, 38, 0.2);
+}
+
 .benefit-icon {
     width: 70px;
     height: 70px;
@@ -515,6 +519,12 @@ body {
     box-shadow: 0 12px 35px rgba(102, 126, 234, 0.35);
 }
 
+/* Efectos para dispositivos táctiles */
+.benefit-item:active .benefit-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.35);
+}
+
 .benefit-svg {
     width: 32px;
     height: 32px;
@@ -534,6 +544,11 @@ body {
 }
 
 .benefit-item:hover h4 {
+    color: #1a365d;
+}
+
+/* Efectos para dispositivos táctiles */
+.benefit-item:active h4 {
     color: #1a365d;
 }
 
@@ -616,6 +631,12 @@ body {
     box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
 
+/* Efectos para dispositivos táctiles */
+.secondary-service:active {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
 .secondary-service .service-icon {
     width: 50px;
     height: 50px;
@@ -668,6 +689,12 @@ body {
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
+/* Efectos para dispositivos táctiles */
+.service-card:active {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
 .service-icon {
     width: 60px;
     height: 60px;
@@ -690,6 +717,54 @@ body {
 .service-card p {
     font-size: 0.95rem;
     line-height: 1.5;
+}
+
+/* ================================================
+   MEJORAS PARA DISPOSITIVOS TÁCTILES
+   ================================================ */
+
+/* Agregar feedback visual para todos los elementos interactivos */
+.main-service,
+.secondary-service,
+.benefit-item,
+.service-card,
+.mission-vision-card {
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Estados de toque para móviles */
+@media (max-width: 768px) {
+    .main-service:active,
+    .main-service:focus {
+        transform: translateY(-5px) scale(1.01);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    
+    .secondary-service:active,
+    .secondary-service:focus {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    .benefit-item:active,
+    .benefit-item:focus {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        border-color: rgba(255, 167, 38, 0.15);
+    }
+    
+    .benefit-item:active .benefit-icon,
+    .benefit-item:focus .benefit-icon {
+        transform: scale(1.05) rotate(3deg);
+    }
+    
+    .service-card:active,
+    .service-card:focus {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
 }
 
 /* ================================================
@@ -732,15 +807,15 @@ body {
 }
 
 .values-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     margin-top: 1.5rem;
     text-align: center;
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
+    justify-items: center;
 }
 
 .value-item {
@@ -748,9 +823,10 @@ body {
     padding: 1.2rem;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    width: 250px;
-    flex: 0 0 250px;
+    width: 100%;
+    max-width: 320px;
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .value-item h4 {
@@ -761,6 +837,18 @@ body {
 
 .value-item p {
     font-size: 0.9rem;
+}
+
+/* Efectos de hover para value-items */
+.value-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* Efectos para dispositivos táctiles */
+.value-item:active {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
 /* ================================================
@@ -910,8 +998,8 @@ body {
         opacity 700ms cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Efectos de hover para desktop */
-@media (hover: hover) and (min-width: 600px) {
+/* Efectos de hover para desktop y dispositivos táctiles */
+@media (min-width: 600px) {
     .mission-vision-card::after {
         transform: translateY(0);
     }
@@ -935,71 +1023,143 @@ body {
         margin-top: 0;
     }
     
-    .mission-vision-card:hover,
-    .mission-vision-card:focus-within {
-        align-items: center;
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
+    /* Efectos para dispositivos con hover */
+    @media (hover: hover) {
+        .mission-vision-card:hover,
+        .mission-vision-card:focus-within {
+            align-items: center;
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
 
-    .mission-vision-card:hover::before,
-    .mission-vision-card:focus-within::before { 
-        transform: translateY(-4%);
+        .mission-vision-card:hover::before,
+        .mission-vision-card:focus-within::before { 
+            transform: translateY(-4%);
+        }
+        
+        .mission-vision-card:hover::after,
+        .mission-vision-card:focus-within::after { 
+            transform: translateY(-50%);
+            background-image: linear-gradient(
+                to bottom,
+                hsla(220, 55%, 20%, 0.3) 0%,
+                hsla(220, 55%, 18%, 0.35) 11.7%,
+                hsla(220, 55%, 16%, 0.4) 22.1%,
+                hsla(220, 55%, 14%, 0.45) 31.2%,
+                hsla(220, 55%, 12%, 0.5) 39.4%,
+                hsla(220, 55%, 10%, 0.55) 46.6%,
+                hsla(220, 55%, 8%, 0.6) 53.1%,
+                hsla(220, 55%, 6%, 0.65) 58.9%,
+                hsla(220, 55%, 4%, 0.7) 64.3%,
+                hsla(200, 45%, 15%, 0.75) 69.3%,
+                hsla(200, 45%, 12%, 0.8) 74.1%,
+                hsla(200, 45%, 10%, 0.85) 78.8%,
+                hsla(200, 45%, 8%, 0.9) 83.6%,
+                hsla(200, 45%, 6%, 0.92) 88.7%,
+                hsla(200, 45%, 4%, 0.95) 94.1%,
+                hsla(200, 45%, 2%, 0.98) 100%
+            );
+        }
+
+        .mission-vision-card:hover .mission-vision-content,
+        .mission-vision-card:focus-within .mission-vision-content {
+            justify-content: flex-end;
+            padding-bottom: 4rem;
+        }
+
+        .mission-vision-card:hover .mission-vision-title,
+        .mission-vision-card:focus-within .mission-vision-title {
+            top: 25%;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-vision-card:hover .mission-vision-content p,
+        .mission-vision-card:focus-within .mission-vision-content p {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: calc(700ms / 8);
+        }
+        
+        .mission-vision-card:hover .mission-vision-title {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            transform: scale(1.05);
+        }
+        
+        .mission-vision-card:focus-within::before,
+        .mission-vision-card:focus-within::after,
+        .mission-vision-card:focus-within .mission-vision-content,
+        .mission-vision-card:focus-within .mission-vision-content p {
+            transition-duration: 0s;
+        }
     }
     
-    .mission-vision-card:hover::after,
-    .mission-vision-card:focus-within::after { 
-        transform: translateY(-50%);
-        background-image: linear-gradient(
-            to bottom,
-            hsla(220, 55%, 20%, 0.3) 0%,
-            hsla(220, 55%, 18%, 0.35) 11.7%,
-            hsla(220, 55%, 16%, 0.4) 22.1%,
-            hsla(220, 55%, 14%, 0.45) 31.2%,
-            hsla(220, 55%, 12%, 0.5) 39.4%,
-            hsla(220, 55%, 10%, 0.55) 46.6%,
-            hsla(220, 55%, 8%, 0.6) 53.1%,
-            hsla(220, 55%, 6%, 0.65) 58.9%,
-            hsla(220, 55%, 4%, 0.7) 64.3%,
-            hsla(200, 45%, 15%, 0.75) 69.3%,
-            hsla(200, 45%, 12%, 0.8) 74.1%,
-            hsla(200, 45%, 10%, 0.85) 78.8%,
-            hsla(200, 45%, 8%, 0.9) 83.6%,
-            hsla(200, 45%, 6%, 0.92) 88.7%,
-            hsla(200, 45%, 4%, 0.95) 94.1%,
-            hsla(200, 45%, 2%, 0.98) 100%
-        );
-    }
+    /* Efectos para dispositivos táctiles sin hover */
+    @media (hover: none) {
+        .mission-vision-card:active,
+        .mission-vision-card:focus {
+            align-items: center;
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
 
-    .mission-vision-card:hover .mission-vision-content,
-    .mission-vision-card:focus-within .mission-vision-content {
-        justify-content: flex-end;
-        padding-bottom: 4rem;
-    }
+        .mission-vision-card:active::before,
+        .mission-vision-card:focus::before { 
+            transform: translateY(-4%);
+        }
+        
+        .mission-vision-card:active::after,
+        .mission-vision-card:focus::after { 
+            transform: translateY(-50%);
+            background-image: linear-gradient(
+                to bottom,
+                hsla(220, 55%, 20%, 0.3) 0%,
+                hsla(220, 55%, 18%, 0.35) 11.7%,
+                hsla(220, 55%, 16%, 0.4) 22.1%,
+                hsla(220, 55%, 14%, 0.45) 31.2%,
+                hsla(220, 55%, 12%, 0.5) 39.4%,
+                hsla(220, 55%, 10%, 0.55) 46.6%,
+                hsla(220, 55%, 8%, 0.6) 53.1%,
+                hsla(220, 55%, 6%, 0.65) 58.9%,
+                hsla(220, 55%, 4%, 0.7) 64.3%,
+                hsla(200, 45%, 15%, 0.75) 69.3%,
+                hsla(200, 45%, 12%, 0.8) 74.1%,
+                hsla(200, 45%, 10%, 0.85) 78.8%,
+                hsla(200, 45%, 8%, 0.9) 83.6%,
+                hsla(200, 45%, 6%, 0.92) 88.7%,
+                hsla(200, 45%, 4%, 0.95) 94.1%,
+                hsla(200, 45%, 2%, 0.98) 100%
+            );
+        }
 
-    .mission-vision-card:hover .mission-vision-title,
-    .mission-vision-card:focus-within .mission-vision-title {
-        top: 25%;
-        margin-bottom: 1.5rem;
-    }
+        .mission-vision-card:active .mission-vision-content,
+        .mission-vision-card:focus .mission-vision-content {
+            justify-content: flex-end;
+            padding-bottom: 4rem;
+        }
 
-    .mission-vision-card:hover .mission-vision-content p,
-    .mission-vision-card:focus-within .mission-vision-content p {
-        opacity: 1;
-        transform: translateY(0);
-        transition-delay: calc(700ms / 8);
-    }
-    
-    .mission-vision-card:hover .mission-vision-title {
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-        transform: scale(1.05);
-    }
-    
-    .mission-vision-card:focus-within::before,
-    .mission-vision-card:focus-within::after,
-    .mission-vision-card:focus-within .mission-vision-content,
-    .mission-vision-card:focus-within .mission-vision-content p {
-        transition-duration: 0s;
+        .mission-vision-card:active .mission-vision-title,
+        .mission-vision-card:focus .mission-vision-title {
+            top: 25%;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-vision-card:active .mission-vision-content p,
+        .mission-vision-card:focus .mission-vision-content p {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: calc(700ms / 8);
+        }
+        
+        .mission-vision-card:active .mission-vision-title {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            transform: scale(1.05);
+        }
+        
+        /* Para mejor experiencia en dispositivos táctiles, también agregar efectos de toque */
+        .mission-vision-card {
+            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
+        }
     }
 }
 
@@ -1315,6 +1475,9 @@ body {
     width: 100%;
     max-width: 350px;
     flex: 0 1 350px;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card:hover {
@@ -1322,7 +1485,7 @@ body {
 }
 
 .project-image {
-    height: 150px;
+    height: 250px;
     background: linear-gradient(45deg, #2c5282, #87ceeb);
     display: flex;
     align-items: center;
@@ -1331,6 +1494,7 @@ body {
     font-size: 2.5rem;
     overflow: hidden;
     position: relative;
+    flex-shrink: 0;
 }
 
 .project-img {
@@ -1360,18 +1524,24 @@ body {
 }
 
 .project-content {
-    padding: 1.2rem;
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .project-content h3 {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
     color: #1a365d;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .project-content p {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 /* ================================================
@@ -1983,20 +2153,6 @@ body {
         width: 100%;
     }
     
-    .main-services {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-        justify-items: center;
-        width: 100%;
-        margin: 0;
-    }
-    
-    .main-service {
-        width: 100%;
-        max-width: 450px;
-        min-height: 480px;
-    }
-    
     /* Page content para nuevas tarjetas */
     .main-services-section .page-content {
         grid-template-columns: repeat(2, 1fr);
@@ -2059,7 +2215,7 @@ body {
     }
     
     .values-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1.5rem;
         width: 100%;
         margin: 0 auto;
@@ -2067,7 +2223,7 @@ body {
     
     .value-item {
         width: 100%;
-        flex: none;
+        max-width: none;
     }
     
     .mission-vision-grid {
@@ -2198,7 +2354,7 @@ body {
     }
     
     .values-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 2rem;
         margin: 0 auto;
     }
@@ -2288,6 +2444,7 @@ body {
     }
     
     .values-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         max-width: 1600px;
         gap: 2rem;
     }
@@ -2385,6 +2542,7 @@ body {
     }
     
     .values-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         max-width: 1800px;
         gap: 2.5rem;
     }
@@ -2715,18 +2873,17 @@ body {
     }
     
     .values-grid {
-        display: grid !important;
         grid-template-columns: 1fr !important;
-        gap: 1rem !important;
+        gap: 1.2rem !important;
         margin-top: 1.5rem !important;
         text-align: center !important;
     }
     
     .value-item {
         width: 100% !important;
+        max-width: 400px !important;
         margin: 0 auto !important;
         text-align: center !important;
-        flex: none !important;
     }
     
     .mission-vision-grid {
@@ -2782,6 +2939,47 @@ body {
         line-height: 1.4;
         color: white;
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+    
+    /* Mejorar interactividad en móviles para misión y visión */
+    .mission-vision-card {
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+    }
+    
+    .mission-vision-card:active {
+        transform: translateY(-5px) scale(1.01);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        transition: all 0.3s ease;
+    }
+    
+    .mission-vision-card:active::after {
+        background-image: linear-gradient(
+            to bottom,
+            hsla(220, 55%, 20%, 0.2) 0%,
+            hsla(220, 55%, 18%, 0.25) 11.7%,
+            hsla(220, 55%, 16%, 0.3) 22.1%,
+            hsla(220, 55%, 14%, 0.35) 31.2%,
+            hsla(220, 55%, 12%, 0.4) 39.4%,
+            hsla(220, 55%, 10%, 0.45) 46.6%,
+            hsla(220, 55%, 8%, 0.5) 53.1%,
+            hsla(220, 55%, 6%, 0.55) 58.9%,
+            hsla(220, 55%, 4%, 0.6) 64.3%,
+            hsla(200, 45%, 15%, 0.65) 69.3%,
+            hsla(200, 45%, 12%, 0.7) 74.1%,
+            hsla(200, 45%, 10%, 0.75) 78.8%,
+            hsla(200, 45%, 8%, 0.8) 83.6%,
+            hsla(200, 45%, 6%, 0.82) 88.7%,
+            hsla(200, 45%, 4%, 0.85) 94.1%,
+            hsla(200, 45%, 2%, 0.9) 100%
+        );
+        transition: background-image 0.3s ease;
+    }
+    
+    .mission-vision-card:active .mission-vision-title {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        transform: scale(1.02);
+        transition: all 0.3s ease;
     }
     
     /* PROYECTOS MÓVIL */
@@ -3441,30 +3639,14 @@ body {
   font-family: var(--card-font-sans);
 }
 
-@media (min-width: 769px) {
-  .main-services-section .page-content {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
-@media (min-width: 1024px) {
+@media (min-width: 769px) {
   .main-services-section .page-content {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Media query intermedia para tablets */
-@media (min-width: 769px) and (max-width: 1023px) {
-  .main-services-section .page-content {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 900px;
-    gap: 1.5rem;
-  }
-  
-  .main-services-section .card {
-    height: 420px;
-  }
-}
+
 
 .main-services-section .card {  
   position: relative;
@@ -3483,13 +3665,9 @@ body {
     0 16px 16px rgba(0,0,0,0.1);
   border-radius: 15px;
   transition: transform 0.3s ease;
+  height: 600px;
 }
 
-@media (min-width: 769px) {
-  .main-services-section .card {
-    height: 450px;
-  }
-}
 
 .main-services-section .card:before {
   content: '';
@@ -3635,8 +3813,44 @@ body {
   }
 }
 
+/* Efectos para dispositivos táctiles sin hover */
+@media (hover: none) and (min-width: 769px) {
+  .main-services-section .card:active,
+  .main-services-section .card:focus {
+    align-items: center;
+    transform: translateY(-8px) scale(1.02);
+  }
+
+  .main-services-section .card:active:before,
+  .main-services-section .card:focus:before { 
+    transform: translateY(-4%); 
+  }
+  
+  .main-services-section .card:active:after,
+  .main-services-section .card:focus:after { 
+    transform: translateY(-50%); 
+  }
+
+  .main-services-section .card:active .content,
+  .main-services-section .card:focus .content {
+    transform: translateY(0);
+  }
+
+  .main-services-section .card:active .content > *:not(.title),
+  .main-services-section .card:focus .content > *:not(.title) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(var(--card-d) / 8);
+  }
+  
+  .main-services-section .card {
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+  }
+}
+
 /* Estilos específicos para mobile - SCROLL HORIZONTAL */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   .main-services-section .page-content {
     display: flex;
     overflow-x: auto;
