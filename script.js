@@ -348,45 +348,118 @@
                 },
             }).mount('#gallery-app');
 
-            // Mobile Gallery App
-            mobileGalleryApp = createApp({
-                setup() {
-                    const items = gallery.images; // Array de URLs directamente
-                    console.log('Mobile gallery images:', items); // Debug
-                    const currentSlide = reactive({ value: 0 });
+// Mobile Gallery App
+mobileGalleryApp = createApp({
+    setup() {
+        const items = reactive([]);
+        const currentSlide = reactive({ value: 0 });
+        const isLoading = reactive({ value: true });
 
-                    function goToSlide(index) {
-                        currentSlide.value = index;
-                        const container = document.querySelector('.mobile-gallery-container');
-                        if (container) {
-                            const slideWidth = container.clientWidth;
-                            container.scrollTo({
-                                left: slideWidth * index,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
+        // Función para verificar si una imagen existe
+        function checkImageExists(url) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(url);
+                img.onerror = () => resolve(null);
+                img.src = url;
+            });
+        }
 
-                    // Handle scroll events to update indicators
-                    setTimeout(() => {
-                        const container = document.querySelector('.mobile-gallery-container');
-                        if (container) {
-                            container.addEventListener('scroll', () => {
-                                const slideWidth = container.clientWidth;
-                                const scrollLeft = container.scrollLeft;
-                                const newSlide = Math.round(scrollLeft / slideWidth);
+        // Cargar solo imágenes existentes del proyecto actual
+        async function loadExistingImages() {
+            isLoading.value = true;
+            
+            // CORRECCIÓN MEJORADA: Reinicializar completamente el array reactivo
+            while(items.length > 0) {
+                items.pop();
+            }
+            
+            // Forzar reactividad
+            await Vue.nextTick();
+            
+            console.log(`Starting to load images for gallery:`, gallery.title);
+            console.log(`Available images:`, gallery.images);
+            
+            // Usar las imágenes del proyecto actual
+            const imagePromises = gallery.images.map(url => checkImageExists(url));
+            const results = await Promise.all(imagePromises);
+            
+            // Filtrar solo las imágenes que existen
+            const existingImages = results.filter(url => url !== null);
+            
+            console.log(`Verified existing images:`, existingImages);
+            
+            // Agregar las nuevas imágenes una por una para forzar reactividad
+            existingImages.forEach(imageUrl => {
+                items.push(imageUrl);
+            });
+            
+            // Reset del slide actual
+            currentSlide.value = 0;
+            
+            // Resetear scroll del contenedor
+            setTimeout(() => {
+                const container = document.querySelector('.mobile-gallery-container');
+                if (container) {
+                    container.scrollTo({ left: 0, behavior: 'instant' });
+                }
+            }, 100);
+            
+            isLoading.value = false;
+            console.log(`Mobile gallery loaded ${items.length} images for project: ${gallery.title}`);
+        }
+
+        // Cargar imágenes al inicializar
+        loadExistingImages();
+
+        function goToSlide(index) {
+            if (index < 0 || index >= items.length) return;
+            
+            currentSlide.value = index;
+            const container = document.querySelector('.mobile-gallery-container');
+            if (container) {
+                const slideWidth = container.clientWidth;
+                container.scrollTo({
+                    left: slideWidth * index,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Handle scroll events to update indicators
+        setTimeout(() => {
+            const container = document.querySelector('.mobile-gallery-container');
+            if (container) {
+                // Limpiar cualquier listener previo
+                const newContainer = container.cloneNode(true);
+                container.parentNode.replaceChild(newContainer, container);
+                
+                let scrollTimeout;
+                newContainer.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        if (items.length > 0) {
+                            const slideWidth = newContainer.clientWidth;
+                            const scrollLeft = newContainer.scrollLeft;
+                            const newSlide = Math.round(scrollLeft / slideWidth);
+                            
+                            if (newSlide >= 0 && newSlide < items.length) {
                                 currentSlide.value = newSlide;
-                            });
+                            }
                         }
-                    }, 200);
+                    }, 50);
+                });
+            }
+        }, 300);
 
-                    return {
-                        items,
-                        currentSlide,
-                        goToSlide,
-                    }
-                },
-            }).mount('#mobile-gallery');
+        return {
+            items,
+            currentSlide,
+            isLoading,
+            goToSlide,
+        }
+    },
+}).mount('#mobile-gallery');
         }
 
         function closeGallery() {
