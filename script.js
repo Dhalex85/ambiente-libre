@@ -392,3 +392,79 @@
                 closeGallery();
             }
         });
+
+        // Funcionalidad para scroll horizontal de servicios principales en móvil
+        document.addEventListener('DOMContentLoaded', function() {
+            const servicesSection = document.querySelector('.main-services-section');
+            const pageContent = document.querySelector('.main-services-section .page-content');
+            
+            if (pageContent && window.innerWidth <= 768) {
+                let hasScrolled = false;
+                
+                // Detectar cuando el usuario hace scroll horizontal
+                pageContent.addEventListener('scroll', function() {
+                    if (!hasScrolled && pageContent.scrollLeft > 20) {
+                        hasScrolled = true;
+                        servicesSection.classList.add('scrolled');
+                    }
+                });
+                
+                // Detectar touch para dispositivos móviles
+                let touchStartX = 0;
+                
+                pageContent.addEventListener('touchstart', function(e) {
+                    touchStartX = e.touches[0].clientX;
+                });
+                
+                pageContent.addEventListener('touchmove', function(e) {
+                    const touchCurrentX = e.touches[0].clientX;
+                    const touchDiff = Math.abs(touchCurrentX - touchStartX);
+                    
+                    if (touchDiff > 30 && !hasScrolled) {
+                        hasScrolled = true;
+                        servicesSection.classList.add('scrolled');
+                    }
+                });
+                
+                // Opcional: Funcionalidad para expandir tarjetas al tocar
+                const cards = document.querySelectorAll('.main-services-section .card');
+                cards.forEach(card => {
+                    card.addEventListener('click', function() {
+                        // Remover clase expandida de otras tarjetas
+                        cards.forEach(c => c.classList.remove('expanded'));
+                        
+                        // Alternar clase expandida en la tarjeta actual
+                        this.classList.toggle('expanded');
+                        
+                        // Hacer scroll suave a la tarjeta expandida
+                        if (this.classList.contains('expanded')) {
+                            this.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'nearest',
+                                inline: 'center'
+                            });
+                        }
+                    });
+                });
+                
+                // Cerrar tarjetas expandidas al hacer scroll
+                pageContent.addEventListener('scroll', function() {
+                    cards.forEach(card => {
+                        if (card.classList.contains('expanded')) {
+                            card.classList.remove('expanded');
+                        }
+                    });
+                });
+            }
+            
+            // Reajustar en cambio de orientación o redimensionamiento
+            window.addEventListener('resize', function() {
+                const servicesSection = document.querySelector('.main-services-section');
+                const pageContent = document.querySelector('.main-services-section .page-content');
+                
+                if (window.innerWidth > 768) {
+                    if (servicesSection) servicesSection.classList.remove('scrolled');
+                    if (pageContent) pageContent.scrollLeft = 0;
+                }
+            });
+        });
