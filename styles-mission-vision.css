@@ -1,10 +1,5 @@
-/* Agregando estilos para texto dentro de mission-vision */
-.mission-vision-content p {
-    color: white;
-    font-size: 1rem;
-    line-height: 1.6;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-    text-align: center;
-    margin: 0;
-    padding: 0 1rem;
-}
+/* 
+Este archivo ha sido incorporado en styles.css
+Para mantener un código más eficiente y reducir las solicitudes HTTP,
+todo el contenido de este archivo ahora se encuentra en styles.css
+*/

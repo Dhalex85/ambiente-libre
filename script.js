@@ -369,52 +369,30 @@ mobileGalleryApp = createApp({
         async function loadExistingImages() {
             isLoading.value = true;
             
-            // CORRECCIÓN MEJORADA: Reinicializar completamente el array reactivo
-            while(items.length > 0) {
-                items.pop();
-            }
+            // CORRECCIÓN: Limpiar completamente el array antes de cargar nuevas imágenes
+            items.splice(0, items.length);
             
-            // Forzar reactividad
-            await Vue.nextTick();
-            
-            console.log(`Starting to load images for gallery:`, gallery.title);
-            console.log(`Available images:`, gallery.images);
-            
-            // Usar las imágenes del proyecto actual
+            // Usar las imágenes del proyecto actual (gallery está disponible en el scope)
             const imagePromises = gallery.images.map(url => checkImageExists(url));
             const results = await Promise.all(imagePromises);
             
             // Filtrar solo las imágenes que existen
             const existingImages = results.filter(url => url !== null);
             
-            console.log(`Verified existing images:`, existingImages);
+            // Agregar las nuevas imágenes al array limpio
+            items.push(...existingImages);
             
-            // Agregar las nuevas imágenes una por una para forzar reactividad
-            existingImages.forEach(imageUrl => {
-                items.push(imageUrl);
-            });
-            
-            // Reset del slide actual
+            // Reset del slide actual cuando se carga una nueva galería
             currentSlide.value = 0;
             
-            // Resetear scroll del contenedor
-            setTimeout(() => {
-                const container = document.querySelector('.mobile-gallery-container');
-                if (container) {
-                    container.scrollTo({ left: 0, behavior: 'instant' });
-                }
-            }, 100);
-            
             isLoading.value = false;
-            console.log(`Mobile gallery loaded ${items.length} images for project: ${gallery.title}`);
+            console.log(`Mobile gallery loaded ${existingImages.length} images for project:`, existingImages);
         }
 
         // Cargar imágenes al inicializar
         loadExistingImages();
 
         function goToSlide(index) {
-            if (index < 0 || index >= items.length) return;
-            
             currentSlide.value = index;
             const container = document.querySelector('.mobile-gallery-container');
             if (container) {
@@ -430,24 +408,15 @@ mobileGalleryApp = createApp({
         setTimeout(() => {
             const container = document.querySelector('.mobile-gallery-container');
             if (container) {
-                // Limpiar cualquier listener previo
+                // Remover listeners anteriores para evitar duplicados
                 const newContainer = container.cloneNode(true);
                 container.parentNode.replaceChild(newContainer, container);
                 
-                let scrollTimeout;
                 newContainer.addEventListener('scroll', () => {
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        if (items.length > 0) {
-                            const slideWidth = newContainer.clientWidth;
-                            const scrollLeft = newContainer.scrollLeft;
-                            const newSlide = Math.round(scrollLeft / slideWidth);
-                            
-                            if (newSlide >= 0 && newSlide < items.length) {
-                                currentSlide.value = newSlide;
-                            }
-                        }
-                    }, 50);
+                    const slideWidth = newContainer.clientWidth;
+                    const scrollLeft = newContainer.scrollLeft;
+                    const newSlide = Math.round(scrollLeft / slideWidth);
+                    currentSlide.value = newSlide;
                 });
             }
         }, 300);
