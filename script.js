@@ -1,13 +1,38 @@
-// Mobile menu toggle
+// Mobile menu toggle - MEJORADO
         function toggleMenu() {
             const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            
             navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         }
 
         function closeMenu() {
             const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            
             navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
         }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const header = document.querySelector('.header');
+            
+            if (!header.contains(event.target) && navMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
