@@ -2172,7 +2172,156 @@ body {
    TABLET OPTIMIZATIONS - PANTALLAS INTERMEDIAS
    ================================================ */
 
+/* Media query específica para el rango problemático 769px-1338px */
+@media (min-width: 769px) and (max-width: 1338px) {
+    /* Prevenir desbordamiento horizontal en pantallas medianas */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        position: relative !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Asegurar que todos los elementos incluyan padding en sus cálculos de ancho */
+    * {
+        box-sizing: border-box !important;
+    }
+    
+    /* Contenedores principales - asegurar que no desborden */
+    .container, 
+    .nav-container,
+    .hero-content,
+    .main-services-container,
+    .secondary-services-container,
+    .benefits-container,
+    .projects-grid,
+    .values-grid,
+    .mission-vision-grid,
+    .footer-content,
+    .main-services,
+    .secondary-services,
+    .page-content {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Corregir elementos con min-width que pueden causar desbordamiento */
+    [class*="service"],
+    [class*="card"],
+    [class*="item"],
+    [class*="section"] {
+        min-width: auto !important;
+        max-width: 100% !important;
+        width: auto !important;
+    }
+    
+    /* Asegurar que elementos con posición absoluta no causen desbordamiento */
+    [style*="position: absolute"],
+    [class*="absolute"],
+    .hero-video,
+    .hero-overlay,
+    .scroll-indicator,
+    .calculator-video,
+    .calculator-overlay {
+        max-width: 100vw !important;
+        left: auto !important;
+        right: auto !important;
+    }
+    
+    /* Manejar elementos con posición fija para evitar desbordamiento */
+    .header,
+    .gallery-modal,
+    [style*="position: fixed"],
+    [class*="fixed"]:not(.whatsapp-float) {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Preservar el estilo original del botón de WhatsApp */
+    .whatsapp-float {
+        width: 60px !important;
+        height: 60px !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        left: auto !important;
+        max-width: 60px !important;
+        border-radius: 50% !important;
+    }
+    
+    /* Ajustar elementos específicos que pueden causar problemas */
+    .main-services-section .card {
+        min-width: auto !important;
+        max-width: 100% !important;
+    }
+    
+    /* Corregir transformaciones que pueden causar desbordamiento */
+    [style*="transform"],
+    .scroll-indicator,
+    .hero-stats,
+    .benefit-item:hover,
+    .service-card:hover,
+    .project-card:hover,
+    .cta-button:hover,
+    .main-services-section .card:hover,
+    .main-services-section .card:active,
+    .main-services-section .card:focus,
+    .main-services-section .content {
+        transform: none !important;
+    }
+    
+    /* Contenedor para elementos que usan transform: translateX(-50%) */
+    .scroll-indicator,
+    [style*="transform: translateX(-50%)"],
+    [style*="transform: translate(-50%"] {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: auto !important;
+        max-width: 90% !important;
+    }
+    
+    /* Asegurar que no haya márgenes negativos grandes que causen desbordamiento */
+    * {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    /* Forzar que todos los elementos estén dentro del viewport */
+    * {
+        overflow-x: visible !important;
+    }
+    
+    /* Contenedor principal con overflow hidden para capturar todo */
+    #inicio, #servicios, #nosotros, #proyectos, #calculadora, #contacto, .footer {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Asegurar que el contenido principal no desborde */
+    main, section, header, footer, .section, .hero, .about-section, .benefits-section, .calculator, .contact {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+}
+
 @media (min-width: 769px) and (max-width: 1399px) {
+    /* Prevenir desbordamiento horizontal en pantallas medianas */
+    body {
+        overflow-x: hidden;
+    }
+    
     /* ANULAR TODOS LOS MAX-WIDTH LIMITANTES */
     .nav-container,
     .hero-content,
@@ -3928,6 +4077,10 @@ body {
 
 /* Estilos específicos para mobile - SCROLL HORIZONTAL */
 @media (max-width: 1080px) {
+  /* Prevenir desbordamiento horizontal en pantallas medianas */
+  body {
+    overflow-x: hidden;
+  }
   .main-services-section .page-content {
     display: flex;
     overflow-x: auto;
