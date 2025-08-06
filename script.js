@@ -25,7 +25,7 @@
 
         // Calculator functionality
         function actualizarEtiquetaConsumo() {
-            const periodo = document.getElementById('periodo').value;
+            const periodo = document.querySelector('input[name="periodo"]:checked').value;
             const etiqueta = document.getElementById('etiqueta-consumo');
             const input = document.getElementById('consumo');
             
@@ -42,7 +42,7 @@
             const consumoInput = parseFloat(document.getElementById('consumo').value);
             const tarifa = parseFloat(document.getElementById('tarifa').value);
             const ubicacion = document.getElementById('ubicacion').value;
-            const periodo = document.getElementById('periodo').value;
+            const periodo = document.querySelector('input[name="periodo"]:checked').value;
 
             if (!consumoInput || !tarifa) {
                 alert('Por favor completa todos los campos');
@@ -123,8 +123,11 @@
             mensaje += `*Teléfono:* ${data.telefono}\n`;
             mensaje += `*Tipo de Proyecto:* ${data.tipo_proyecto}\n`;
             
-            if (data.consumo_kwh) {
-                mensaje += `*Consumo Mensual:* ${data.consumo_kwh} kWh\n`;
+            // Check if file is attached
+            const fileInput = document.getElementById('recibo_cfe');
+            if (fileInput.files.length > 0) {
+                mensaje += `*Recibo de CFE:* ${fileInput.files[0].name} (adjunto)\n`;
+                mensaje += `*Nota:* El cliente adjuntará el recibo de CFE por correo electrónico\n`;
             }
             
             if (data.mensaje) {
@@ -137,14 +140,36 @@
             const mensajeCodificado = encodeURIComponent(mensaje);
             const whatsappUrl = `https://wa.me/527712149628?text=${mensajeCodificado}`;
             
+            // If there's a file attached, show instructions for email
+            if (fileInput.files.length > 0) {
+                alert('¡Gracias por tu solicitud! Te redirigimos a WhatsApp para el contacto inicial. Por favor, envía tu recibo de CFE al correo: ambientelibre.cotiza@outlook.com');
+            } else {
+                alert('¡Gracias por tu solicitud! Te redirigimos a WhatsApp para completar el contacto.');
+            }
+            
             // Open WhatsApp
             window.open(whatsappUrl, '_blank');
             
             // Reset form
             this.reset();
+            document.getElementById('file-selected').textContent = 'Ningún archivo seleccionado';
+            document.querySelector('.file-label').classList.remove('has-file');
+        });
+
+        // File input handling
+        document.getElementById('recibo_cfe').addEventListener('change', function(e) {
+            const fileLabel = document.querySelector('.file-label');
+            const fileSelected = document.getElementById('file-selected');
             
-            // Show confirmation
-            alert('¡Gracias por tu solicitud! Te redirigimos a WhatsApp para completar el contacto.');
+            if (e.target.files.length > 0) {
+                const fileName = e.target.files[0].name;
+                const fileSize = (e.target.files[0].size / 1024 / 1024).toFixed(2); // MB
+                fileSelected.textContent = `${fileName} (${fileSize} MB)`;
+                fileLabel.classList.add('has-file');
+            } else {
+                fileSelected.textContent = 'Ningún archivo seleccionado';
+                fileLabel.classList.remove('has-file');
+            }
         });
 
         // Header scroll effect
