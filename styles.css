@@ -9,11 +9,37 @@
     box-sizing: border-box;
 }
 
+/* Prevención de overflow horizontal para todos los dispositivos */
+html {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
 /* ================================================
@@ -269,6 +295,9 @@ body {
 
 .section {
     padding: 4rem 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .benefits-section-wrapper {
@@ -279,6 +308,8 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .section-title {
@@ -1922,6 +1953,333 @@ body {
 }
 
 /* ================================================
+   TABLET OPTIMIZATIONS - CORREGIDAS PARA CENTRADO
+   ================================================ */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* ASEGURAR CONTENEDORES CENTRADOS EN TABLETS */
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* PREVENIR OVERFLOW HORIZONTAL EN TABLETS */
+    .container,
+    .nav-container,
+    .hero-content,
+    .main-services-container,
+    .secondary-services-container,
+    .footer-content {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 2rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+    
+    /* GRIDS RESPONSIVOS PARA TABLETS */
+    .main-services {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .main-service {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    
+    .secondary-services {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .secondary-service {
+        width: 100%;
+        max-width: 260px;
+        margin: 0 auto;
+    }
+    
+    .benefits-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .benefit-item {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .project-card {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    
+    .mission-vision-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .mission-vision-card {
+        width: 100%;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+    
+    .values-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1rem !important;
+        justify-content: center !important;
+        align-items: center !important;
+        justify-items: center !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+    }
+    
+    .value-item {
+        width: 100% !important;
+        max-width: 220px !important;
+        margin: 0 auto !important;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: stretch;
+        justify-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .contact-info,
+    .contact-form-container {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: start;
+        justify-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    /* NUEVAS TARJETAS EN TABLETS */
+    .main-services-section .page-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        width: 100%;
+        padding: 1.5rem 2rem;
+        overflow-x: hidden;
+    }
+    
+    .main-services-section .card {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        height: 380px;
+    }
+    
+    /* HERO RESPONSIVE EN TABLETS */
+    .hero-content {
+        text-align: center;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .hero-stats {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        max-width: 500px;
+        margin: 2rem auto;
+    }
+    
+    /* TÍTULO RESPONSIVE */
+    .section-title {
+        font-size: 2rem;
+        text-align: center;
+        width: 100%;
+        margin: 0 auto 2rem auto;
+    }
+    
+    /* CALCULADORA EN TABLETS */
+    .calculator-form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 1.5rem;
+    }
+}
+
+/* TABLETS PORTRAIT SPECIFIC (768px - 834px) */
+@media (min-width: 768px) and (max-width: 834px) and (orientation: portrait) {
+    .main-services {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .main-service {
+        max-width: 400px;
+    }
+    
+    .secondary-services {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+    }
+    
+    .benefits-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .benefit-item {
+        max-width: 400px;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .project-card {
+        max-width: 400px;
+    }
+    
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.2rem !important;
+    }
+    
+    .value-item {
+        max-width: 280px !important;
+    }
+}
+
+/* TABLETS LANDSCAPE SPECIFIC (1024px and 1024px landscape iPads) */
+@media (min-width: 1024px) and (max-width: 1024px) and (orientation: landscape) {
+    .main-services {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .main-service {
+        max-width: 300px;
+    }
+    
+    .secondary-services {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+    
+    .secondary-service {
+        max-width: 220px;
+    }
+    
+    .benefits-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+    }
+    
+    .benefit-item {
+        max-width: 280px;
+    }
+    
+    .values-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1rem !important;
+    }
+    
+    .value-item {
+        max-width: 220px !important;
+    }
+}
+
+/* CORRECCIÓN ESPECÍFICA PARA iPADS Y TABLETS WEBKIT */
+@media screen and (-webkit-min-device-pixel-ratio: 1) and (min-width: 768px) and (max-width: 1024px) {
+    body {
+        -webkit-text-size-adjust: 100%;
+        -webkit-overflow-scrolling: touch;
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+    
+    .container,
+    .nav-container,
+    .hero-content,
+    .main-services-container,
+    .secondary-services-container {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Forzar centrado en contenedores principales */
+    .main-services,
+    .secondary-services,
+    .benefits-container,
+    .projects-grid,
+    .mission-vision-grid,
+    .values-grid {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* ================================================
    MOBILE OPTIMIZATIONS - CORREGIDAS Y MEJORADAS
    ================================================ */
 
@@ -2126,6 +2484,14 @@ body {
 }
 
 @media (max-width: 768px) {
+    /* PREVENCIÓN ADICIONAL DE OVERFLOW EN MÓVILES */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
     .hero h1 {
         margin-top: 1rem; /* Reducido espacio en tablets */
     }
