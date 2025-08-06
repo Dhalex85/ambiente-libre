@@ -15,6 +15,14 @@
     box-sizing: border-box;
 }
 
+/* Variables CSS para las tarjetas de servicios */
+:root {
+    --card-d: 700ms;
+    --card-e: cubic-bezier(0.19, 1, 0.22, 1);
+    --card-font-sans: 'Arial', sans-serif;
+    --card-font-serif: 'Georgia', serif;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
@@ -221,8 +229,11 @@ body {
     text-align: center;
     color: white;
     position: relative;
-    padding: 80px 1rem 0;
+    padding: 80px 0 0;
     overflow: hidden;
+    width: 100%;
+    margin: 0;
+    border: none;
 }
 
 .hero-video {
@@ -467,6 +478,18 @@ body {
     background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
 }
 
+/* Estados de click para dispositivos móviles sin hover */
+@media (hover: none) {
+    .main-service.clicked {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+
+    .main-service.clicked::before {
+        background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+    }
+}
+
 .service-content {
     position: relative;
     z-index: 2;
@@ -514,18 +537,18 @@ body {
 }
 
 .benefit-item {
-    background: white;
-    padding: 2.5rem 2rem;
-    border-radius: 20px;
+    background: transparent;
+    padding: 1.5rem 1rem;
+    border-radius: 0;
     text-align: center;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: none;
+    border: none;
     position: relative;
     overflow: hidden;
     transition: all 0.4s ease;
     width: 100%;
     max-width: 350px;
-    min-height: 280px;
+    min-height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -533,73 +556,43 @@ body {
 }
 
 .benefit-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-    border-color: rgba(255, 167, 38, 0.2);
+    transform: translateY(-5px);
+    box-shadow: none;
+    border-color: transparent;
 }
 
 /* Efectos para dispositivos táctiles */
 .benefit-item:active {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-    border-color: rgba(255, 167, 38, 0.2);
+    transform: translateY(-5px);
+    box-shadow: none;
+    border-color: transparent;
 }
 
 .benefit-icon {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 16px;
+    width: 80px;
+    height: 80px;
+    background: transparent;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    color: white;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+    color: #333;
+    box-shadow: none;
     transition: all 0.4s ease;
     position: relative;
     z-index: 1;
 }
 
-.benefit-item:nth-child(1) .benefit-icon {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
-}
-
-.benefit-item:nth-child(2) .benefit-icon {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    box-shadow: 0 8px 25px rgba(240, 147, 251, 0.25);
-}
-
-.benefit-item:nth-child(3) .benefit-icon {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.25);
-}
-
-.benefit-item:nth-child(4) .benefit-icon {
-    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-    box-shadow: 0 8px 25px rgba(67, 233, 123, 0.25);
-}
-
-.benefit-item:nth-child(5) .benefit-icon {
-    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-    box-shadow: 0 8px 25px rgba(250, 112, 154, 0.25);
-}
-
-.benefit-item:nth-child(6) .benefit-icon {
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-    box-shadow: 0 8px 25px rgba(168, 237, 234, 0.25);
-}
-
 .benefit-item:hover .benefit-icon {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.35);
+    transform: scale(1.1);
+    box-shadow: none;
 }
 
 /* Efectos para dispositivos táctiles */
 .benefit-item:active .benefit-icon {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.35);
+    transform: scale(1.1);
+    box-shadow: none;
 }
 
 .benefit-svg {
@@ -608,9 +601,24 @@ body {
     fill: currentColor;
 }
 
+.benefit-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: none;
+    transition: all 0.4s ease;
+    opacity: 0.8;
+}
+
+.benefit-item:hover .benefit-image {
+    filter: none;
+    transform: scale(1.05);
+    opacity: 1;
+}
+
 .benefit-item h4 {
-    color: #2d3748;
-    font-size: 1.3rem;
+    color: #1a365d;
+    font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 1rem;
     position: relative;
@@ -621,7 +629,7 @@ body {
 }
 
 .benefit-item:hover h4 {
-    color: #1a365d;
+    color: #2c5282;
 }
 
 /* Efectos para dispositivos táctiles */
@@ -629,14 +637,39 @@ body {
     color: #1a365d;
 }
 
+/* Estados de click para dispositivos móviles sin hover */
+@media (hover: none) {
+    .benefit-item.clicked {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        border-color: rgba(255, 167, 38, 0.2);
+    }
+
+    .benefit-item.clicked .benefit-icon {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 12px 35px rgba(102, 126, 234, 0.35);
+    }
+
+    .benefit-item.clicked h4 {
+        color: #1a365d;
+    }
+}
+
 .benefit-item p {
-    color: #718096;
-    font-size: 0.95rem;
+    color: #4a5568;
+    font-size: 1rem;
     line-height: 1.6;
     position: relative;
     z-index: 1;
-    max-width: 250px;
+    max-width: 280px;
     margin: 0 auto;
+    text-align: center;
+}
+
+.benefit-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
 }
 
@@ -714,18 +747,26 @@ body {
     box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
 
+/* Estados de click para dispositivos móviles sin hover */
+@media (hover: none) {
+    .secondary-service.clicked {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+    }
+}
+
 .secondary-service .service-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(45deg, #87ceeb, #a3d5ff);
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #2c5282, #87ceeb);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1rem;
     color: white;
-    font-size: 1.2rem;
-    box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
+    font-size: 1.5rem;
+    box-shadow: 0 5px 15px rgba(44, 82, 130, 0.4);
 }
 
 .secondary-service h4 {
@@ -813,34 +854,107 @@ body {
 
 /* Estados de toque para móviles */
 @media (max-width: 768px) {
-    .main-service:active,
+    /* Estilos base para elementos interactivos en móvil */
+    .main-service,
+    .secondary-service,
+    .benefit-item,
+    .service-card,
+    .mission-vision-card,
+    .value-item {
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    /* Estados de click/touch para reemplazar hover */
+    .main-service.clicked,
     .main-service:focus {
         transform: translateY(-5px) scale(1.01);
         box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     }
 
-    .secondary-service:active,
+    .main-service.clicked::before,
+    .main-service:focus::before {
+        background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+    }
+
+    .secondary-service.clicked,
     .secondary-service:focus {
         transform: translateY(-3px);
         box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 
-    .benefit-item:active,
+    .benefit-item.clicked,
     .benefit-item:focus {
         transform: translateY(-5px);
         box-shadow: 0 12px 30px rgba(0,0,0,0.1);
         border-color: rgba(255, 167, 38, 0.15);
     }
 
-    .benefit-item:active .benefit-icon,
+    .benefit-item.clicked .benefit-icon,
     .benefit-item:focus .benefit-icon {
         transform: scale(1.05) rotate(3deg);
     }
 
-    .service-card:active,
+    .service-card.clicked,
     .service-card:focus {
         transform: translateY(-5px);
         box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+
+    .value-item.clicked,
+    .value-item:focus {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    /* Tarjetas de misión y visión con toggle */
+    .mission-vision-card.clicked .mission-vision-content {
+        justify-content: space-between !important;
+        padding-top: 2rem !important;
+        padding-bottom: 3rem !important;
+    }
+    
+    .mission-vision-card.clicked .mission-vision-title {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        margin-bottom: 2rem !important;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        font-size: 1.8rem !important;
+    }
+
+    .mission-vision-card.clicked .mission-vision-content p {
+        position: relative !important;
+        bottom: auto !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        margin-top: auto !important;
+    }
+
+    .mission-vision-card.clicked::after {
+        transform: translateY(-50%) !important;
+        background-image: linear-gradient(
+            to bottom,
+            hsla(220, 55%, 20%, 0.2) 0%,
+            hsla(220, 55%, 18%, 0.25) 11.7%,
+            hsla(220, 55%, 16%, 0.3) 22.1%,
+            hsla(220, 55%, 14%, 0.35) 31.2%,
+            hsla(220, 55%, 12%, 0.4) 39.4%,
+            hsla(220, 55%, 10%, 0.45) 46.6%,
+            hsla(220, 55%, 8%, 0.5) 53.1%,
+            hsla(220, 55%, 6%, 0.55) 58.9%,
+            hsla(220, 55%, 4%, 0.6) 64.3%,
+            hsla(200, 45%, 15%, 0.65) 69.3%,
+            hsla(200, 45%, 12%, 0.7) 74.1%,
+            hsla(200, 45%, 10%, 0.75) 78.8%,
+            hsla(200, 45%, 8%, 0.8) 83.6%,
+            hsla(200, 45%, 6%, 0.82) 88.7%,
+            hsla(200, 45%, 4%, 0.85) 94.1%,
+            hsla(200, 45%, 2%, 0.9) 100%
+        ) !important;
     }
 }
 
@@ -926,6 +1040,14 @@ body {
 .value-item:active {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* Estados de click para dispositivos móviles sin hover */
+@media (hover: none) {
+    .value-item.clicked {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
 }
 
 /* ================================================
@@ -1140,21 +1262,30 @@ body {
 
         .mission-vision-card:hover .mission-vision-content,
         .mission-vision-card:focus-within .mission-vision-content {
-            justify-content: flex-end;
-            padding-bottom: 4rem;
+            justify-content: space-between;
+            padding-top: 2rem;
+            padding-bottom: 3rem;
         }
 
         .mission-vision-card:hover .mission-vision-title,
         .mission-vision-card:focus-within .mission-vision-title {
-            top: 25%;
-            margin-bottom: 1.5rem;
+            position: relative;
+            top: auto;
+            left: auto;
+            right: auto;
+            transform: none;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
         }
 
         .mission-vision-card:hover .mission-vision-content p,
         .mission-vision-card:focus-within .mission-vision-content p {
+            position: relative;
+            bottom: auto;
             opacity: 1;
             transform: translateY(0);
             transition-delay: calc(700ms / 8);
+            margin-top: auto;
         }
 
         .mission-vision-card:hover .mission-vision-title {
@@ -1172,19 +1303,25 @@ body {
 
     /* Efectos para dispositivos táctiles sin hover */
     @media (hover: none) {
-        .mission-vision-card:active,
+        .mission-vision-card {
+            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
+        }
+
+        /* Estados de click/touch en lugar de hover */
+        .mission-vision-card.clicked,
         .mission-vision-card:focus {
             align-items: center;
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
-        .mission-vision-card:active::before,
+        .mission-vision-card.clicked::before,
         .mission-vision-card:focus::before { 
             transform: translateY(-4%);
         }
 
-        .mission-vision-card:active::after,
+        .mission-vision-card.clicked::after,
         .mission-vision-card:focus::after { 
             transform: translateY(-50%);
             background-image: linear-gradient(
@@ -1208,34 +1345,37 @@ body {
             );
         }
 
-        .mission-vision-card:active .mission-vision-content,
+        .mission-vision-card.clicked .mission-vision-content,
         .mission-vision-card:focus .mission-vision-content {
-            justify-content: flex-end;
-            padding-bottom: 4rem;
+            justify-content: space-between;
+            padding-top: 2rem;
+            padding-bottom: 3rem;
         }
 
-        .mission-vision-card:active .mission-vision-title,
+        .mission-vision-card.clicked .mission-vision-title,
         .mission-vision-card:focus .mission-vision-title {
-            top: 25%;
-            margin-bottom: 1.5rem;
+            position: relative;
+            top: auto;
+            left: auto;
+            right: auto;
+            transform: none;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
         }
 
-        .mission-vision-card:active .mission-vision-content p,
+        .mission-vision-card.clicked .mission-vision-content p,
         .mission-vision-card:focus .mission-vision-content p {
+            position: relative;
+            bottom: auto;
             opacity: 1;
             transform: translateY(0);
             transition-delay: calc(700ms / 8);
+            margin-top: auto;
         }
 
-        .mission-vision-card:active .mission-vision-title {
+        .mission-vision-card.clicked .mission-vision-title {
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
             transform: scale(1.05);
-        }
-
-        /* Para mejor experiencia en dispositivos táctiles, también agregar efectos de toque */
-        .mission-vision-card {
-            -webkit-tap-highlight-color: transparent;
-            cursor: pointer;
         }
     }
 }
@@ -2172,8 +2312,187 @@ body {
    TABLET OPTIMIZATIONS - PANTALLAS INTERMEDIAS
    ================================================ */
 
+/* Media query específica para tablets en orientación portrait */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    /* Servicios secundarios - optimizar para tablet portrait */
+    .secondary-services {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5rem !important;
+        justify-items: center !important;
+    }
+    
+    .secondary-service .service-icon {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        aspect-ratio: 1 !important;
+    }
+    
+    /* Misión y visión - stack vertical en tablet portrait */
+    .mission-vision-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2rem !important;
+        align-items: center !important;
+        padding: 0 2rem !important;
+    }
+    
+    .mission-vision-card {
+        max-width: 80% !important;
+        width: 80% !important;
+        min-width: auto !important;
+        height: 400px !important;
+    }
+}
+
 /* Media query específica para el rango problemático 769px-1338px */
 @media (min-width: 769px) and (max-width: 1338px) {
+    /* CORRECCIÓN HERO - Eliminar línea a la izquierda */
+    .hero {
+        width: 100vw !important;
+        margin: 0 !important;
+        padding: 80px 0 0 !important;
+        position: relative !important;
+        overflow: hidden !important;
+        border: none !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+    
+    .hero-video,
+    .hero-overlay {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border: none !important;
+        margin: 0 !important;
+    }
+    
+    .hero-content {
+        position: relative !important;
+        z-index: 2 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 2rem !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* CORRECCIÓN SERVICIOS COMPLEMENTARIOS - Círculos de iconos */
+    .secondary-service .service-icon {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        background: linear-gradient(45deg, #2c5282, #87ceeb) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 auto 1rem auto !important;
+        color: white !important;
+        font-size: 1.5rem !important;
+        box-shadow: 0 5px 15px rgba(44, 82, 130, 0.4) !important;
+        flex-shrink: 0 !important;
+        aspect-ratio: 1 !important;
+    }
+    
+    .secondary-services {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+        gap: 1.5rem !important;
+        margin: 0.5rem auto 0 !important;
+        max-width: 100% !important;
+        justify-items: center !important;
+        padding: 0 1rem !important;
+    }
+    
+    .secondary-service {
+        background: white !important;
+        padding: 1.5rem !important;
+        border-radius: 12px !important;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+        transition: transform 0.3s, box-shadow 0.3s !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 280px !important;
+        min-height: 180px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+    }
+    
+    /* CORRECCIÓN MISIÓN Y VISIÓN - Diseño responsivo */
+    .mission-vision-grid {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 2rem !important;
+        margin-top: 2rem !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding: 0 1rem !important;
+    }
+    
+    .mission-vision-card {
+        position: relative !important;
+        display: flex !important;
+        align-items: flex-end !important;
+        overflow: hidden !important;
+        padding: 1rem !important;
+        width: 100% !important;
+        max-width: 400px !important;
+        min-width: 300px !important;
+        text-align: center !important;
+        color: white !important;
+        background-color: #f5f5f5 !important;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+        border-radius: 20px !important;
+        transition: transform 0.4s ease !important;
+        height: 450px !important;
+        flex: 1 1 400px !important;
+    }
+    
+    .mission-vision-content {
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 2rem !important;
+        transition: all 700ms cubic-bezier(0.19, 1, 0.22, 1) !important;
+        z-index: 3 !important;
+        height: 100% !important;
+    }
+    
+    .mission-vision-title {
+        font-size: 1.8rem !important;
+        font-weight: bold !important;
+        line-height: 1.2 !important;
+        color: white !important;
+        margin-bottom: 1rem !important;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9) !important;
+        text-align: center !important;
+        width: 100% !important;
+        z-index: 4 !important;
+    }
+    
+    .mission-vision-content p {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+        color: white !important;
+        text-align: center !important;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
+        margin: 0 !important;
+        padding: 0 1rem !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+    
     /* Prevenir desbordamiento horizontal en pantallas medianas */
     html, body {
         overflow-x: hidden !important;
@@ -2192,13 +2511,11 @@ body {
     /* Contenedores principales - asegurar que no desborden */
     .container, 
     .nav-container,
-    .hero-content,
     .main-services-container,
     .secondary-services-container,
     .benefits-container,
     .projects-grid,
     .values-grid,
-    .mission-vision-grid,
     .footer-content,
     .main-services,
     .secondary-services,
@@ -2207,99 +2524,29 @@ body {
         width: 100% !important;
         margin-left: auto !important;
         margin-right: auto !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
         overflow-x: hidden !important;
+        padding-left: clamp(1rem, 2vw, 2rem) !important;
+        padding-right: clamp(1rem, 2vw, 2rem) !important;
     }
     
-    /* Corregir elementos con min-width que pueden causar desbordamiento */
-    [class*="service"],
-    [class*="card"],
-    [class*="item"],
-    [class*="section"] {
-        min-width: auto !important;
+    /* Ajustes específicos para mejorar el espaciado */
+    .container {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+    }
+    
+    .nav-container,
+    .hero-content {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+    }
+    
+    .main-services-section .page-content {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
         max-width: 100% !important;
-        width: auto !important;
-    }
-    
-    /* Asegurar que elementos con posición absoluta no causen desbordamiento */
-    [style*="position: absolute"],
-    [class*="absolute"],
-    .hero-video,
-    .hero-overlay,
-    .scroll-indicator,
-    .calculator-video,
-    .calculator-overlay {
-        max-width: 100vw !important;
-        left: auto !important;
-        right: auto !important;
-    }
-    
-    /* Manejar elementos con posición fija para evitar desbordamiento */
-    .header,
-    .gallery-modal,
-    [style*="position: fixed"],
-    [class*="fixed"]:not(.whatsapp-float) {
-        left: 0 !important;
-        right: 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Preservar el estilo original del botón de WhatsApp */
-    .whatsapp-float {
-        width: 60px !important;
-        height: 60px !important;
-        bottom: 20px !important;
-        right: 20px !important;
-        left: auto !important;
-        max-width: 60px !important;
-        border-radius: 50% !important;
-    }
-    
-    /* Ajustar elementos específicos que pueden causar problemas */
-    .main-services-section .card {
-        min-width: auto !important;
-        max-width: 100% !important;
-    }
-    
-    /* Corregir transformaciones que pueden causar desbordamiento */
-    [style*="transform"],
-    .scroll-indicator,
-    .hero-stats,
-    .benefit-item:hover,
-    .service-card:hover,
-    .project-card:hover,
-    .cta-button:hover,
-    .main-services-section .card:hover,
-    .main-services-section .card:active,
-    .main-services-section .card:focus,
-    .main-services-section .content {
-        transform: none !important;
-    }
-    
-    /* Contenedor para elementos que usan transform: translateX(-50%) */
-    .scroll-indicator,
-    [style*="transform: translateX(-50%)"],
-    [style*="transform: translate(-50%"] {
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        width: auto !important;
-        max-width: 90% !important;
-    }
-    
-    /* Asegurar que no haya márgenes negativos grandes que causen desbordamiento */
-    * {
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-    
-    /* Forzar que todos los elementos estén dentro del viewport */
-    * {
-        overflow-x: visible !important;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+        gap: 2rem !important;
     }
     
     /* Contenedor principal con overflow hidden para capturar todo */
@@ -2340,25 +2587,32 @@ body {
 
     /* Contenedores principales para tablets */
     .container {
-        padding: 0 3rem;
+        padding: 0 2rem;
         margin: 0 auto;
         width: 100%;
     }
 
     .nav-container {
-        padding: 0 3rem;
+        padding: 0 2rem;
         width: 100%;
     }
 
     .hero-content {
-        padding: 0 3rem;
+        padding: 0 2rem;
         width: 100%;
     }
 
-    /* Hero section para tablets */
+    /* Hero section para tablets - CORREGIDA */
     .hero {
         min-height: 100vh;
-        padding: 100px 2rem 0;
+        padding: 100px 0 0;
+        width: 100vw !important;
+        margin: 0 !important;
+        position: relative !important;
+        overflow: hidden !important;
+        border: none !important;
+        left: 0 !important;
+        right: 0 !important;
     }
 
     .hero-stats {
@@ -2375,7 +2629,7 @@ body {
     }
 
     .main-services-container {
-        padding: 0 3rem;
+        padding: 0 2rem;
         width: 100%;
     }
 
@@ -2383,7 +2637,7 @@ body {
     .main-services-section .page-content {
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
-        padding: 2rem 3rem;
+        padding: 0;
         width: 100%;
         margin: 0;
     }
@@ -2393,32 +2647,42 @@ body {
         width: 100%;
     }
 
-    /* Servicios secundarios en tablets */
+    /* Servicios secundarios en tablets - CORREGIDA */
     .secondary-services-section {
         padding: 3rem 0;
         width: 100%;
     }
 
     .secondary-services-container {
-        padding: 0 3rem;
+        padding: 0 2rem;
         width: 100%;
     }
 
     .secondary-services {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 1.5rem;
         width: 100%;
         margin: 0;
+        justify-items: center;
     }
 
     .secondary-service {
         width: 100%;
-        max-width: none;
+        max-width: 280px;
+    }
+
+    /* Asegurar iconos circulares */
+    .secondary-service .service-icon {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        aspect-ratio: 1 !important;
+        flex-shrink: 0 !important;
     }
 
     /* Beneficios en tablets */
     .benefits-section {
-        padding: 3rem 3rem 1rem;
+        padding: 3rem 2rem 1rem;
         width: 100%;
     }
 
@@ -2452,15 +2716,23 @@ body {
         max-width: none;
     }
 
+    /* Misión y visión - CORREGIDA */
     .mission-vision-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 2rem;
         width: 100%;
         margin: 0 auto;
+        padding: 0 1rem;
     }
 
     .mission-vision-card {
-        max-width: 45%;
-        min-width: 350px;
+        max-width: 400px;
+        min-width: 300px;
+        width: 100%;
+        height: 450px;
+        flex: 1 1 400px;
     }
 
     /* Proyectos en tablets */
@@ -2478,7 +2750,7 @@ body {
 
     /* Calculadora en tablets */
     .calculator .container {
-        padding: 2rem 3rem;
+        padding: 2rem;
         width: 100%;
     }
 
@@ -2489,7 +2761,7 @@ body {
 
     /* Contacto en tablets */
     .contact .container {
-        padding: 4rem 3rem;
+        padding: 4rem 2rem;
         width: 100%;
     }
 
@@ -2536,23 +2808,23 @@ body {
     }
 
     .container {
-        padding: 0 4rem;
+        padding: 0 3rem;
     }
 
     .nav-container {
-        padding: 0 4rem;
+        padding: 0 3rem;
     }
 
     .hero-content {
-        padding: 0 4rem;
+        padding: 0 3rem;
     }
 
     .main-services-container {
-        padding: 0 4rem;
+        padding: 0 3rem;
     }
 
     .secondary-services-container {
-        padding: 0 4rem;
+        padding: 0 3rem;
     }
 
     .main-services {
@@ -2562,9 +2834,18 @@ body {
     }
 
     .secondary-services {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 2rem;
         margin: 0;
+        justify-items: center;
+    }
+
+    /* Asegurar iconos circulares */
+    .secondary-service .service-icon {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        aspect-ratio: 1 !important;
     }
 
     .benefits-container {
@@ -2585,17 +2866,28 @@ body {
         margin: 0 auto;
     }
 
+    /* Misión y visión corregida */
     .mission-vision-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 3rem;
         margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .mission-vision-card {
+        max-width: 45%;
+        min-width: 350px;
+        flex: 1 1 400px;
     }
 
     .contact .container {
-        padding: 4rem 4rem;
+        padding: 4rem 3rem;
     }
 
     .calculator .container {
-        padding: 2rem 4rem;
+        padding: 2rem 3rem;
     }
 }
 
@@ -2854,12 +3146,15 @@ body {
 
     /* HERO MÓVIL CORREGIDO - ALTURA OPTIMIZADA */
     .hero {
-        padding: 90px 1rem 60px; /* Padding inferior aumentado para espacio de la flecha */
+        padding: 90px 0 60px; /* Removed horizontal padding */
         min-height: 100vh; /* Vuelve a ocupar toda la pantalla */
         height: 100vh; /* Altura exacta de la pantalla */
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 100%;
+        margin: 0;
+        border: none;
     }
 
     .hero-video {
@@ -2992,6 +3287,7 @@ body {
         gap: 1rem;
         margin: 0.5rem auto 0;
         padding: 0;
+        justify-items: center;
     }
 
     .services-subtitle {
@@ -3008,11 +3304,25 @@ body {
         margin: 0 auto;
     }
 
+    /* Asegurar iconos circulares en móvil */
+    .secondary-service .service-icon {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        aspect-ratio: 1 !important;
+        flex-shrink: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 auto 1rem auto !important;
+    }
+
     .services-grid {
         grid-template-columns: 1fr;
         gap: 1.2rem;
         margin: 2rem auto 0;
         padding: 0 1rem;
+        justify-items: center;
     }
 
     .service-card {
@@ -3021,30 +3331,82 @@ body {
         margin: 0 auto;
     }
 
-    /* BENEFICIOS MÓVIL */
+    /* BENEFICIOS MÓVIL - ESTILO LISTA */
     .benefits-container {
-        justify-content: center;
-        gap: 1.5rem;
-        text-align: center;
-        align-items: center;
+        display: block;
+        gap: 0;
+        text-align: left;
+        align-items: stretch;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 1rem;
     }
 
     .benefit-item {
-        padding: 2.2rem 1.8rem;
-        background: white;
-        border-radius: 20px;
+        padding: 2rem 0;
+        background: transparent;
+        border-radius: 0;
         width: 100%;
-        max-width: 400px;
-        margin: 0 auto;
-        text-align: center;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        border: 1px solid rgba(0,0,0,0.05);
-        min-height: 260px;
+        max-width: 100%;
+        margin: 0;
+        text-align: left;
+        box-shadow: none;
+        border: none;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        min-height: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .benefit-item:last-child {
+        border-bottom: none;
+    }
+
+    .benefit-icon {
+        width: 60px;
+        height: 60px;
+        background: transparent;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        color: #333;
+        box-shadow: none;
+        flex-shrink: 0;
+    }
+
+    .benefit-image {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        filter: none;
+        opacity: 0.8;
+    }
+
+    .benefit-content {
+        flex: 1;
     }
 
     .benefit-item h4,
     .benefit-item p {
-        text-align: center;
+        text-align: left;
+        margin: 0;
+    }
+
+    .benefit-item h4 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: #1a365d;
+        font-weight: 600;
+    }
+
+    .benefit-item p {
+        font-size: 0.9rem;
+        color: #4a5568;
+        line-height: 1.4;
     }
 
     .benefits-container {
@@ -3113,27 +3475,42 @@ body {
     }
 
     .mission-vision-grid {
+        display: flex;
         flex-direction: column;
         gap: 1.5rem;
         align-items: center;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 1rem;
     }
 
     .mission-vision-card {
-        max-width: 100%;
+        max-width: 90%;
+        width: 90%;
         padding: 2rem;
         height: auto;
         min-height: 400px;
+        flex: none;
     }
 
     .mission-vision-content {
         transform: translateY(0) !important;
         opacity: 1 !important;
-        padding: 1.5rem;
+        padding: 2rem 1.5rem !important;
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        height: 100% !important;
     }
 
     .mission-vision-content p {
         opacity: 1 !important;
         transform: translateY(0) !important;
+        position: relative !important;
+        bottom: auto !important;
+        margin-top: 1rem !important;
     }
 
     .mission-vision-card::after {
@@ -3144,12 +3521,14 @@ body {
         font-size: 1.6rem;
         color: white !important;
         text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
-        margin-bottom: 0;
+        margin-bottom: 1.5rem !important;
         position: relative !important;
         top: auto !important;
         left: auto !important;
         right: auto !important;
         transform: none !important;
+        text-align: center !important;
+        width: 100% !important;
     }
 
     .mission-vision-content p {
@@ -3157,7 +3536,7 @@ body {
         bottom: auto !important;
         opacity: 1 !important;
         transform: none !important;
-        margin-top: 1rem !important;
+        margin-top: 0 !important;
     }
 
     .mission-vision-content p {
@@ -3803,14 +4182,15 @@ body {
     }
 
     .mission-vision-content {
-        padding: 1.2rem;
+        padding: 2rem 1.2rem !important;
+        justify-content: space-between !important;
     }
 
     .mission-vision-title {
         font-size: 1.4rem;
         color: white !important;
         text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
-        margin-bottom: 0;
+        margin-bottom: 1.5rem !important;
         position: relative !important;
         top: auto !important;
         left: auto !important;
@@ -3823,10 +4203,7 @@ body {
         bottom: auto !important;
         opacity: 1 !important;
         transform: none !important;
-        margin-top: 1rem !important;
-    }
-
-    .mission-vision-content p {
+        margin-top: 0 !important;
         font-size: 0.9rem;
         color: white;
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
@@ -4041,37 +4418,38 @@ body {
 
 /* Efectos para dispositivos táctiles sin hover */
 @media (hover: none) and (min-width: 769px) {
-  .main-services-section .card:active,
+  .main-services-section .card {
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+  }
+
+  /* Estados de click para reemplazar hover */
+  .main-services-section .card.clicked,
   .main-services-section .card:focus {
     align-items: center;
     transform: translateY(-8px) scale(1.02);
   }
 
-  .main-services-section .card:active:before,
+  .main-services-section .card.clicked:before,
   .main-services-section .card:focus:before { 
     transform: translateY(-4%); 
   }
 
-  .main-services-section .card:active:after,
+  .main-services-section .card.clicked:after,
   .main-services-section .card:focus:after { 
     transform: translateY(-50%); 
   }
 
-  .main-services-section .card:active .content,
+  .main-services-section .card.clicked .content,
   .main-services-section .card:focus .content {
     transform: translateY(0);
   }
 
-  .main-services-section .card:active .content > *:not(.title),
+  .main-services-section .card.clicked .content > *:not(.title),
   .main-services-section .card:focus .content > *:not(.title) {
     opacity: 1;
     transform: translateY(0);
     transition-delay: calc(var(--card-d) / 8);
-  }
-
-  .main-services-section .card {
-    -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
   }
 }
 

@@ -537,6 +537,144 @@ mobileGalleryApp = createApp({
         });
 
         // ================================================
+        // NUEVA FUNCIONALIDAD: CLICK EN LUGAR DE HOVER PARA MÓVILES
+        // ================================================
+        
+        function isTouchDevice() {
+            return (('ontouchstart' in window) ||
+                    (navigator.maxTouchPoints > 0) ||
+                    (navigator.msMaxTouchPoints > 0));
+        }
+
+        function isMobileDevice() {
+            return window.innerWidth <= 768 || isTouchDevice();
+        }
+
+        // Función para manejar clicks en dispositivos móviles
+        function setupMobileClickHandlers() {
+            if (!isMobileDevice()) return;
+
+            // Configurar click handlers para tarjetas principales de servicios
+            const mainServiceCards = document.querySelectorAll('.main-service');
+            mainServiceCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remover clase clicked de otras tarjetas
+                    mainServiceCards.forEach(c => c.classList.remove('clicked'));
+                    
+                    // Toggle clase clicked en la tarjeta actual
+                    this.classList.toggle('clicked');
+                });
+            });
+
+            // Configurar click handlers para tarjetas de servicios modernos
+            const modernServiceCards = document.querySelectorAll('.main-services-section .card');
+            modernServiceCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remover clase clicked de otras tarjetas
+                    modernServiceCards.forEach(c => c.classList.remove('clicked'));
+                    
+                    // Toggle clase clicked en la tarjeta actual
+                    this.classList.toggle('clicked');
+                });
+            });
+
+            // Configurar click handlers para tarjetas de beneficios
+            const benefitItems = document.querySelectorAll('.benefit-item');
+            benefitItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remover clase clicked de otras tarjetas
+                    benefitItems.forEach(i => i.classList.remove('clicked'));
+                    
+                    // Toggle clase clicked en la tarjeta actual
+                    this.classList.toggle('clicked');
+                });
+            });
+
+            // Configurar click handlers para servicios secundarios
+            const secondaryServices = document.querySelectorAll('.secondary-service');
+            secondaryServices.forEach(service => {
+                service.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remover clase clicked de otras tarjetas
+                    secondaryServices.forEach(s => s.classList.remove('clicked'));
+                    
+                    // Toggle clase clicked en la tarjeta actual
+                    this.classList.toggle('clicked');
+                });
+            });
+
+            // Configurar click handlers para elementos de valores
+            const valueItems = document.querySelectorAll('.value-item');
+            valueItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remover clase clicked de otras tarjetas
+                    valueItems.forEach(i => i.classList.remove('clicked'));
+                    
+                    // Toggle clase clicked en la tarjeta actual
+                    this.classList.toggle('clicked');
+                });
+            });
+
+            // Configurar click handlers especiales para misión y visión
+            const missionVisionCards = document.querySelectorAll('.mission-vision-card');
+            missionVisionCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Toggle clase clicked en la tarjeta actual
+                    this.classList.toggle('clicked');
+                    
+                    // Si se clickea otra tarjeta de misión/visión, cerrar las demás
+                    missionVisionCards.forEach(c => {
+                        if (c !== this) {
+                            c.classList.remove('clicked');
+                        }
+                    });
+                });
+            });
+
+            // Cerrar tarjetas expandidas al hacer click fuera
+            document.addEventListener('click', function(e) {
+                const clickedElement = e.target.closest('.main-service, .main-services-section .card, .benefit-item, .secondary-service, .value-item, .mission-vision-card');
+                
+                if (!clickedElement) {
+                    // Remover todas las clases clicked
+                    document.querySelectorAll('.clicked').forEach(el => {
+                        el.classList.remove('clicked');
+                    });
+                }
+            });
+
+            // Prevenir que el click en el contenido de las tarjetas cierre la tarjeta
+            document.querySelectorAll('.service-content, .mission-vision-content, .benefit-item > *, .value-item > *').forEach(content => {
+                content.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        }
+
+        // Configurar el redimensionamiento de ventana
+        function handleResize() {
+            // Re-configurar handlers basado en el tamaño de pantalla
+            document.querySelectorAll('.clicked').forEach(el => {
+                el.classList.remove('clicked');
+            });
+            
+            if (isMobileDevice()) {
+                setupMobileClickHandlers();
+            }
+        }
+
+        // ================================================
         // MEJORAS PARA INTERACTIVIDAD TÁCTIL EN MÓVILES
         // ================================================
         
@@ -549,121 +687,32 @@ mobileGalleryApp = createApp({
 
         // Mejorar experiencia táctil en tarjetas de servicios principales
         function enhanceTouchExperience() {
+            // La funcionalidad de click ya está manejada por setupMobileClickHandlers
+            // Mantener solo efectos visuales adicionales si es necesario
+            
             if (!isTouchDevice()) return;
 
-            // Tarjetas de servicios principales
-            const mainServiceCards = document.querySelectorAll('.main-service');
-            mainServiceCards.forEach(card => {
-                card.addEventListener('touchstart', function(e) {
-                    this.classList.add('touch-active');
+            // Agregar feedback visual inmediato al tocar (antes del click)
+            const interactiveElements = document.querySelectorAll(
+                '.main-service, .main-services-section .card, .benefit-item, .secondary-service, .value-item, .mission-vision-card'
+            );
+            
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchstart', function(e) {
+                    this.style.transform = 'scale(0.98)';
+                    this.style.transition = 'transform 0.1s ease';
                 });
                 
-                card.addEventListener('touchend', function(e) {
+                element.addEventListener('touchend', function(e) {
                     setTimeout(() => {
-                        this.classList.remove('touch-active');
-                    }, 150);
-                });
-            });
-
-            // Tarjetas de beneficios
-            const benefitItems = document.querySelectorAll('.benefit-item');
-            benefitItems.forEach(item => {
-                item.addEventListener('touchstart', function(e) {
-                    this.classList.add('touch-active');
-                });
-                
-                item.addEventListener('touchend', function(e) {
-                    setTimeout(() => {
-                        this.classList.remove('touch-active');
-                    }, 150);
-                });
-            });
-
-            // Tarjetas de servicios secundarios
-            const secondaryServices = document.querySelectorAll('.secondary-service');
-            secondaryServices.forEach(service => {
-                service.addEventListener('touchstart', function(e) {
-                    this.classList.add('touch-active');
-                });
-                
-                service.addEventListener('touchend', function(e) {
-                    setTimeout(() => {
-                        this.classList.remove('touch-active');
-                    }, 150);
-                });
-            });
-
-            // Tarjetas de valores
-            const valueItems = document.querySelectorAll('.value-item');
-            valueItems.forEach(item => {
-                item.addEventListener('touchstart', function(e) {
-                    this.classList.add('touch-active');
-                });
-                
-                item.addEventListener('touchend', function(e) {
-                    setTimeout(() => {
-                        this.classList.remove('touch-active');
-                    }, 150);
-                });
-            });
-
-            // Tarjetas de misión y visión con toggle
-            const missionVisionCards = document.querySelectorAll('.mission-vision-card');
-            missionVisionCards.forEach(card => {
-                let isExpanded = false;
-                
-                card.addEventListener('touchstart', function(e) {
-                    this.classList.add('touch-active');
-                });
-                
-                card.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Toggle estado expandido
-                    isExpanded = !isExpanded;
-                    
-                    if (isExpanded) {
-                        this.classList.add('expanded');
-                        this.style.zIndex = '1000';
-                        
-                        // Mostrar contenido con animación
-                        const content = this.querySelector('.mission-vision-content p');
-                        const title = this.querySelector('.mission-vision-title');
-                        
-                        if (content) {
-                            content.style.opacity = '1';
-                            content.style.transform = 'translateY(0)';
+                        if (!this.classList.contains('clicked')) {
+                            this.style.transform = '';
                         }
-                        
-                        if (title) {
-                            title.style.transform = 'scale(1.05)';
-                            title.style.textShadow = '0 0 15px rgba(255, 255, 255, 0.8)';
-                        }
-                        
-                    } else {
-                        this.classList.remove('expanded');
-                        this.style.zIndex = '';
-                        
-                        // Ocultar contenido
-                        const content = this.querySelector('.mission-vision-content p');
-                        const title = this.querySelector('.mission-vision-title');
-                        
-                        if (content) {
-                            content.style.opacity = '0';
-                            content.style.transform = 'translateY(2rem)';
-                        }
-                        
-                        if (title) {
-                            title.style.transform = 'scale(1)';
-                            title.style.textShadow = '3px 3px 6px rgba(0, 0, 0, 0.9)';
-                        }
-                    }
+                    }, 100);
                 });
                 
-                card.addEventListener('touchend', function(e) {
-                    setTimeout(() => {
-                        this.classList.remove('touch-active');
-                    }, 150);
+                element.addEventListener('touchcancel', function(e) {
+                    this.style.transform = '';
                 });
             });
         }
@@ -672,6 +721,7 @@ mobileGalleryApp = createApp({
         function addTouchStyles() {
             const style = document.createElement('style');
             style.textContent = `
+                /* Estados táctiles básicos */
                 .touch-active {
                     transform: scale(0.98) !important;
                     transition: transform 0.1s ease !important;
@@ -684,50 +734,103 @@ mobileGalleryApp = createApp({
                 .value-item.touch-active {
                     transform: translateY(-3px) scale(0.98) !important;
                 }
-                
-                .mission-vision-card.expanded .mission-vision-content {
-                    justify-content: flex-end !important;
-                    padding-bottom: 4rem !important;
-                }
-                
-                .mission-vision-card.expanded .mission-vision-title {
-                    top: 25% !important;
-                    margin-bottom: 1.5rem !important;
-                }
-                
-                .mission-vision-card.expanded::after {
-                    transform: translateY(-50%) !important;
-                    background-image: linear-gradient(
-                        to bottom,
-                        hsla(220, 55%, 20%, 0.3) 0%,
-                        hsla(220, 55%, 18%, 0.35) 11.7%,
-                        hsla(220, 55%, 16%, 0.4) 22.1%,
-                        hsla(220, 55%, 14%, 0.45) 31.2%,
-                        hsla(220, 55%, 12%, 0.5) 39.4%,
-                        hsla(220, 55%, 10%, 0.55) 46.6%,
-                        hsla(220, 55%, 8%, 0.6) 53.1%,
-                        hsla(220, 55%, 6%, 0.65) 58.9%,
-                        hsla(220, 55%, 4%, 0.7) 64.3%,
-                        hsla(200, 45%, 15%, 0.75) 69.3%,
-                        hsla(200, 45%, 12%, 0.8) 74.1%,
-                        hsla(200, 45%, 10%, 0.85) 78.8%,
-                        hsla(200, 45%, 8%, 0.9) 83.6%,
-                        hsla(200, 45%, 6%, 0.92) 88.7%,
-                        hsla(200, 45%, 4%, 0.95) 94.1%,
-                        hsla(200, 45%, 2%, 0.98) 100%
-                    ) !important;
-                }
-                
+
+                /* Estados clicked para móviles */
                 @media (max-width: 768px) {
+                    .main-service.clicked {
+                        transform: translateY(-10px) scale(1.02) !important;
+                        box-shadow: 0 25px 50px rgba(0,0,0,0.2) !important;
+                    }
+
+                    .main-service.clicked::before {
+                        background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%) !important;
+                    }
+
+                    .benefit-item.clicked {
+                        transform: translateY(-8px) !important;
+                        box-shadow: 0 15px 40px rgba(0,0,0,0.12) !important;
+                        border-color: rgba(255, 167, 38, 0.2) !important;
+                    }
+
+                    .benefit-item.clicked .benefit-icon {
+                        transform: scale(1.1) rotate(5deg) !important;
+                        box-shadow: 0 12px 35px rgba(102, 126, 234, 0.35) !important;
+                    }
+
+                    .secondary-service.clicked {
+                        transform: translateY(-5px) !important;
+                        box-shadow: 0 12px 25px rgba(0,0,0,0.12) !important;
+                    }
+
+                    .value-item.clicked {
+                        transform: translateY(-5px) !important;
+                        box-shadow: 0 10px 25px rgba(0,0,0,0.12) !important;
+                    }
+
+                    /* Tarjetas modernas de servicios en móvil */
+                    .main-services-section .card.clicked .content {
+                        transform: translateY(0) !important;
+                    }
+
+                    .main-services-section .card.clicked .content > *:not(.title) {
+                        opacity: 1 !important;
+                        transform: translateY(0) !important;
+                    }
+
+                    .main-services-section .card.clicked:after {
+                        transform: translateY(-50%) !important;
+                    }
+
+                    .main-services-section .card.clicked {
+                        transform: scale(1.02) !important;
+                        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+                    }
+
+                    /* Estados clicked para misión y visión */
+                    .mission-vision-card.clicked {
+                        transform: translateY(-8px) scale(1.02) !important;
+                        box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+                    }
+
                     .mission-vision-card {
-                        cursor: pointer;
-                        -webkit-tap-highlight-color: transparent;
+                        cursor: pointer !important;
+                        -webkit-tap-highlight-color: transparent !important;
                     }
                     
                     .value-item {
-                        cursor: pointer;
-                        -webkit-tap-highlight-color: transparent;
+                        cursor: pointer !important;
+                        -webkit-tap-highlight-color: transparent !important;
                     }
+
+                    .benefit-item {
+                        cursor: pointer !important;
+                        -webkit-tap-highlight-color: transparent !important;
+                    }
+
+                    .secondary-service {
+                        cursor: pointer !important;
+                        -webkit-tap-highlight-color: transparent !important;
+                    }
+                }
+
+                /* Transiciones suaves para todos los elementos */
+                .main-service,
+                .benefit-item,
+                .secondary-service,
+                .value-item,
+                .mission-vision-card,
+                .main-services-section .card {
+                    transition: all 0.3s ease !important;
+                }
+
+                .main-service::before,
+                .mission-vision-card::before,
+                .mission-vision-card::after {
+                    transition: all 0.3s ease !important;
+                }
+
+                .benefit-icon {
+                    transition: all 0.4s ease !important;
                 }
             `;
             document.head.appendChild(style);
@@ -735,6 +838,11 @@ mobileGalleryApp = createApp({
 
         // Inicializar mejoras táctiles cuando el DOM esté listo
         document.addEventListener('DOMContentLoaded', function() {
+            setupMobileClickHandlers();
             enhanceTouchExperience();
             addTouchStyles();
         });
+
+        // Configurar evento de redimensionamiento
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('orientationchange', handleResize);
