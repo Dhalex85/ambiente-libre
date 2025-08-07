@@ -2067,6 +2067,45 @@ body {
     border: 2px solid rgba(255, 167, 38, 0.3);
 }
 
+.logo-calculator-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1rem 0;
+}
+
+.logo-calculator-image {
+    height: 50px;
+    width: auto;
+    max-width: 80px;
+    object-fit: contain;
+}
+
+.logo-calculator-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo-calculator-text {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.logo-calculator-subtitle {
+    font-size: 0.7rem;
+    color: white;
+    opacity: 0.9;
+    font-weight: normal;
+    margin-top: -2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
 .calculate-btn {
     background: linear-gradient(45deg, #ff6b35, #f7931e);
     color: white;
@@ -3882,6 +3921,30 @@ body {
         font-size: 16px; /* Evitar zoom en iOS */
     }
 
+    /* Logo Calculator mobile styles */
+    .logo-calculator-section {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.8rem 0;
+    }
+
+    .logo-calculator-image {
+        height: 40px;
+    }
+
+    .logo-calculator-content {
+        align-items: center;
+    }
+
+    .logo-calculator-text {
+        font-size: 1rem;
+    }
+
+    .logo-calculator-subtitle {
+        font-size: 0.65rem;
+        margin-top: -1px;
+    }
+
     /* Radio buttons mobile styles */
     .radio-group {
         justify-content: center;
@@ -4473,6 +4536,26 @@ body {
         max-width: 250px;
         padding: 0.9rem 1.5rem;
         font-size: 0.95rem;
+    }
+
+    /* Logo Calculator extra small screens */
+    .logo-calculator-section {
+        flex-direction: column;
+        gap: 0.4rem;
+        padding: 0.6rem 0;
+    }
+
+    .logo-calculator-image {
+        height: 35px;
+    }
+
+    .logo-calculator-text {
+        font-size: 0.9rem;
+    }
+
+    .logo-calculator-subtitle {
+        font-size: 0.6rem;
+        margin-top: -1px;
     }
 }
 
