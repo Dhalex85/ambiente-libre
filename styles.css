@@ -15,6 +15,69 @@
     box-sizing: border-box;
 }
 
+/* Modal de agradecimiento después de enviar el formulario */
+.thank-you-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.thank-you-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 90%;
+    width: 400px;
+    animation: slideIn 0.4s ease-out;
+}
+
+.thank-you-content h3 {
+    color: #1a365d;
+    margin-bottom: 1rem;
+}
+
+.thank-you-content p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+.thank-you-content .close-btn {
+    background: #1a365d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.thank-you-content .close-btn:hover {
+    background: #2c5282;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
 /* Variables CSS para las tarjetas de servicios */
 :root {
     --card-d: 700ms;

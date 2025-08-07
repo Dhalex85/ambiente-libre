@@ -184,7 +184,7 @@
 
         // Contact form handling
         document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+            // No preventDefault aquí - permitiremos que el formulario se envíe normalmente a FormSubmit.co
             
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
@@ -200,7 +200,7 @@
             const fileInput = document.getElementById('recibo_cfe');
             if (fileInput.files.length > 0) {
                 mensaje += `*Recibo de CFE:* ${fileInput.files[0].name} (adjunto)\n`;
-                mensaje += `*Nota:* El cliente adjuntará el recibo de CFE por correo electrónico\n`;
+                mensaje += `*Nota:* El recibo de CFE ha sido enviado por correo automáticamente\n`;
             }
             
             if (data.mensaje) {
@@ -211,23 +211,74 @@
             
             // Encode message for WhatsApp
             const mensajeCodificado = encodeURIComponent(mensaje);
-            const whatsappUrl = `https://wa.me/527712149628?text=${mensajeCodificado}`;
+            const whatsappUrl = `https://wa.me/527298250858?text=${mensajeCodificado}`;
             
-            // If there's a file attached, show instructions for email
-            if (fileInput.files.length > 0) {
-                alert('¡Gracias por tu solicitud! Te redirigimos a WhatsApp para el contacto inicial. Por favor, envía tu recibo de CFE al correo: ambientelibre.cotiza@outlook.com');
-            } else {
-                alert('¡Gracias por tu solicitud! Te redirigimos a WhatsApp para completar el contacto.');
+            // Modificar la URL de redirección para incluir WhatsApp
+            const thanksUrl = document.getElementById('thanksUrl');
+            if (thanksUrl) {
+                // Aquí guardamos la URL de WhatsApp en localStorage para usarla después de enviar el formulario
+                localStorage.setItem('whatsappUrl', whatsappUrl);
+                thanksUrl.value = window.location.href + "#gracias";
             }
             
-            // Open WhatsApp
-            window.open(whatsappUrl, '_blank');
-            
-            // Reset form
-            this.reset();
-            document.getElementById('file-selected').textContent = 'Ningún archivo seleccionado';
-            document.querySelector('.file-label').classList.remove('has-file');
+            // Resto del manejo se hará después del envío del formulario (ver función setupThankYouHandler)
         });
+        
+        // Configurar el manejo del agradecimiento después del envío del formulario
+        function setupThankYouHandler() {
+            // Verificar si estamos en la sección de agradecimiento (después de enviar el formulario)
+            if (window.location.hash === '#gracias') {
+                // Mostrar mensaje de agradecimiento
+                showThankYouMessage();
+                
+                // Abrir WhatsApp si está disponible la URL
+                const whatsappUrl = localStorage.getItem('whatsappUrl');
+                if (whatsappUrl) {
+                    setTimeout(function() {
+                        window.open(whatsappUrl, '_blank');
+                        localStorage.removeItem('whatsappUrl'); // Limpiar después de usar
+                    }, 1000); // Pequeña demora para asegurar que el mensaje se muestre primero
+                }
+                
+                // Limpiar el hash de la URL después de un momento
+                setTimeout(function() {
+                    history.replaceState(null, document.title, window.location.pathname + window.location.search);
+                }, 100);
+            }
+        }
+        
+        // Mostrar mensaje de agradecimiento
+        function showThankYouMessage() {
+            // Crear modal o mensaje de agradecimiento
+            const thankYouModal = document.createElement('div');
+            thankYouModal.className = 'thank-you-modal';
+            thankYouModal.innerHTML = `
+                <div class="thank-you-content">
+                    <h3>¡Gracias por tu solicitud!</h3>
+                    <p>Hemos recibido tu información correctamente.</p>
+                    <p>En breve te redirigiremos a WhatsApp para continuar la comunicación.</p>
+                    <button class="close-btn">Cerrar</button>
+                </div>
+            `;
+            document.body.appendChild(thankYouModal);
+            
+            // Manejar el cierre del modal
+            thankYouModal.querySelector('.close-btn').addEventListener('click', function() {
+                thankYouModal.remove();
+            });
+            
+            // Cerrar automáticamente después de un tiempo
+            setTimeout(function() {
+                if (document.body.contains(thankYouModal)) {
+                    thankYouModal.remove();
+                }
+            }, 8000);
+        }
+        
+        // Ejecutar la configuración cuando la página carga
+        window.addEventListener('load', setupThankYouHandler);
+        // También ejecutar cuando cambia el hash (por si el usuario navega con los botones del navegador)
+        window.addEventListener('hashchange', setupThankYouHandler);
 
         // File input handling
         document.getElementById('recibo_cfe').addEventListener('change', function(e) {
