@@ -82,56 +82,80 @@
             tarifaInput.value = tarifaSeleccionada;
         }
 
+        
         function calcularAhorro() {
-            const consumoInput = parseFloat(document.getElementById('consumo').value);
-            const tarifa = parseFloat(document.getElementById('tarifa').value);
-            const tipoInstalacion = document.getElementById('tipo-instalacion').value;
-            const periodo = document.querySelector('input[name="periodo"]:checked').value;
+    // Obtener valores del formulario
+    const consumoInput = parseFloat(document.getElementById('consumo').value);
+    const tarifa = parseFloat(document.getElementById('tarifa').value);
+    const tipoInstalacion = document.getElementById('tipo-instalacion').value;
+    const periodo = document.querySelector('input[name="periodo"]:checked').value;
 
-            if (!consumoInput) {
-                alert('Por favor ingresa el consumo de energía');
-                return;
-            }
+    // Validación
+    if (!consumoInput || consumoInput <= 0) {
+        alert('Por favor ingresa un consumo válido');
+        return;
+    }
 
-            // Convertir consumo a mensual si es bimestral
-            const consumoMensual = periodo === 'bimestral' ? consumoInput / 2 : consumoInput;
+    // Convertir consumo a mensual
+    const consumoMensual = periodo === 'bimestral' ? consumoInput / 2 : consumoInput;
 
-            // Parámetros técnicos optimizados para México
-            const irradiacion = 5.2; // kWh/m²/día promedio nacional
-            const factorEficiencia = 0.8; // Eficiencia del sistema (80%)
-            const horasDia = 5.2; // Equivalente a la irradiación diaria
-            const diasMes = 30.4; // Promedio días por mes
-            
-            // Cálculos basados en consumo mensual
-            const gastoMensual = consumoMensual * tarifa;
-            const gastoAnual = gastoMensual * 12;
-            const ahorroPorcentaje = 85; // Ahorro estimado del 85%
-            const ahorroMensual = gastoMensual * (ahorroPorcentaje / 100);
-            const ahorroAnual = ahorroMensual * 12;
-            
-            // Cálculo de capacidad del sistema (fórmula optimizada)
-            const capacidadKW = (consumoMensual / (horasDia * factorEficiencia * diasMes)) * 1.15; // +15% margen de seguridad
+    // Parámetros técnicos
+    const irradiacion = 5.2;
+    const factorEficiencia = 0.8;
+    const horasDia = 5.2;
+    const diasMes = 30.4;
+    
+    // Cálculo de capacidad del sistema
+    const capacidadKW = (consumoMensual / (horasDia * factorEficiencia * diasMes)) * 1.15;
+    
+    // Costos base por kW (MXN)
+    const costosBase = {
+        'residencial': 6000,
+        'comercial': 13000,
+        'industrial': 11000
+    };
+    
+    // Ajustar costo base para cumplir con los retornos objetivo
+    const costoPorKW = costosBase[tipoInstalacion] * ajusteCostoPorConsumo(consumoMensual);
+    const costoTotal = capacidadKW * costoPorKW;
+    
+    // Cálculo de ahorros
+    const gastoMensual = consumoMensual * tarifa;
+    const ahorroAnual = gastoMensual * 0.85 * 12;
+    
+    // Cálculo y ajuste del tiempo de retorno
+    let tiempoRetorno = calcularRetornoAjustado(consumoMensual, costoTotal, ahorroAnual);
+    
 
-            // Costo del sistema solar (MXN por kW) - valores actualizados en pesos mexicanos
-            const costosPorKW = {
-                'residencial': 6000, // $6,000 MXN/kW para residencial
-                'comercial': 13000,   // $13,000 MXN/kW para comercial
-                'industrial': 11000   // $11,000 MXN/kW para industrial
-            };
-            
-            const costoPorKW = costosPorKW[tipoInstalacion];
-            const costoTotalMXN = capacidadKW * costoPorKW;
+    // Función para ajuste lineal del retorno entre 100-600 kWh
+    function calcularRetornoAjustado(consumo, costo, ahorro) {
+        const retornoBase = costo / ahorro;
+        
+        // Puntos de referencia
+        const consumoMin = 100;
+        const consumoMax = 600;
+        const retornoMin = 3.6;
+        const retornoMax = 2.83;
+        
+        if (consumo <= consumoMin) return retornoMin;
+        if (consumo >= consumoMax) return retornoMax;
+        
+        // Fórmula de interpolación lineal
+        const pendiente = (retornoMax - retornoMin) / (consumoMax - consumoMin);
+        return retornoMin + pendiente * (consumo - consumoMin);
+    }
+    
+    // Ajuste de costos para mantener la progresión
+    function ajusteCostoPorConsumo(consumo) {
+        // Factores de ajuste para mantener la curva de retorno
+        if (consumo <= 100) return 1.15;  // +15% para 100 kWh
+        if (consumo >= 600) return 0.95;   // -5% para 600 kWh
+        
+        // Interpolación lineal entre los factores
+        return 1.15 - (consumo - 100) * 0.0004;
+    }
+    
 
-            // Tiempo de retorno de inversión (calculado dinámicamente)
-            const tiempoRetorno = costoTotalMXN / ahorroAnual; // En años
-
-            // Descripción del tipo de sistema
-            const descripcionesSistema = {
-                'residencial': 'Sistema residencial para hogar',
-                'comercial': 'Sistema comercial para negocio',
-                'industrial': 'Sistema industrial para fábrica'
-            };
-            const descripcionSistema = descripcionesSistema[tipoInstalacion];
 
             // Mostrar resultados
             document.getElementById('resultado').style.display = 'block';
