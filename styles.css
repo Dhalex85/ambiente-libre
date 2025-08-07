@@ -1211,15 +1211,16 @@ body {
 }
 
 .values-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     margin-top: 1.5rem;
     text-align: center;
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
-    justify-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .value-item {
@@ -2053,6 +2054,17 @@ body {
     border-radius: 8px;
     font-size: 1rem;
     box-sizing: border-box;
+}
+
+.tarifa-display {
+    background: rgba(255,255,255,0.9);
+    padding: 0.7rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #1a365d;
+    text-align: center;
+    border: 2px solid rgba(255, 167, 38, 0.3);
 }
 
 .calculate-btn {

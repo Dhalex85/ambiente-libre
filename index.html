@@ -353,18 +353,17 @@
                     <input type="number" id="consumo" placeholder="Ej: 350" min="1">
                 </div>
                 <div class="input-group">
-                    <label for="tarifa">Tarifa CFE promedio ($/kWh)</label>
-                    <input type="number" id="tarifa" placeholder="Ej: 3.50" step="0.01" min="0.01">
+                    <label for="tipo-instalacion">Tipo de instalación</label>
+                    <select id="tipo-instalacion" onchange="actualizarTarifaCFE()">
+                        <option value="residencial">Residencial</option>
+                        <option value="comercial">Comercial</option>
+                        <option value="industrial">Industrial</option>
+                    </select>
                 </div>
                 <div class="input-group">
-                    <label for="ubicacion">Ubicación</label>
-                    <select id="ubicacion">
-                        <option value="hidalgo">Hidalgo</option>
-                        <option value="cdmx">Ciudad de México</option>
-                        <option value="edomex">Estado de México</option>
-                        <option value="queretaro">Querétaro</option>
-                        <option value="otro">Otro estado</option>
-                    </select>
+                    <label for="tarifa">Tarifa CFE promedio ($/kWh)</label>
+                    <div class="tarifa-display" id="tarifa-display">$1.50</div>
+                    <input type="hidden" id="tarifa" value="1.50">
                 </div>
                 <button class="calculate-btn" onclick="calcularAhorro()">Calcular Ahorro</button>
 

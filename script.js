@@ -40,9 +40,14 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // Calcular altura del header fijo
+                    const header = document.querySelector('.header');
+                    const headerHeight = header ? header.offsetHeight : 0;
+                    // Calcular posición del destino menos la altura del header
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -63,30 +68,41 @@
             }
         }
 
+        function actualizarTarifaCFE() {
+            const tipoInstalacion = document.getElementById('tipo-instalacion').value;
+            const tarifaDisplay = document.getElementById('tarifa-display');
+            const tarifaInput = document.getElementById('tarifa');
+            
+            const tarifas = {
+                'residencial': { valor: 1.50, texto: '$1.50' },
+                'comercial': { valor: 4.00, texto: '$4.00' },
+                'industrial': { valor: 3.00, texto: '$3.00' }
+            };
+            
+            const tarifaSeleccionada = tarifas[tipoInstalacion];
+            tarifaDisplay.textContent = tarifaSeleccionada.texto;
+            tarifaInput.value = tarifaSeleccionada.valor;
+        }
+
         function calcularAhorro() {
             const consumoInput = parseFloat(document.getElementById('consumo').value);
             const tarifa = parseFloat(document.getElementById('tarifa').value);
-            const ubicacion = document.getElementById('ubicacion').value;
+            const tipoInstalacion = document.getElementById('tipo-instalacion').value;
             const periodo = document.querySelector('input[name="periodo"]:checked').value;
 
-            if (!consumoInput || !tarifa) {
-                alert('Por favor completa todos los campos');
+            if (!consumoInput) {
+                alert('Por favor ingresa el consumo de energía');
                 return;
             }
 
             // Convertir consumo a mensual si es bimestral
             const consumoMensual = periodo === 'bimestral' ? consumoInput / 2 : consumoInput;
 
-            // Factores de irradiación solar por ubicación (aproximado)
-            const factoresIrradiacion = {
-                'hidalgo': 5.2,
-                'cdmx': 5.0,
-                'edomex': 5.1,
-                'queretaro': 5.4,
-                'otro': 5.0
-            };
-
-            const irradiacion = factoresIrradiacion[ubicacion] || 5.0;
+            // Parámetros técnicos optimizados para México
+            const irradiacion = 5.2; // kWh/m²/día promedio nacional
+            const factorEficiencia = 0.8; // Eficiencia del sistema (80%)
+            const horasDia = 5.2; // Equivalente a la irradiación diaria
+            const diasMes = 30.4; // Promedio días por mes
             
             // Cálculos basados en consumo mensual
             const gastoMensual = consumoMensual * tarifa;
@@ -95,11 +111,29 @@
             const ahorroMensual = gastoMensual * (ahorroPorcentaje / 100);
             const ahorroAnual = ahorroMensual * 12;
             
-            // Estimación de capacidad del sistema necesario
-            const capacidadKW = (consumoMensual * 12) / (irradiacion * 365 * 0.8); // Factor de eficiencia 0.8
+            // Cálculo de capacidad del sistema (fórmula optimizada)
+            const capacidadKW = (consumoMensual / (horasDia * factorEficiencia * diasMes)) * 1.15; // +15% margen de seguridad
 
-            // Tiempo de retorno de inversión (sin mostrar la inversión)
-            const tiempoRetorno = 7.5; // Promedio general de 7.5 años
+            // Costo del sistema solar (MXN por kW) - valores actualizados en pesos mexicanos
+            const costosPorKW = {
+                'residencial': 24000, // $24,000 MXN/kW para residencial
+                'comercial': 22000,   // $22,000 MXN/kW para comercial
+                'industrial': 19000   // $19,000 MXN/kW para industrial (economías de escala)
+            };
+            
+            const costoPorKW = costosPorKW[tipoInstalacion] || 22000;
+            const costoTotalMXN = capacidadKW * costoPorKW;
+
+            // Tiempo de retorno de inversión (calculado dinámicamente)
+            const tiempoRetorno = costoTotalMXN / ahorroAnual; // En años
+
+            // Descripción del tipo de sistema
+            const descripcionesSistema = {
+                'residencial': 'Sistema residencial para hogar',
+                'comercial': 'Sistema comercial para negocio',
+                'industrial': 'Sistema industrial para fábrica'
+            };
+            const descripcionSistema = descripcionesSistema[tipoInstalacion];
 
             // Mostrar resultados
             document.getElementById('resultado').style.display = 'block';
@@ -114,15 +148,23 @@
                         $${ahorroAnual.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN
                     </div>
                     <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
-                        <strong>⚡ Sistema Recomendado:</strong><br>
+                        <strong>⚡ ${descripcionSistema}:</strong><br>
                         ${capacidadKW.toFixed(2)} kW (${Math.ceil(capacidadKW * 2.5)} paneles aprox.)
                     </div>
                     <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                        <strong>� Inversión Estimada:</strong><br>
+                        $${costoTotalMXN.toLocaleString('es-MX', {minimumFractionDigits: 0})} MXN
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                        <strong>�💳 Tarifa CFE aplicada:</strong><br>
+                        $${tarifa.toFixed(2)} pesos por kWh
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
                         <strong>⏱️ Retorno de Inversión:</strong><br>
-                        ${tiempoRetorno} años aproximadamente
+                        ${tiempoRetorno.toFixed(1)} años
                     </div>
                     <div style="background: rgba(76, 175, 80, 0.2); padding: 1rem; border-radius: 8px; border: 1px solid #4caf50;">
-                        <small><strong>Nota:</strong> Estos son cálculos estimativos. Para una cotización precisa y personalizada, contáctanos para una evaluación técnica gratuita.</small>
+                        <small><strong>Nota:</strong> Estos son cálculos estimativos para sistemas ${tipoInstalacion}es basados en parámetros técnicos actualizados. La inversión incluye equipos, instalación y trámites. Para una cotización precisa y personalizada, contáctanos para una evaluación técnica gratuita.</small>
                     </div>
                 </div>
             `;
@@ -841,6 +883,9 @@ mobileGalleryApp = createApp({
             setupMobileClickHandlers();
             enhanceTouchExperience();
             addTouchStyles();
+            
+            // Inicializar calculadora con valores por defecto
+            actualizarTarifaCFE();
         });
 
         // Configurar evento de redimensionamiento
