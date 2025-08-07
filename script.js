@@ -270,7 +270,10 @@
                 observer.observe(el);
             });
         });
-        // Gallery functionality
+
+
+//INICIO GALERIA
+// Gallery functionality
 let galleryApp = null;
 let mobileGalleryApp = null;
 
@@ -293,13 +296,13 @@ const projectGalleries = {
             'img/herrajes/herrajes3.jpg',
             'img/herrajes/herrajes1.jpg',
             'img/herrajes/herrajes2.jpg',
-            'img/herrajes/herrajes5.jpg'
+            //'img/herrajes/herrajes5.jpg'
         ]
     },
     concretera: {
         title: 'Concretera',
         images: [
-            'img/concretera/concretera4.jpg',
+           'img/concretera/concretera4.jpg',
             'img/concretera/concretera3.jpg',
             'img/concretera/concretera1.jpg',
             'img/concretera/concretera2.jpg',
@@ -340,161 +343,31 @@ const projectGalleries = {
 
 function openGallery(projectType) {
     const gallery = projectGalleries[projectType];
-    if (!gallery) return;
+    if (!gallery) {
+        console.error('Gallery not found for project type:', projectType);
+        return;
+    }
+
+    console.log('Opening gallery:', projectType, gallery);
 
     // Set gallery title
     document.getElementById('gallery-title').textContent = gallery.title;
 
     // Show modal
-    document.getElementById('gallery-modal').style.display = 'block';
+    const modal = document.getElementById('gallery-modal');
+    modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 
     // LIMPIEZA COMPLETA: Desmontar aplicaciones anteriores
-    if (galleryApp) {
-        galleryApp.unmount();
-        galleryApp = null;
-    }
-    if (mobileGalleryApp) {
-        mobileGalleryApp.unmount();
-        mobileGalleryApp = null;
-    }
+    cleanupGalleryApps();
 
-    // ESPERAR UN FRAME ANTES DE CREAR NUEVAS APLICACIONES
+    // Esperar un poco para que el DOM se actualice
     setTimeout(() => {
         initializeGalleryApps(gallery);
-    }, 50);
+    }, 150);
 }
 
-function initializeGalleryApps(gallery) {
-    const { createApp, reactive } = Vue;
-
-    // Desktop Gallery App
-    galleryApp = createApp({
-        setup() {
-            const items = reactive(
-                gallery.images.map((url, index) => ({
-                    id: index,
-                    pos: index,
-                    url: url
-                }))
-            );
-
-            function shuffle(item) {
-                const heroPos = Math.floor(items.length / 2);
-                const hero = items.findIndex(({ pos }) => pos === heroPos);
-                const target = items.findIndex(({ id }) => id === item.id);
-                [items[target].pos, items[hero].pos] = [items[hero].pos, items[target].pos];
-            }
-
-            return {
-                items,
-                shuffle,
-            }
-        },
-    }).mount('#gallery-app');
-
-    // Mobile Gallery App
-    mobileGalleryApp = createApp({
-        setup() {
-            // CREAR ARRAYS COMPLETAMENTE NUEVOS
-            const items = reactive([]);
-            const currentSlide = reactive({ value: 0 });
-            const isLoading = reactive({ value: true });
-
-            // Función para verificar si una imagen existe
-            function checkImageExists(url) {
-                return new Promise((resolve) => {
-                    const img = new Image();
-                    img.onload = () => resolve(url);
-                    img.onerror = () => resolve(null);
-                    img.src = url;
-                });
-            }
-
-            // Cargar imágenes del proyecto actual
-            async function loadExistingImages() {
-                isLoading.value = true;
-                
-                // LIMPIAR COMPLETAMENTE EL ARRAY
-                items.length = 0; // Esto es más efectivo que splice
-                
-                try {
-                    // Usar las imágenes del proyecto actual
-                    const imagePromises = gallery.images.map(url => checkImageExists(url));
-                    const results = await Promise.all(imagePromises);
-                    
-                    // Filtrar solo las imágenes que existen
-                    const existingImages = results.filter(url => url !== null);
-                    
-                    // Agregar las nuevas imágenes al array limpio
-                    items.push(...existingImages);
-                    
-                    console.log(`Mobile gallery loaded ${existingImages.length} images for ${gallery.title}:`, existingImages);
-                } catch (error) {
-                    console.error('Error loading images:', error);
-                }
-                
-                // Reset del slide actual
-                currentSlide.value = 0;
-                isLoading.value = false;
-            }
-
-            function goToSlide(index) {
-                if (index >= 0 && index < items.length) {
-                    currentSlide.value = index;
-                    const container = document.querySelector('.mobile-gallery-container');
-                    if (container) {
-                        const slideWidth = container.clientWidth;
-                        container.scrollTo({
-                            left: slideWidth * index,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            }
-
-            // CONFIGURAR SCROLL LISTENER DESPUÉS DE CARGAR LAS IMÁGENES
-            function setupScrollListener() {
-                setTimeout(() => {
-                    const container = document.querySelector('.mobile-gallery-container');
-                    if (container) {
-                        // Remover listeners anteriores clonando el elemento
-                        const newContainer = container.cloneNode(true);
-                        container.parentNode.replaceChild(newContainer, container);
-                        
-                        // Agregar nuevo listener
-                        newContainer.addEventListener('scroll', () => {
-                            const slideWidth = newContainer.clientWidth;
-                            const scrollLeft = newContainer.scrollLeft;
-                            const newSlide = Math.round(scrollLeft / slideWidth);
-                            if (newSlide >= 0 && newSlide < items.length) {
-                                currentSlide.value = newSlide;
-                            }
-                        });
-                    }
-                }, 300);
-            }
-
-            // Cargar imágenes al inicializar
-            loadExistingImages().then(() => {
-                setupScrollListener();
-            });
-
-            return {
-                items,
-                currentSlide,
-                isLoading,
-                goToSlide,
-            }
-        },
-    }).mount('#mobile-gallery');
-}
-
-function closeGallery() {
-    document.getElementById('gallery-modal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-    
-    // LIMPIEZA COMPLETA AL CERRAR
+function cleanupGalleryApps() {
     if (galleryApp) {
         try {
             galleryApp.unmount();
@@ -513,53 +386,284 @@ function closeGallery() {
         mobileGalleryApp = null;
     }
 
-    // LIMPIAR CONTENIDO DE LOS CONTENEDORES
+    // Limpiar contenedores
     const desktopGallery = document.getElementById('gallery-app');
     const mobileGallery = document.getElementById('mobile-gallery');
     
     if (desktopGallery) {
-        desktopGallery.innerHTML = `
-            <ul class="gallery">
-                <li
-                    v-for="item in items"
-                    :key="item.id"
-                    :data-pos="item.pos"
-                    :style="{
-                        translate: \`calc(var(--gallery-width) * 0.2 * \${item.pos})\`,
-                        scale: item.scale,
-                        backgroundImage: \`url(\${item.url})\`
-                    }"
-                    @click="shuffle(item)"
-                ></li>
-            </ul>
-        `;
+        desktopGallery.innerHTML = '';
     }
     
     if (mobileGallery) {
-        mobileGallery.innerHTML = `
-            <div class="mobile-gallery-container">
-                <div 
-                    v-for="(item, index) in items" 
-                    :key="index" 
-                    class="mobile-gallery-slide"
-                    :style="{ backgroundImage: \`url(\${item})\` }"
-                ></div>
-            </div>
-            <div class="mobile-gallery-indicators">
-                <span 
-                    v-for="(item, index) in items" 
-                    :key="index" 
-                    class="indicator"
-                    :class="{ active: index === currentSlide.value }"
-                    @click="goToSlide(index)"
-                ></span>
-            </div>
-        `;
+        mobileGallery.innerHTML = '';
     }
 }
 
+function initializeGalleryApps(gallery) {
+    if (!gallery || !gallery.images) {
+        console.error('Gallery data is invalid:', gallery);
+        return;
+    }
+
+    console.log('Initializing galleries with images:', gallery.images);
+
+    // Verificar que Vue esté disponible
+    if (typeof Vue === 'undefined') {
+        console.error('Vue.js not loaded');
+        // Fallback para mostrar galería sin Vue
+        initializeFallbackGallery(gallery);
+        return;
+    }
+
+    const { createApp, reactive, ref } = Vue;
+
+    // Desktop Gallery App
+    try {
+        const desktopContainer = document.getElementById('gallery-app');
+        if (desktopContainer) {
+            desktopContainer.innerHTML = `
+                <ul class="gallery">
+                    <li
+                        v-for="item in items"
+                        :key="item.id"
+                        :data-pos="item.pos"
+                        :style="{
+                            translate: \`calc(var(--gallery-width) * 0.2 * \${item.pos})\`,
+                            scale: item.scale,
+                            backgroundImage: \`url(\${item.url})\`
+                        }"
+                        @click="shuffle(item)"
+                    ></li>
+                </ul>
+            `;
+
+            galleryApp = createApp({
+                setup() {
+                    const items = reactive(
+                        gallery.images.map((url, index) => ({
+                            id: index,
+                            pos: index,
+                            url: url,
+                            scale: index === Math.floor(gallery.images.length / 2) ? 1 : 0.8
+                        }))
+                    );
+
+                    function shuffle(item) {
+                        const heroPos = Math.floor(items.length / 2);
+                        const hero = items.findIndex(({ pos }) => pos === heroPos);
+                        const target = items.findIndex(({ id }) => id === item.id);
+                        
+                        [items[target].pos, items[hero].pos] = [items[hero].pos, items[target].pos];
+                        
+                        // Actualizar escalas
+                        items.forEach(item => {
+                            item.scale = item.pos === heroPos ? 1 : 0.8;
+                        });
+                    }
+
+                    return {
+                        items,
+                        shuffle,
+                    }
+                },
+            }).mount('#gallery-app');
+
+            console.log('Desktop gallery mounted successfully');
+        }
+    } catch (error) {
+        console.error('Error mounting desktop gallery:', error);
+    }
+
+    // Mobile Gallery App
+    try {
+        const mobileContainer = document.getElementById('mobile-gallery');
+        if (mobileContainer) {
+            mobileContainer.innerHTML = `
+                <div class="mobile-gallery-container">
+                    <div 
+                        v-for="(image, index) in images" 
+                        :key="'slide-' + index" 
+                        class="mobile-gallery-slide"
+                        :style="{ backgroundImage: \`url(\${image})\` }"
+                    ></div>
+                </div>
+                <div class="mobile-gallery-indicators">
+                    <span 
+                        v-for="(image, index) in images" 
+                        :key="'indicator-' + index" 
+                        class="indicator"
+                        :class="{ active: index === currentSlide }"
+                        @click="goToSlide(index)"
+                    ></span>
+                </div>
+            `;
+
+            mobileGalleryApp = createApp({
+                setup() {
+                    const images = ref([...gallery.images]);
+                    const currentSlide = ref(0);
+
+                    function goToSlide(index) {
+                        console.log('Going to slide:', index);
+                        if (index >= 0 && index < images.value.length) {
+                            currentSlide.value = index;
+                            
+                            const container = document.querySelector('.mobile-gallery-container');
+                            if (container) {
+                                const slideWidth = container.clientWidth;
+                                container.scrollTo({
+                                    left: slideWidth * index,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                    }
+
+                    // Configurar scroll listener después del montaje
+                    setTimeout(() => {
+                        const container = document.querySelector('.mobile-gallery-container');
+                        if (container) {
+                            console.log('Setting up scroll listener for mobile gallery');
+                            
+                            let scrollTimeout;
+                            const scrollHandler = () => {
+                                clearTimeout(scrollTimeout);
+                                scrollTimeout = setTimeout(() => {
+                                    const slideWidth = container.clientWidth;
+                                    const scrollLeft = container.scrollLeft;
+                                    const newSlide = Math.round(scrollLeft / slideWidth);
+                                    
+                                    if (newSlide >= 0 && newSlide < images.value.length && newSlide !== currentSlide.value) {
+                                        currentSlide.value = newSlide;
+                                        console.log('Current slide changed to:', newSlide);
+                                    }
+                                }, 50);
+                            };
+
+                            container.addEventListener('scroll', scrollHandler, { passive: true });
+                            
+                            // Asegurar posición inicial
+                            container.scrollLeft = 0;
+                            currentSlide.value = 0;
+                        }
+                    }, 200);
+
+                    console.log(`Mobile gallery setup completed with ${images.value.length} images`);
+
+                    return {
+                        images,
+                        currentSlide,
+                        goToSlide,
+                    }
+                },
+            }).mount('#mobile-gallery');
+
+            console.log('Mobile gallery mounted successfully');
+        }
+    } catch (error) {
+        console.error('Error mounting mobile gallery:', error);
+        // Intentar fallback
+        initializeFallbackMobileGallery(gallery);
+    }
+}
+
+// Función fallback para cuando Vue no esté disponible o haya errores
+function initializeFallbackGallery(gallery) {
+    console.log('Using fallback gallery');
+    
+    // Desktop fallback
+    const desktopContainer = document.getElementById('gallery-app');
+    if (desktopContainer) {
+        desktopContainer.innerHTML = gallery.images.map((image, index) => 
+            `<div class="fallback-image" style="background-image: url(${image}); display: ${index === 0 ? 'block' : 'none'}"></div>`
+        ).join('');
+    }
+
+    // Mobile fallback
+    initializeFallbackMobileGallery(gallery);
+}
+
+function initializeFallbackMobileGallery(gallery) {
+    console.log('Using fallback mobile gallery');
+    
+    const mobileContainer = document.getElementById('mobile-gallery');
+    if (mobileContainer) {
+        let currentSlide = 0;
+        
+        const containerHTML = `
+            <div class="mobile-gallery-container">
+                ${gallery.images.map((image, index) => 
+                    `<div class="mobile-gallery-slide" style="background-image: url(${image})"></div>`
+                ).join('')}
+            </div>
+            <div class="mobile-gallery-indicators">
+                ${gallery.images.map((_, index) => 
+                    `<span class="indicator ${index === 0 ? 'active' : ''}" data-slide="${index}"></span>`
+                ).join('')}
+            </div>
+        `;
+        
+        mobileContainer.innerHTML = containerHTML;
+        
+        // Agregar funcionalidad de navegación
+        const indicators = mobileContainer.querySelectorAll('.indicator');
+        const container = mobileContainer.querySelector('.mobile-gallery-container');
+        
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentSlide = index;
+                
+                // Actualizar indicadores
+                indicators.forEach(ind => ind.classList.remove('active'));
+                indicator.classList.add('active');
+                
+                // Scroll a la imagen correspondiente
+                if (container) {
+                    const slideWidth = container.clientWidth;
+                    container.scrollTo({
+                        left: slideWidth * index,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Configurar scroll listener
+        if (container) {
+            let scrollTimeout;
+            container.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    const slideWidth = container.clientWidth;
+                    const scrollLeft = container.scrollLeft;
+                    const newSlide = Math.round(scrollLeft / slideWidth);
+                    
+                    if (newSlide !== currentSlide && newSlide >= 0 && newSlide < gallery.images.length) {
+                        currentSlide = newSlide;
+                        indicators.forEach(ind => ind.classList.remove('active'));
+                        indicators[newSlide].classList.add('active');
+                    }
+                }, 100);
+            }, { passive: true });
+        }
+        
+        console.log('Fallback mobile gallery initialized');
+    }
+}
+
+function closeGallery() {
+    console.log('Closing gallery');
+    
+    const modal = document.getElementById('gallery-modal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    
+    // Limpieza completa
+    cleanupGalleryApps();
+}
+
 // Close gallery when clicking outside
-document.getElementById('gallery-modal').addEventListener('click', function(e) {
+document.getElementById('gallery-modal')?.addEventListener('click', function(e) {
     if (e.target === this) {
         closeGallery();
     }
@@ -567,11 +671,31 @@ document.getElementById('gallery-modal').addEventListener('click', function(e) {
 
 // Close gallery with Escape key
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
+    if (e.key === 'Escape' && document.getElementById('gallery-modal')?.style.display === 'block') {
         closeGallery();
     }
 });
-       
+
+// Detectar si es móvil para debugging
+function isMobileDevice() {
+    return window.innerWidth <= 768;
+}
+
+// Debug function
+function debugGallery() {
+    console.log('=== GALLERY DEBUG INFO ===');
+    console.log('Is mobile:', isMobileDevice());
+    console.log('Vue available:', typeof Vue !== 'undefined');
+    console.log('Gallery modal element:', document.getElementById('gallery-modal'));
+    console.log('Desktop gallery element:', document.getElementById('gallery-app'));
+    console.log('Mobile gallery element:', document.getElementById('mobile-gallery'));
+    console.log('Gallery apps:', { galleryApp, mobileGalleryApp });
+}
+
+// Exponer función de debug globalmente
+window.debugGallery = debugGallery;
+
+//FIN GALERIA
 
         // Funcionalidad para scroll horizontal de servicios principales en móvil
         document.addEventListener('DOMContentLoaded', function() {
