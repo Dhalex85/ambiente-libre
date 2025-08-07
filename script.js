@@ -152,10 +152,6 @@
                         ${capacidadKW.toFixed(2)} kW (${Math.ceil(capacidadKW * 2.5)} paneles aprox.)
                     </div>
                     <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
-                        <strong>� Inversión Estimada:</strong><br>
-                        $${costoTotalMXN.toLocaleString('es-MX', {minimumFractionDigits: 0})} MXN
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
                         <strong>�💳 Tarifa CFE aplicada:</strong><br>
                         $${tarifa.toFixed(2)} pesos por kWh
                     </div>
@@ -274,233 +270,308 @@
                 observer.observe(el);
             });
         });
-
         // Gallery functionality
-        let galleryApp = null;
-        let mobileGalleryApp = null;
+let galleryApp = null;
+let mobileGalleryApp = null;
 
-        // Project gallery data
-        const projectGalleries = {
-            textil: {
-                title: 'Fábrica Textil',
-                images: [
-                    'img/textil/textil2.jpg',
-                    'img/textil/textil3.jpg',
-                    'img/textil/textil1.jpg',
-                    'img/textil/textil4.jpg',
-                    'img/textil/textil5.jpg'
-                ]
-            },
-            herrajes: {
-                title: 'Fábrica de Herrajes',
-                images: [
-                    'img/herrajes/herrajes4.jpg',
-                    'img/herrajes/herrajes3.jpg',
-                    'img/herrajes/herrajes1.jpg',
-                    'img/herrajes/herrajes2.jpg',
-                    'img/herrajes/herrajes5.jpg'
-                ]
-            },
-            concretera: {
-                title: 'Concretera',
-                images: [
-                    'img/concretera/concretera4.jpg',
-                    'img/concretera/concretera3.jpg',
-                    'img/concretera/concretera1.jpg',
-                    'img/concretera/concretera2.jpg',
-                    'img/concretera/concretera5.jpg'
-                ]
-            },
-            pachuca: {
-                title: 'Zona Metropolitana Pachuca',
-                images: [
-                    'img/pachuca/pachuca3.jpg',
-                    'img/pachuca/pachuca4.jpg',
-                    'img/pachuca/pachuca1.jpg',
-                    'img/pachuca/pachuca2.jpg',
-                    'img/pachuca/pachuca5.jpg'
-                ]
-            },
-            residenciales: {
-                title: 'Proyectos Residenciales',
-                images: [
-                    'img/domestico.webp',
-                    'img/domestico.webp',
-                    'img/domestico.webp',
-                    'img/domestico.webp',
-                    'img/domestico.webp'
-                ]
-            },
-            comerciales: {
-                title: 'Proyectos Comerciales',
-                images: [
-                    'img/comercial.webp',
-                    'img/comercial.webp',
-                    'img/comercial.webp',
-                    'img/comercial.webp',
-                    'img/comercial.webp'
-                ]
-            }
-        };
-
-        function openGallery(projectType) {
-            const gallery = projectGalleries[projectType];
-            if (!gallery) return;
-
-            // Set gallery title
-            document.getElementById('gallery-title').textContent = gallery.title;
-
-            // Show modal
-            document.getElementById('gallery-modal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-
-            // Initialize Vue apps for both desktop and mobile galleries
-            const { createApp, reactive } = Vue;
-            
-            // Clean up existing apps
-            if (galleryApp) {
-                galleryApp.unmount();
-            }
-            if (mobileGalleryApp) {
-                mobileGalleryApp.unmount();
-            }
-
-            // Desktop Gallery App
-            galleryApp = createApp({
-                setup() {
-                    const items = reactive(
-                        gallery.images.map((url, index) => ({
-                            id: index,
-                            pos: index,
-                            url: url
-                        }))
-                    );
-
-                    function shuffle(item) {
-                        const heroPos = Math.floor(items.length / 2);
-                        const hero = items.findIndex(({ pos }) => pos === heroPos);
-                        const target = items.findIndex(({ id }) => id === item.id);
-                        [items[target].pos, items[hero].pos] = [items[hero].pos, items[target].pos];
-                    }
-
-                    return {
-                        items,
-                        shuffle,
-                    }
-                },
-            }).mount('#gallery-app');
-
-// Mobile Gallery App
-mobileGalleryApp = createApp({
-    setup() {
-        const items = reactive([]);
-        const currentSlide = reactive({ value: 0 });
-        const isLoading = reactive({ value: true });
-
-        // Función para verificar si una imagen existe
-        function checkImageExists(url) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => resolve(url);
-                img.onerror = () => resolve(null);
-                img.src = url;
-            });
-        }
-
-        // Cargar solo imágenes existentes del proyecto actual
-        async function loadExistingImages() {
-            isLoading.value = true;
-            
-            // CORRECCIÓN: Limpiar completamente el array antes de cargar nuevas imágenes
-            items.splice(0, items.length);
-            
-            // Usar las imágenes del proyecto actual (gallery está disponible en el scope)
-            const imagePromises = gallery.images.map(url => checkImageExists(url));
-            const results = await Promise.all(imagePromises);
-            
-            // Filtrar solo las imágenes que existen
-            const existingImages = results.filter(url => url !== null);
-            
-            // Agregar las nuevas imágenes al array limpio
-            items.push(...existingImages);
-            
-            // Reset del slide actual cuando se carga una nueva galería
-            currentSlide.value = 0;
-            
-            isLoading.value = false;
-            console.log(`Mobile gallery loaded ${existingImages.length} images for project:`, existingImages);
-        }
-
-        // Cargar imágenes al inicializar
-        loadExistingImages();
-
-        function goToSlide(index) {
-            currentSlide.value = index;
-            const container = document.querySelector('.mobile-gallery-container');
-            if (container) {
-                const slideWidth = container.clientWidth;
-                container.scrollTo({
-                    left: slideWidth * index,
-                    behavior: 'smooth'
-                });
-            }
-        }
-
-        // Handle scroll events to update indicators
-        setTimeout(() => {
-            const container = document.querySelector('.mobile-gallery-container');
-            if (container) {
-                // Remover listeners anteriores para evitar duplicados
-                const newContainer = container.cloneNode(true);
-                container.parentNode.replaceChild(newContainer, container);
-                
-                newContainer.addEventListener('scroll', () => {
-                    const slideWidth = newContainer.clientWidth;
-                    const scrollLeft = newContainer.scrollLeft;
-                    const newSlide = Math.round(scrollLeft / slideWidth);
-                    currentSlide.value = newSlide;
-                });
-            }
-        }, 300);
-
-        return {
-            items,
-            currentSlide,
-            isLoading,
-            goToSlide,
-        }
+// Project gallery data
+const projectGalleries = {
+    textil: {
+        title: 'Fábrica Textil',
+        images: [
+            'img/textil/textil2.jpg',
+            'img/textil/textil3.jpg',
+            'img/textil/textil1.jpg',
+            'img/textil/textil4.jpg',
+            'img/textil/textil5.jpg'
+        ]
     },
-}).mount('#mobile-gallery');
+    herrajes: {
+        title: 'Fábrica de Herrajes',
+        images: [
+            'img/herrajes/herrajes4.jpg',
+            'img/herrajes/herrajes3.jpg',
+            'img/herrajes/herrajes1.jpg',
+            'img/herrajes/herrajes2.jpg',
+            'img/herrajes/herrajes5.jpg'
+        ]
+    },
+    concretera: {
+        title: 'Concretera',
+        images: [
+            'img/concretera/concretera4.jpg',
+            'img/concretera/concretera3.jpg',
+            'img/concretera/concretera1.jpg',
+            'img/concretera/concretera2.jpg',
+            'img/concretera/concretera5.jpg'
+        ]
+    },
+    pachuca: {
+        title: 'Zona Metropolitana Pachuca',
+        images: [
+            'img/pachuca/pachuca3.jpg',
+            'img/pachuca/pachuca4.jpg',
+            'img/pachuca/pachuca1.jpg',
+            'img/pachuca/pachuca2.jpg',
+            'img/pachuca/pachuca5.jpg'
+        ]
+    },
+    residenciales: {
+        title: 'Proyectos Residenciales',
+        images: [
+            'img/domestico.webp',
+            'img/domestico.webp',
+            'img/domestico.webp',
+            'img/domestico.webp',
+            'img/domestico.webp'
+        ]
+    },
+    comerciales: {
+        title: 'Proyectos Comerciales',
+        images: [
+            'img/comercial.webp',
+            'img/comercial.webp',
+            'img/comercial.webp',
+            'img/comercial.webp',
+            'img/comercial.webp'
+        ]
+    }
+};
+
+function openGallery(projectType) {
+    const gallery = projectGalleries[projectType];
+    if (!gallery) return;
+
+    // Set gallery title
+    document.getElementById('gallery-title').textContent = gallery.title;
+
+    // Show modal
+    document.getElementById('gallery-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+
+    // LIMPIEZA COMPLETA: Desmontar aplicaciones anteriores
+    if (galleryApp) {
+        galleryApp.unmount();
+        galleryApp = null;
+    }
+    if (mobileGalleryApp) {
+        mobileGalleryApp.unmount();
+        mobileGalleryApp = null;
+    }
+
+    // ESPERAR UN FRAME ANTES DE CREAR NUEVAS APLICACIONES
+    setTimeout(() => {
+        initializeGalleryApps(gallery);
+    }, 50);
+}
+
+function initializeGalleryApps(gallery) {
+    const { createApp, reactive } = Vue;
+
+    // Desktop Gallery App
+    galleryApp = createApp({
+        setup() {
+            const items = reactive(
+                gallery.images.map((url, index) => ({
+                    id: index,
+                    pos: index,
+                    url: url
+                }))
+            );
+
+            function shuffle(item) {
+                const heroPos = Math.floor(items.length / 2);
+                const hero = items.findIndex(({ pos }) => pos === heroPos);
+                const target = items.findIndex(({ id }) => id === item.id);
+                [items[target].pos, items[hero].pos] = [items[hero].pos, items[target].pos];
+            }
+
+            return {
+                items,
+                shuffle,
+            }
+        },
+    }).mount('#gallery-app');
+
+    // Mobile Gallery App
+    mobileGalleryApp = createApp({
+        setup() {
+            // CREAR ARRAYS COMPLETAMENTE NUEVOS
+            const items = reactive([]);
+            const currentSlide = reactive({ value: 0 });
+            const isLoading = reactive({ value: true });
+
+            // Función para verificar si una imagen existe
+            function checkImageExists(url) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => resolve(url);
+                    img.onerror = () => resolve(null);
+                    img.src = url;
+                });
+            }
+
+            // Cargar imágenes del proyecto actual
+            async function loadExistingImages() {
+                isLoading.value = true;
+                
+                // LIMPIAR COMPLETAMENTE EL ARRAY
+                items.length = 0; // Esto es más efectivo que splice
+                
+                try {
+                    // Usar las imágenes del proyecto actual
+                    const imagePromises = gallery.images.map(url => checkImageExists(url));
+                    const results = await Promise.all(imagePromises);
+                    
+                    // Filtrar solo las imágenes que existen
+                    const existingImages = results.filter(url => url !== null);
+                    
+                    // Agregar las nuevas imágenes al array limpio
+                    items.push(...existingImages);
+                    
+                    console.log(`Mobile gallery loaded ${existingImages.length} images for ${gallery.title}:`, existingImages);
+                } catch (error) {
+                    console.error('Error loading images:', error);
+                }
+                
+                // Reset del slide actual
+                currentSlide.value = 0;
+                isLoading.value = false;
+            }
+
+            function goToSlide(index) {
+                if (index >= 0 && index < items.length) {
+                    currentSlide.value = index;
+                    const container = document.querySelector('.mobile-gallery-container');
+                    if (container) {
+                        const slideWidth = container.clientWidth;
+                        container.scrollTo({
+                            left: slideWidth * index,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+
+            // CONFIGURAR SCROLL LISTENER DESPUÉS DE CARGAR LAS IMÁGENES
+            function setupScrollListener() {
+                setTimeout(() => {
+                    const container = document.querySelector('.mobile-gallery-container');
+                    if (container) {
+                        // Remover listeners anteriores clonando el elemento
+                        const newContainer = container.cloneNode(true);
+                        container.parentNode.replaceChild(newContainer, container);
+                        
+                        // Agregar nuevo listener
+                        newContainer.addEventListener('scroll', () => {
+                            const slideWidth = newContainer.clientWidth;
+                            const scrollLeft = newContainer.scrollLeft;
+                            const newSlide = Math.round(scrollLeft / slideWidth);
+                            if (newSlide >= 0 && newSlide < items.length) {
+                                currentSlide.value = newSlide;
+                            }
+                        });
+                    }
+                }, 300);
+            }
+
+            // Cargar imágenes al inicializar
+            loadExistingImages().then(() => {
+                setupScrollListener();
+            });
+
+            return {
+                items,
+                currentSlide,
+                isLoading,
+                goToSlide,
+            }
+        },
+    }).mount('#mobile-gallery');
+}
+
+function closeGallery() {
+    document.getElementById('gallery-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    
+    // LIMPIEZA COMPLETA AL CERRAR
+    if (galleryApp) {
+        try {
+            galleryApp.unmount();
+        } catch (error) {
+            console.warn('Error unmounting gallery app:', error);
         }
-
-        function closeGallery() {
-            document.getElementById('gallery-modal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-            
-            if (galleryApp) {
-                galleryApp.unmount();
-                galleryApp = null;
-            }
-            
-            if (mobileGalleryApp) {
-                mobileGalleryApp.unmount();
-                mobileGalleryApp = null;
-            }
+        galleryApp = null;
+    }
+    
+    if (mobileGalleryApp) {
+        try {
+            mobileGalleryApp.unmount();
+        } catch (error) {
+            console.warn('Error unmounting mobile gallery app:', error);
         }
+        mobileGalleryApp = null;
+    }
 
-        // Close gallery when clicking outside
-        document.getElementById('gallery-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeGallery();
-            }
-        });
+    // LIMPIAR CONTENIDO DE LOS CONTENEDORES
+    const desktopGallery = document.getElementById('gallery-app');
+    const mobileGallery = document.getElementById('mobile-gallery');
+    
+    if (desktopGallery) {
+        desktopGallery.innerHTML = `
+            <ul class="gallery">
+                <li
+                    v-for="item in items"
+                    :key="item.id"
+                    :data-pos="item.pos"
+                    :style="{
+                        translate: \`calc(var(--gallery-width) * 0.2 * \${item.pos})\`,
+                        scale: item.scale,
+                        backgroundImage: \`url(\${item.url})\`
+                    }"
+                    @click="shuffle(item)"
+                ></li>
+            </ul>
+        `;
+    }
+    
+    if (mobileGallery) {
+        mobileGallery.innerHTML = `
+            <div class="mobile-gallery-container">
+                <div 
+                    v-for="(item, index) in items" 
+                    :key="index" 
+                    class="mobile-gallery-slide"
+                    :style="{ backgroundImage: \`url(\${item})\` }"
+                ></div>
+            </div>
+            <div class="mobile-gallery-indicators">
+                <span 
+                    v-for="(item, index) in items" 
+                    :key="index" 
+                    class="indicator"
+                    :class="{ active: index === currentSlide.value }"
+                    @click="goToSlide(index)"
+                ></span>
+            </div>
+        `;
+    }
+}
 
-        // Close gallery with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeGallery();
-            }
-        });
+// Close gallery when clicking outside
+document.getElementById('gallery-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeGallery();
+    }
+});
+
+// Close gallery with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeGallery();
+    }
+});
+       
 
         // Funcionalidad para scroll horizontal de servicios principales en móvil
         document.addEventListener('DOMContentLoaded', function() {
